@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from "react";
 import $ from "jquery";
 import MoodBoard from "../../MoodBoard";
-import moodboardImage from "../../imgs/moodboard.png";
-import scrollImage from "../../imgs/tied-scroll.png";
 import WorldbuildingSidebar from "./WorldbuildingSidebar";
+import autosize from "autosize";
 
-const ItemsAndTechnology = ({
+const WorldbuildingFetchModule = ({
   worldbuildingObject,
   setWorldbuildingObject,
+  currentlyOpenedModule,
+  sampleItem,
+  moduleIntroductionPhrase,
 }) => {
-  const [itemsAndTechnology, setItemsAndTechnology] = useState(
-    worldbuildingObject.itemsAndTechnology
+  const [moduleData, setModuleData] = useState(
+    worldbuildingObject[currentlyOpenedModule]
   );
   const [currentlyOpenedItem, setCurrentlyOpenedItem] = useState();
   const [isFetched, setIsFetched] = useState(false);
@@ -18,56 +20,83 @@ const ItemsAndTechnology = ({
 
   function addItem() {
     let keyname = Math.floor(Math.random() * 9000000);
+    let sampleKeys = Object.keys(sampleItem);
     let newObject = {
       ...worldbuildingObject,
-      itemsAndTechnology: {
-        ...worldbuildingObject.itemsAndTechnology,
+      [currentlyOpenedModule]: {
+        ...worldbuildingObject[currentlyOpenedModule],
         [keyname]: {
           itemid: keyname,
-          name: "",
-          description: "",
-          lore: "",
-          icon: scrollImage,
-          images: [moodboardImage],
         },
       },
     };
 
+    for (let i = 0; i < sampleKeys.length; i++) {
+      if (sampleKeys[i] === "itemid") {
+        i++;
+      } else {
+        newObject[currentlyOpenedModule][keyname][sampleKeys[i]] =
+          sampleItem[sampleKeys[i]];
+      }
+    }
+
     localStorage.setItem("worldbuilding", JSON.stringify(newObject));
     setWorldbuildingObject(JSON.parse(localStorage.worldbuilding));
-    setItemsAndTechnology(
-      JSON.parse(localStorage.worldbuilding).itemsAndTechnology
+    setModuleData(
+      JSON.parse(localStorage.worldbuilding)[currentlyOpenedModule]
     );
   }
 
   useEffect(() => {
-    if (currentlyOpenedItem) {
+    autosize(document.querySelectorAll("textarea"));
+  });
+
+  useEffect(() => {
+    if (
+      moduleData[currentlyOpenedItem] ||
+      typeof moduleData[currentlyOpenedItem] === "object"
+    ) {
       setIsFetched(false);
       setTimeout(() => {
-        setItemImages(itemsAndTechnology[currentlyOpenedItem].images);
+        setItemImages(moduleData[currentlyOpenedItem].images);
         setIsFetched(true);
       }, 1);
     }
   }, [currentlyOpenedItem]);
 
   function saveChangedItem() {
+    let keylist = Object.keys(moduleData[currentlyOpenedItem]);
+    let changedForms = {};
     let newObject = {
       ...worldbuildingObject,
-      itemsAndTechnology: {
-        ...worldbuildingObject.itemsAndTechnology,
+      [currentlyOpenedModule]: {
+        ...worldbuildingObject[currentlyOpenedModule],
         [currentlyOpenedItem]: {
           itemid: currentlyOpenedItem,
           name: document.getElementById("textarea-name").value,
-          description: document.getElementById("textarea-description").value,
-          lore: document.getElementById("textarea-lore").value,
           icon: document.getElementById("item-icon").value,
           images: itemImages,
         },
       },
     };
+
+    for (let i = 0; i < keylist.length; i++) {
+      if (
+        keylist[i] === "itemid" ||
+        keylist[i] === "images" ||
+        keylist[i] === "icon" ||
+        keylist[i] === "name"
+      ) {
+        i++;
+      } else {
+        newObject[currentlyOpenedModule][currentlyOpenedItem][keylist[i]] =
+          document.getElementById("textarea-" + keylist[i]).value;
+      }
+    }
+
     localStorage.setItem("worldbuilding", JSON.stringify(newObject));
-    setItemsAndTechnology(
-      JSON.parse(localStorage.worldbuilding).itemsAndTechnology
+    setModuleData(
+      JSON.parse(localStorage.worldbuilding)[currentlyOpenedModule]
     );
     setWorldbuildingObject(JSON.parse(localStorage.worldbuilding));
   }
@@ -75,10 +104,10 @@ const ItemsAndTechnology = ({
   function deleteItem() {
     setIsFetched(false);
     let storedObject = JSON.parse(localStorage.worldbuilding);
-    delete storedObject.itemsAndTechnology[currentlyOpenedItem];
+    delete storedObject[currentlyOpenedModule][currentlyOpenedItem];
     localStorage.setItem("worldbuilding", JSON.stringify(storedObject));
-    setItemsAndTechnology(
-      JSON.parse(localStorage.worldbuilding).itemsAndTechnology
+    setModuleData(
+      JSON.parse(localStorage.worldbuilding)[currentlyOpenedModule]
     );
     setWorldbuildingObject(JSON.parse(localStorage.worldbuilding));
   }
@@ -94,39 +123,49 @@ const ItemsAndTechnology = ({
         />
       ) : null}
       <WorldbuildingSidebar
-        data={itemsAndTechnology}
+        data={worldbuildingObject[currentlyOpenedModule]}
         setCurrentlyOpenedItem={setCurrentlyOpenedItem}
         addItem={addItem}
       />
       <div className="worldbuilding-module">
         {isFetched ? (
-          <div id="items-and-technology-viewer">
-            <textarea
-              id="textarea-name"
-              defaultValue={itemsAndTechnology[currentlyOpenedItem].name}
-              onChange={saveChangedItem}
-              placeholder="Click here to edit the name"
-            ></textarea>
-            <h3>Description</h3>
-            <textarea
-              id="textarea-description"
-              defaultValue={itemsAndTechnology[currentlyOpenedItem].description}
-              onChange={saveChangedItem}
-              placeholder="Click here write. Describe the appearance and the utility of the item or technology here."
-            ></textarea>
-            <h3>Lore</h3>
-            <textarea
-              id="textarea-lore"
-              defaultValue={itemsAndTechnology[currentlyOpenedItem].lore}
-              onChange={saveChangedItem}
-              placeholder="Click here write. Describe the history and the way the item relates to your world here."
-            ></textarea>
+          <div id="art-viewer">
+            {typeof moduleData[currentlyOpenedItem] === "object"
+              ? Object.keys(moduleData[currentlyOpenedItem]).map((e, i) => {
+                  if (e === "itemid" || e === "images" || e === "icon") {
+                    return;
+                  } else {
+                    return (
+                      <div key={e}>
+                        <h2 className="wb-textarea-label">
+                          {e.replace(/([A-Z])/g, " $1").trim()}
+                        </h2>
+                        <textarea
+                          id={"textarea-" + e}
+                          defaultValue={moduleData[currentlyOpenedItem][e]}
+                          onChange={saveChangedItem}
+                          placeholder={
+                            typeof moduleData[currentlyOpenedItem] === "object"
+                              ? moduleData[currentlyOpenedItem][e]
+                              : null
+                          }
+                        ></textarea>
+                      </div>
+                    );
+                  }
+                })
+              : null}
+
             <form id="icon-link" style={{ marginTop: "20px" }}>
               <label>Icon Link:</label>
               <input
                 type="text"
                 id="item-icon"
-                defaultValue={itemsAndTechnology[currentlyOpenedItem].icon}
+                defaultValue={
+                  typeof moduleData[currentlyOpenedItem] === "object"
+                    ? moduleData[currentlyOpenedItem].icon
+                    : null
+                }
                 onChange={saveChangedItem}
               />
               <a href="https://game-icons.net/">(Get neat icons from here.)</a>
@@ -165,8 +204,9 @@ const ItemsAndTechnology = ({
             </div>
           </div>
         ) : (
-          <h2
+          <p
             style={{
+              textAlign: "center",
               position: "absolute",
               top: "45%",
               left: "50%",
@@ -174,12 +214,12 @@ const ItemsAndTechnology = ({
               width: "100%",
             }}
           >
-            Choose or create an item in the right sidebar
-          </h2>
+            {moduleIntroductionPhrase}
+          </p>
         )}
       </div>
     </div>
   );
 };
 
-export default ItemsAndTechnology;
+export default WorldbuildingFetchModule;

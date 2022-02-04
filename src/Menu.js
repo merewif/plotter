@@ -16,7 +16,7 @@ const Menu = () => {
     $(".main-menu").css({ background: "white", color: "black" });
     $(event.target).css({ background: "black", color: "white" });
     $(
-      ".worldbuilding-navbtn, #worldbuilding-navigation, #plot-nav, #set-story-arcs, #set-books, .option, #char-choice-buttons"
+      "#plot-nav, #set-story-arcs, #set-books, .option, #char-choice-buttons"
     ).removeAttr("style");
     $(".plot-options").removeClass("white-active-btn");
 

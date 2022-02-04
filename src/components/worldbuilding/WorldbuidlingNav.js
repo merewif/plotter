@@ -5,10 +5,12 @@ import $ from "jquery";
 const WorldbuildingNav = ({
   setCurrentlyOpenedModule,
   setWorldbuildingObject,
+  setIsModuleFetched,
 }) => {
   let navigate = useNavigate();
+  let camelCased;
 
-  function onClick(event) {
+  async function onClick(event) {
     $("#worldbuilding-navigation").css({
       "grid-auto-flow": "column",
       top: "111%",
@@ -30,7 +32,15 @@ const WorldbuildingNav = ({
     }
 
     navigate("/worldbuilding/" + event.target.id);
-    setCurrentlyOpenedModule(event.target.id);
+    camelCased = event.target.id.replace(/-([a-z])/g, function (g) {
+      return g[1].toUpperCase();
+    });
+
+    const task1 = setCurrentlyOpenedModule("");
+    const task2 = setIsModuleFetched(false);
+    await Promise.all([task1, task2]);
+    setCurrentlyOpenedModule(camelCased);
+    setIsModuleFetched(true);
   }
 
   return (

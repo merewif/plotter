@@ -1,26 +1,138 @@
 import React, { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
 import WorldbuildingNav from "./components/worldbuilding/WorldbuidlingNav";
-import Art from "./components/worldbuilding/Art";
-import LegendsAndReligions from "./components/worldbuilding/LegendsAndReligions";
-import LocationsAndSettings from "./components/worldbuilding/LocationsAndSettings";
-import Geography from "./components/worldbuilding/Geography";
-import FloraAndFauna from "./components/worldbuilding/FloraAndFauna";
-import RacesNationsCultures from "./components/worldbuilding/RacesNationsCultures";
-import History from "./components/worldbuilding/History";
-import PoliticsAndEconomics from "./components/worldbuilding/PoliticsAndEconomics";
-import ItemsAndTechnology from "./components/worldbuilding/ItemsAndTechnology";
-import SkillsAndSpells from "./components/worldbuilding/SkillsAndSpells";
-import MagicSystems from "./components/worldbuilding/MagicSystems";
-import Professions from "./components/worldbuilding/Professions";
 import moodboardImage from "./imgs/moodboard.png";
+import WorldbuildingFetchModule from "./components/worldbuilding/WorldbuildingFetchModule";
 
 const Worldbuilding = () => {
   const [currentlyOpenedModule, setCurrentlyOpenedModule] = useState();
+  const sampleItem = {
+    art: {
+      name: "Sample Art",
+      artist: "Placeholder Artist Name",
+      description:
+        "This is the artwork's description. Click here to edit the field.",
+      lore: "This is the artwork's lore.  Click here to edit the field.",
+      icon: "https://game-icons.net/icons/ffffff/000000/1x1/delapouite/mona-lisa.svg",
+      images: [moodboardImage],
+    },
+    legendsAndReligions: {
+      name: "Sample Creature",
+      appearance:
+        "This is the creature's appearance. Click here to edit the field.",
+      evolutuion:
+        "This is the evolutionary history of the creature. Click here to edit the field.",
+      utility:
+        "These are the ways the creature is utilized. Click here to edit the field.",
+      icon: "https://game-icons.net/icons/ffffff/000000/1x1/delapouite/church.svg",
+      images: [moodboardImage],
+    },
+    locationsAndSettings: {
+      name: "Sample Setting",
+      appearance:
+        "This is the description of the setting. Click here to edit the field.",
+      lore: "This is the history of the setting. Click here to edit the field.",
+      events:
+        "This is what happens in this location in your story.  Click here to edit the field.",
+      icon: "https://game-icons.net/icons/ffffff/000000/1x1/lorc/treasure-map.svg",
+      images: [moodboardImage],
+    },
+    geography: {
+      name: "Sample Geographical Formation",
+      description:
+        "This is the description of the geographical formation. You can include natural (e.g. continents, forests, rivers and lakes, oceans and seas, deserts, mountains) or artificial (e.g. settlements, villages and cities, administrative units, bridges, dams, docks) geographical features. Click here to edit the field.",
+      history:
+        "This is the general history of the geographical formation, including its origin and formation and the events and politics that have affected and are related to it. Click here to edit the field.",
+      icon: "https://game-icons.net/icons/ffffff/000000/1x1/lorc/globe.svg",
+      images: [moodboardImage],
+    },
+    floraAndFauna: {
+      name: "Sample Creature",
+      description:
+        "This is the creature's description, including sensory details (sight, sound, smell , touch, taste) and any special abilities or traits the creature possesses. Click here to edit the field.",
+      evolutuion:
+        "This is the evolutionary history of the creature. What evolutionary pressures shaped it into its current form? How does it reflect the environment it lives in? What is its source of sustenance? What are its defense mechanisms? How does it reproduce? Click here to edit the field.",
+      utility:
+        "These are the utilities of the creature. Click here to edit the field.",
+      icon: "https://game-icons.net/icons/ffffff/000000/1x1/darkzaitzev/plants-and-animals.svg",
+      images: [moodboardImage],
+    },
+    racesNationsCultures: {
+      name: "Sample People",
+      appearance:
+        "This is the creature's appearance. Click here to edit the field.",
+      evolutuion:
+        "This is the evolutionary history of the creature. Click here to edit the field.",
+      utility:
+        "These are the utilities of the creature.  Click here to edit the field.",
+      icon: "https://game-icons.net/icons/ffffff/000000/1x1/delapouite/family-tree.svg",
+      images: [moodboardImage],
+    },
+    history: {
+      name: "Sample Creature",
+      appearance:
+        "This is the creature's appearance. Click here to edit the field.",
+      evolutuion:
+        "This is the evolutionary history of the creature. Click here to edit the field.",
+      utility:
+        "These are the utilities of the creature.  Click here to edit the field.",
+      icon: "https://game-icons.net/icons/ffffff/000000/1x1/delapouite/book-pile.svg",
+      images: [moodboardImage],
+    },
+    politicsAndEconomics: {
+      name: "Sample Legislation",
+      descriptionAndConsequences:
+        "This is the description of the piece of legislation. Click here to edit the field.",
+      motivations:
+        "These are the motivations and interest groups behind the legislation. Click here to edit the field.",
+      icon: "https://game-icons.net/icons/ffffff/000000/1x1/delapouite/coins.svg",
+      images: [moodboardImage],
+    },
+    itemsAndTechnology: {
+      name: "Sample Item",
+      description:
+        "This is the item's description. Click here to edit the field.",
+      lore: "This is the item's lore.  Click here to edit the field.",
+      icon: "https://game-icons.net/icons/ffffff/000000/1x1/lorc/tied-scroll.svg",
+      images: [moodboardImage],
+    },
+    skillsAndSpells: {
+      name: "Sample Creature",
+      appearance:
+        "This is the creature's appearance. Click here to edit the field.",
+      evolutuion:
+        "This is the evolutionary history of the creature. Click here to edit the field.",
+      utility:
+        "These are the utilities of the creature.  Click here to edit the field.",
+      icon: "https://game-icons.net/icons/ffffff/000000/1x1/delapouite/bolt-spell-cast.svg",
+      images: [moodboardImage],
+    },
+    magicSystems: {
+      name: "Sample Creature",
+      appearance:
+        "This is the creature's appearance. Click here to edit the field.",
+      evolutuion:
+        "This is the evolutionary history of the creature. Click here to edit the field.",
+      utility:
+        "These are the utilities of the creature.  Click here to edit the field.",
+      icon: "https://game-icons.net/icons/ffffff/000000/1x1/lorc/magic-gate.svg",
+      images: [moodboardImage],
+    },
+    professions: {
+      name: "Sample Creature",
+      appearance:
+        "This is the creature's appearance. Click here to edit the field.",
+      evolutuion:
+        "This is the evolutionary history of the creature. Click here to edit the field.",
+      utility:
+        "These are the utilities of the creature.  Click here to edit the field.",
+      icon: "https://game-icons.net/icons/ffffff/000000/1x1/lorc/anvil-impact.svg",
+      images: [moodboardImage],
+    },
+  };
   const [worldbuildingObject, setWorldbuildingObject] = useState({
     art: {
-      item1: {
-        itemid: "item1",
+      artitem1: {
+        itemid: "artitem1",
         name: "Sample Art",
         artist: "Placeholder Artist Name",
         description:
@@ -31,65 +143,62 @@ const Worldbuilding = () => {
       },
     },
     legendsAndReligions: {
-      item1: {
-        itemid: "item1",
+      legendsAndReligionsitem1: {
+        itemid: "legendsAndReligionsitem1",
         name: "Sample Creature",
         appearance:
           "This is the creature's appearance. Click here to edit the field.",
         evolutuion:
           "This is the evolutionary history of the creature. Click here to edit the field.",
         utility:
-          "These are the utilities of the creature.  Click here to edit the field.",
+          "These are the ways the creature is utilized. Click here to edit the field.",
         icon: "https://game-icons.net/icons/ffffff/000000/1x1/delapouite/church.svg",
         images: [moodboardImage],
       },
     },
     locationsAndSettings: {
-      item1: {
-        itemid: "item1",
-        name: "Sample Creature",
+      locationsAndSettingsitem1: {
+        itemid: "locationsAndSettingsitem1",
+        name: "Sample Setting",
         appearance:
-          "This is the creature's appearance. Click here to edit the field.",
-        evolutuion:
-          "This is the evolutionary history of the creature. Click here to edit the field.",
-        utility:
-          "These are the utilities of the creature.  Click here to edit the field.",
+          "This is the description of the setting. Click here to edit the field.",
+        lore: "This is the history of the setting. Click here to edit the field.",
+        events:
+          "This is what happens in this location in your story.  Click here to edit the field.",
         icon: "https://game-icons.net/icons/ffffff/000000/1x1/lorc/treasure-map.svg",
         images: [moodboardImage],
       },
     },
     geography: {
-      item1: {
-        itemid: "item1",
-        name: "Sample Creature",
-        appearance:
-          "This is the creature's appearance. Click here to edit the field.",
-        evolutuion:
-          "This is the evolutionary history of the creature. Click here to edit the field.",
-        utility:
-          "These are the utilities of the creature.  Click here to edit the field.",
+      geographyitem1: {
+        itemid: "geographyitem1",
+        name: "Sample Geographical Formation",
+        description:
+          "This is the description of the geographical formation. You can include natural (e.g. continents, forests, rivers and lakes, oceans and seas, deserts, mountains) or artificial (e.g. settlements, villages and cities, administrative units, bridges, dams, docks) geographical features. Click here to edit the field.",
+        history:
+          "This is the general history of the geographical formation, including its origin and formation and the events and politics that have affected and are related to it. Click here to edit the field.",
         icon: "https://game-icons.net/icons/ffffff/000000/1x1/lorc/globe.svg",
         images: [moodboardImage],
       },
     },
     floraAndFauna: {
-      item1: {
-        itemid: "item1",
+      floraAndFaunaitem1: {
+        itemid: "floraAndFaunaitem1",
         name: "Sample Creature",
-        appearance:
-          "This is the creature's appearance. Click here to edit the field.",
+        description:
+          "This is the creature's description, including sensory details (sight, sound, smell , touch, taste) and any special abilities or traits the creature possesses. Click here to edit the field.",
         evolutuion:
-          "This is the evolutionary history of the creature. Click here to edit the field.",
+          "This is the evolutionary history of the creature. What evolutionary pressures shaped it into its current form? How does it reflect the environment it lives in? What is its source of sustenance? What are its defense mechanisms? How does it reproduce? Click here to edit the field.",
         utility:
-          "These are the utilities of the creature.  Click here to edit the field.",
+          "These are the utilities of the creature. Click here to edit the field.",
         icon: "https://game-icons.net/icons/ffffff/000000/1x1/darkzaitzev/plants-and-animals.svg",
         images: [moodboardImage],
       },
     },
     racesNationsCultures: {
-      item1: {
-        itemid: "item1",
-        name: "Sample Creature",
+      racesNationsCulturesitem1: {
+        itemid: "racesNationsCulturesitem1",
+        name: "Sample People",
         appearance:
           "This is the creature's appearance. Click here to edit the field.",
         evolutuion:
@@ -101,8 +210,8 @@ const Worldbuilding = () => {
       },
     },
     history: {
-      item1: {
-        itemid: "item1",
+      historyitem1: {
+        itemid: "historyitem1",
         name: "Sample Creature",
         appearance:
           "This is the creature's appearance. Click here to edit the field.",
@@ -115,22 +224,20 @@ const Worldbuilding = () => {
       },
     },
     politicsAndEconomics: {
-      item1: {
-        itemid: "item1",
-        name: "Sample Creature",
-        appearance:
-          "This is the creature's appearance. Click here to edit the field.",
-        evolutuion:
-          "This is the evolutionary history of the creature. Click here to edit the field.",
-        utility:
-          "These are the utilities of the creature.  Click here to edit the field.",
+      politicsAndEconomicsitem1: {
+        itemid: "politicsAndEconomicsitem1",
+        name: "Sample Legislation",
+        descriptionAndConsequences:
+          "This is the description of the piece of legislation. Click here to edit the field.",
+        motivations:
+          "These are the motivations and interest groups behind the legislation. Click here to edit the field.",
         icon: "https://game-icons.net/icons/ffffff/000000/1x1/delapouite/coins.svg",
         images: [moodboardImage],
       },
     },
     itemsAndTechnology: {
-      item1: {
-        itemid: "item1",
+      itemsAndTechnologyitem1: {
+        itemid: "itemsAndTechnologyitem1",
         name: "Sample Item",
         description:
           "This is the item's description. Click here to edit the field.",
@@ -140,8 +247,8 @@ const Worldbuilding = () => {
       },
     },
     skillsAndSpells: {
-      item1: {
-        itemid: "item1",
+      skillsAndSpellsitem1: {
+        itemid: "skillsAndSpellsitem1",
         name: "Sample Creature",
         appearance:
           "This is the creature's appearance. Click here to edit the field.",
@@ -154,8 +261,8 @@ const Worldbuilding = () => {
       },
     },
     magicSystems: {
-      item1: {
-        itemid: "item1",
+      magicSystemsitem1: {
+        itemid: "magicSystemsitem1",
         name: "Sample Creature",
         appearance:
           "This is the creature's appearance. Click here to edit the field.",
@@ -168,8 +275,8 @@ const Worldbuilding = () => {
       },
     },
     professions: {
-      item1: {
-        itemid: "item1",
+      professionsitem1: {
+        itemid: "professionsitem1",
         name: "Sample Creature",
         appearance:
           "This is the creature's appearance. Click here to edit the field.",
@@ -182,6 +289,23 @@ const Worldbuilding = () => {
       },
     },
   });
+
+  const [isModuleFetched, setIsModuleFetched] = useState(false);
+
+  const phrases = {
+    art: "'Learn about art, Captain. When you understand a species' art, you understand that species.' (Grand Admiral Thrawn)",
+    legendsAndReligions: "legendsAndReligions",
+    locationsAndSettings: "locationsAndSettings",
+    geography: "geography",
+    floraAndFauna: "floraAndFauna",
+    racesNationsCultures: "racesNationsCultures",
+    history: "history",
+    politicsAndEconomics: "politicsAndEconomics",
+    itemsAndTechnology: "itemsAndTechnology",
+    skillsAndSpells: "skillsAndSpells",
+    magicSystems: "magicSystems",
+    professions: "professions",
+  };
 
   useEffect(() => {
     if ("worldbuilding" in localStorage) {
@@ -196,7 +320,30 @@ const Worldbuilding = () => {
 
   return (
     <div id="character-module" class="module">
-      <Routes>
+      {isModuleFetched ? (
+        <WorldbuildingFetchModule
+          worldbuildingObject={worldbuildingObject}
+          setWorldbuildingObject={setWorldbuildingObject}
+          currentlyOpenedModule={currentlyOpenedModule}
+          sampleItem={sampleItem[currentlyOpenedModule]}
+          moduleIntroductionPhrase={phrases[currentlyOpenedModule]}
+        />
+      ) : null}
+
+      <WorldbuildingNav
+        setCurrentlyOpenedModule={setCurrentlyOpenedModule}
+        setWorldbuildingObject={setWorldbuildingObject}
+        setIsModuleFetched={setIsModuleFetched}
+      />
+    </div>
+  );
+};
+
+export default Worldbuilding;
+
+/*
+
+<Routes>
         <Route
           path="/art"
           element={
@@ -227,9 +374,12 @@ const Worldbuilding = () => {
         <Route
           path="/geography"
           element={
-            <Geography
+            <WorldbuildingFetchModule
               worldbuildingObject={worldbuildingObject}
               setWorldbuildingObject={setWorldbuildingObject}
+              currentlyOpenedModule={currentlyOpenedModule}
+              sampleItem={sampleItem[currentlyOpenedModule]}
+              moduleIntroductionPhrase={phrases[currentlyOpenedModule]}
             />
           }
         />
@@ -306,12 +456,5 @@ const Worldbuilding = () => {
           }
         />
       </Routes>
-      <WorldbuildingNav
-        setCurrentlyOpenedModule={setCurrentlyOpenedModule}
-        setWorldbuildingObject={setWorldbuildingObject}
-      />
-    </div>
-  );
-};
 
-export default Worldbuilding;
+*/

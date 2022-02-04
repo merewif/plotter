@@ -13,7 +13,6 @@ const WorldbuildingSidebar = ({ data, setCurrentlyOpenedItem, addItem }) => {
               className="item"
               onClick={(event) => {
                 {
-                  console.log(data[e].itemid);
                   setCurrentlyOpenedItem(data[e].itemid);
                   $(".worldbuilding-grid-item").removeClass("active-tile");
                   $(
@@ -31,7 +30,7 @@ const WorldbuildingSidebar = ({ data, setCurrentlyOpenedItem, addItem }) => {
         })}
       </div>
       <button className="button-black" onClick={addItem}>
-        Add Item
+        New Entry
       </button>
     </div>
   );

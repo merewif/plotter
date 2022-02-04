@@ -1106,7 +1106,7 @@ h1 {
 }
 
 .worldbuilding-module {
-  height: 75vh;
+  height: 65vh;
   position: absolute;
   width: 60vw;
   top: 55%;
@@ -1200,9 +1200,11 @@ h1 {
 .worldbuilding-module textarea {
   font-family: "Cormorant Garamond";
   width: 100%;
-  background: none;
   border: 1px dotted grey;
   padding: 5px;
+  background: black;
+  color: white;
+  padding: 1rem;
 }
 
 .worldbuilding-module h3 {
@@ -1235,14 +1237,6 @@ h1 {
   resize: none;
 }
 
-#textarea-description,
-#textarea-lore {
-  overflow: auto;
-  resize: none;
-  height: 21vh;
-  text-align: justify;
-}
-
 .active-tile {
   background: white;
   color: black;
@@ -1257,4 +1251,29 @@ h1 {
 #item-icon:focus {
   border: 0;
   outline: 1px solid black;
+}
+
+.wb-textarea-label {
+  text-transform: uppercase !important;
+}
+
+#art-viewer {
+  height: 65vh;
+  overflow: scroll;
+  padding-bottom: 20px;
+}
+
+#art-viewer textarea {
+  max-width: 80%;
+  resize: vertical !important;
+  overflow: auto;
+}
+
+#art-viewer textarea::-webkit-resizer {
+  border: 4px solid black;
+  background: white;
+}
+
+#art-viewer #textarea-name {
+  overflow: hidden !important;
 }
