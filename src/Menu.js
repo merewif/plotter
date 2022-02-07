@@ -5,6 +5,8 @@ import Plot from "./Plot";
 import Worldbuilding from "./Worldbuilding";
 import $ from "jquery";
 import { Routes, Route, useNavigate } from "react-router-dom";
+import Button from "@mui/material/Button";
+import ButtonGroup from "@mui/material/ButtonGroup";
 
 const Menu = () => {
   const [current, setCurrent] = useState(
@@ -34,7 +36,31 @@ const Menu = () => {
         </Routes>
       </div>
       <div id="main-menu-container">
-        <div className="main-menu" id="characters" onClick={handleClick}>
+        <ButtonGroup
+          variant="contained"
+          aria-label="outlined primary button group"
+          sx={{ fontWeight: "bold" }}
+        >
+          <Button id="characters" onClick={handleClick}>
+            Characters
+          </Button>
+          <Button id="plot" onClick={handleClick}>
+            Plot
+          </Button>
+          <Button id="worldbuilding" onClick={handleClick}>
+            Worldbuilding
+          </Button>
+        </ButtonGroup>
+      </div>
+    </>
+  );
+};
+
+export default Menu;
+
+/*
+
+<div className="main-menu" id="characters" onClick={handleClick}>
           Characters
         </div>
         <div className="main-menu" id="plot" onClick={handleClick}>
@@ -43,9 +69,5 @@ const Menu = () => {
         <div className="main-menu" id="worldbuilding" onClick={handleClick}>
           Worldbuilding
         </div>
-      </div>
-    </>
-  );
-};
 
-export default Menu;
+*/

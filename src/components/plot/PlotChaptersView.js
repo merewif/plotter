@@ -43,7 +43,7 @@ const ChaptersView = ({
     if ("books" in localStorage) {
       setStoredBooks(JSON.parse(localStorage.books));
     }
-  }, []);
+  }, [chapterCount]);
 
   function fetchChapterList(event) {
     event.preventDefault();
@@ -85,12 +85,11 @@ const ChaptersView = ({
       background: "black",
       color: "white",
     });
-    $(".viewstate").css({ top: "30%" });
 
     $("#chapter-list-container").css({
       height: "50vh",
       display: "block",
-      top: "65%",
+      top: "60%",
     });
 
     setSummary("");
@@ -119,13 +118,20 @@ const ChaptersView = ({
       "flex-basis": "100px",
       "flex-grow": "0",
       "flex-shrink": "0",
+      border: "none",
+      boxShadow: "none",
     });
-    $(event.target).css({ background: "white", color: "black" });
+    $(event.target).css({
+      background: "white",
+      color: "black",
+      border: "1px solid black",
+      boxShadow: "0px 0px 10px 0px #000000",
+    });
     $(".viewstate").css({ top: "25%" });
     $("#chapter-list-container").css({
       height: "auto",
       display: "flex",
-      top: "32.5%",
+      top: "27.5%",
     });
 
     $("#fetched-chapter-container").show();

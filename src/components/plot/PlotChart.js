@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { Chart } from "react-google-charts";
 import $ from "jquery";
+import RadioButtons from "../mui/RadioButtons";
 
 const PlotChart = ({ setFetchBook, chartData, setChartData, saveChart }) => {
   const [stakes, setStakes] = useState(0);
   const [percentage, setPercentage] = useState(0);
   const [comment, setComment] = useState("");
+  const [curveType, setCurveType] = useState("function");
+  const [fetchChart, setFetchChart] = useState(true);
 
   function addStakes(event) {
     event.preventDefault();
@@ -52,7 +55,7 @@ const PlotChart = ({ setFetchBook, chartData, setChartData, saveChart }) => {
       bold: false,
       italic: true,
     },
-    curveType: "function",
+    curveType: curveType,
     legend: { position: "bottom" },
     width: "100%",
     height: "100%",
@@ -87,15 +90,21 @@ const PlotChart = ({ setFetchBook, chartData, setChartData, saveChart }) => {
     pointsVisible: true,
   };
 
+  const handleChange = (event) => {
+    setCurveType(event.target.value);
+  };
+
   return (
     <div>
       <div id="chart-container">
-        <Chart
-          chartType="LineChart"
-          data={chartData}
-          options={options}
-          id="chart"
-        />
+        {fetchChart ? (
+          <Chart
+            chartType="LineChart"
+            data={chartData}
+            options={options}
+            id="chart"
+          />
+        ) : null}
         <form id="chart-input">
           <label>
             Add
@@ -121,6 +130,7 @@ const PlotChart = ({ setFetchBook, chartData, setChartData, saveChart }) => {
         <button id="savechart" onClick={saveChart}>
           Save
         </button>
+        <RadioButtons handleChange={handleChange} parentState={curveType} />
       </div>
     </div>
   );

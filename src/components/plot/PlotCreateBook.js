@@ -1,20 +1,48 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import $ from "jquery";
-import Plotsidebar from "./Plotsidebar";
 
-const CreateBook = ({ bookCount, savedBookNames }) => {
+const CreateBook = () => {
   const chartData = [
     ["Time", "Stakes", { role: "tooltip", type: "string", p: { html: true } }],
     [0, 0, "Startpoint"],
     [100, 0, "Endpoint"],
   ];
-  const [bookCounter, setBookCounter] = useState(bookCount);
-  const [newBooks, setNewBooks] = useState({});
+  const [savedBookNames, setSavedBookNames] = useState([]);
+  const [bookCounter, setBookCounter] = useState(0);
   const imgArray = ["https://i.imgur.com/w1AGMhl.png"];
+  const [books, setBooks] = useState({});
+  const [buttonText, setButtonText] = useState("Confirm & Submit");
+
+  useEffect(() => {
+    if ("books" in localStorage) {
+      setBooks(JSON.parse(localStorage.books));
+      setBookCounter(Object.keys(JSON.parse(localStorage.books)).length);
+
+      let obj = Object.keys(JSON.parse(localStorage.books));
+      let titlesArray = [];
+      obj.map((book, index) => {
+        titlesArray.push(JSON.parse(localStorage.books)[book].name);
+        setSavedBookNames(titlesArray.sort());
+      });
+    }
+  }, [bookCounter]);
 
   function addBook(event) {
     event.preventDefault();
     setBookCounter(bookCounter + 1);
+    let bookObject = {
+      ...books,
+      ["book" + Number(bookCounter + 1)]: {
+        name: "Placeholder Name",
+        chapters: 1,
+        chartData: chartData,
+        imgArray: imgArray,
+        ["book" + Number(bookCounter + 1) + "Summary"]: "",
+        chaptersContent: {},
+      },
+    };
+    localStorage.setItem("books", JSON.stringify(bookObject));
+    setBooks(bookObject);
   }
 
   function deductBook(event) {
@@ -22,46 +50,61 @@ const CreateBook = ({ bookCount, savedBookNames }) => {
     if (bookCounter > 0) {
       setBookCounter(bookCounter - 1);
     }
-  }
-
-  function saveBookName(event) {
-    event.preventDefault();
-    let bookid = event.target.id;
-    let inputField = document.getElementById(bookid + "input").value;
-
-    setNewBooks({
-      ...newBooks,
-      [bookid]: {
-        name: inputField,
-        chapters: 1,
-        chartData: chartData,
-        imgArray: imgArray,
-        chaptersContent: {},
-      },
-    });
+    let bookObject = books;
+    delete bookObject["book" + Number(bookCounter)];
+    localStorage.setItem("books", JSON.stringify(bookObject));
   }
 
   function confirmBooks(event) {
     event.preventDefault();
-    localStorage.setItem("books", JSON.stringify(newBooks));
-    $(event.target).text("Saved");
+
+    setButtonText("Saved");
+    let bookObject = {};
+    for (let i = 1; i <= bookCounter; i++) {
+      let bookName = document.getElementById("book" + i + "input").value;
+      if (!bookName) {
+        setButtonText("Book name cannot be empty.");
+        setTimeout(() => {
+          setButtonText("Confirm & Submit");
+          return;
+        }, 2000);
+      }
+
+      let fetchedChapterCount = books["book" + i]?.chapters ?? 1;
+      let fetchedImgArray = books["book" + i]?.imgArray ?? imgArray;
+      let fetchedChartData = books["book" + i]?.chartData ?? chartData;
+      let fetchedChaptersContent = books["book" + i]?.chaptersContent ?? {};
+      let fetchedBookSummary = books["book" + i]["book" + i + "Summary"] ?? "";
+      bookObject = {
+        ...bookObject,
+        ["book" + i]: {
+          name: bookName,
+          chapters: fetchedChapterCount,
+          chartData: fetchedChartData,
+          imgArray: fetchedImgArray,
+          ["book" + i + "Summary"]: fetchedBookSummary,
+          chaptersContent: fetchedChaptersContent,
+        },
+      };
+      localStorage.setItem("books", JSON.stringify(bookObject));
+    }
   }
 
   return (
     <div>
-      <p>
-        Set the number of books you plan to outline.<br></br>
-        <b>WARNING: </b> This will override <b>ALL </b> your currently saved
-        books, including charts and moodboards.
-      </p>
+      <div>
+        <p style={{ fontFamily: "Montserrat" }}>
+          Set the name and the number of the books you plan to outline.
+        </p>
+      </div>
       <div id="book-creator">
         <div id="book-counter">
           <button className="set-book-count" onClick={deductBook}>
-            -
+            <b style={{ fontFamily: "Montserrat" }}>-</b>
           </button>
           <h1>{bookCounter}</h1>
           <button className="set-book-count" onClick={addBook}>
-            +
+            <b style={{ fontFamily: "Montserrat" }}>+</b>
           </button>
         </div>
       </div>
@@ -75,21 +118,14 @@ const CreateBook = ({ bookCount, savedBookNames }) => {
                 name="name"
                 className="book-name-input"
                 id={"book" + (i + 1) + "input"}
-                placeholder={savedBookNames[i]}
+                defaultValue={savedBookNames[i]}
               />
             </label>
-            <input
-              type="button"
-              value="Save"
-              className="book-name-input-button"
-              id={"book" + (i + 1)}
-              onClick={saveBookName}
-            />
           </form>
         ))}
       </div>
       <button id="confirmbooks" onClick={confirmBooks}>
-        Confirm & Submit
+        {buttonText}
       </button>
     </div>
   );

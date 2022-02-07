@@ -5,10 +5,6 @@ import $ from "jquery";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
 const Plot = () => {
-  const [bookCount, setBookCount] = useState(0);
-  const [savedBookNames, setSavedBookNames] = useState([]);
-  const [savedChapterCount, setSavedChapterCount] = useState([]);
-
   let navigate = useNavigate();
 
   function setButtonStyle(e) {
@@ -18,34 +14,11 @@ const Plot = () => {
     $(e.target).addClass("white-active-btn");
   }
 
-  useEffect(() => {
-    if ("books" in localStorage) {
-      setBookCount(Object.keys(JSON.parse(localStorage.books)).length);
-      let obj = Object.keys(JSON.parse(localStorage.books));
-      let titlesArray = [];
-      let chaptersArray = [];
-      obj.map((book, index) => {
-        titlesArray.push(JSON.parse(localStorage.books)[book].name);
-        chaptersArray.push(JSON.parse(localStorage.books)[book].chapters);
-        setSavedBookNames(titlesArray.sort());
-        setSavedChapterCount(chaptersArray);
-      });
-    }
-  }, []);
-
   return (
-    <div id="character-module" class="module">
+    <div id="character-module" className="module">
       <div>
         <Routes>
-          <Route
-            path="/set-books"
-            element={
-              <CreateBook
-                bookCount={bookCount}
-                savedBookNames={savedBookNames}
-              />
-            }
-          />
+          <Route path="/set-books" element={<CreateBook />} />
           <Route path="/set-story-arcs" element={<StoryArcs />} />
         </Routes>
       </div>
