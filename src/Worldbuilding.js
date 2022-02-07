@@ -16,13 +16,11 @@ const Worldbuilding = () => {
       images: [moodboardImage],
     },
     legendsAndReligions: {
-      name: "Sample Creature",
-      appearance:
+      name: "Sample Religion",
+      "belief(s)":
         "This is the creature's appearance. Click here to edit the field.",
-      evolutuion:
+      originsAndHistory:
         "This is the evolutionary history of the creature. Click here to edit the field.",
-      utility:
-        "These are the ways the creature is utilized. Click here to edit the field.",
       icon: "https://game-icons.net/icons/ffffff/000000/1x1/delapouite/church.svg",
       images: [moodboardImage],
     },
@@ -58,20 +56,22 @@ const Worldbuilding = () => {
     },
     racesNationsCultures: {
       name: "Sample People",
+      history:
+        "This is the creature's appearance. Click here to edit the field.",
       appearance:
         "This is the creature's appearance. Click here to edit the field.",
-      evolutuion:
+      cultureAndValues:
         "This is the evolutionary history of the creature. Click here to edit the field.",
-      utility:
+      relationsWithOthers:
         "These are the utilities of the creature.  Click here to edit the field.",
       icon: "https://game-icons.net/icons/ffffff/000000/1x1/delapouite/family-tree.svg",
       images: [moodboardImage],
     },
     history: {
-      name: "Sample Creature",
-      appearance:
+      name: "Sample Event",
+      description:
         "This is the creature's appearance. Click here to edit the field.",
-      evolutuion:
+      consequences:
         "This is the evolutionary history of the creature. Click here to edit the field.",
       utility:
         "These are the utilities of the creature.  Click here to edit the field.",
@@ -96,7 +96,7 @@ const Worldbuilding = () => {
       images: [moodboardImage],
     },
     skillsAndSpells: {
-      name: "Sample Creature",
+      name: "Sample Ability",
       appearance:
         "This is the creature's appearance. Click here to edit the field.",
       evolutuion:
@@ -107,18 +107,17 @@ const Worldbuilding = () => {
       images: [moodboardImage],
     },
     magicSystems: {
-      name: "Sample Creature",
-      appearance:
+      name: "Sample System",
+      description:
         "This is the creature's appearance. Click here to edit the field.",
-      evolutuion:
+      limitations:
         "This is the evolutionary history of the creature. Click here to edit the field.",
-      utility:
-        "These are the utilities of the creature.  Click here to edit the field.",
+      lore: "These are the utilities of the creature.  Click here to edit the field.",
       icon: "https://game-icons.net/icons/ffffff/000000/1x1/lorc/magic-gate.svg",
       images: [moodboardImage],
     },
     professions: {
-      name: "Sample Creature",
+      name: "Sample Profession",
       appearance:
         "This is the creature's appearance. Click here to edit the field.",
       evolutuion:
