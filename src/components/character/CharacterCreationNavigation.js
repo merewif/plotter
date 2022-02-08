@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { faSave } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import CharacterCreation from "./CharacterCreation";
 
 const CharacterCreationNavigation = ({
   nameInput,

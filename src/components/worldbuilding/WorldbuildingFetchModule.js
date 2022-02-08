@@ -3,6 +3,7 @@ import $ from "jquery";
 import MoodBoard from "../../MoodBoard";
 import WorldbuildingSidebar from "./WorldbuildingSidebar";
 import autosize from "autosize";
+import SimpleSnackbar from "../mui/Snackbar";
 
 const WorldbuildingFetchModule = ({
   worldbuildingObject,
@@ -17,6 +18,8 @@ const WorldbuildingFetchModule = ({
   const [currentlyOpenedItem, setCurrentlyOpenedItem] = useState();
   const [isFetched, setIsFetched] = useState(false);
   const [itemImages, setItemImages] = useState([]);
+  const [snackbarMessage, setSnackbarMessage] = useState("Changes saved.");
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   function addItem() {
     let keyname = Math.floor(Math.random() * 9000000);
@@ -110,6 +113,8 @@ const WorldbuildingFetchModule = ({
       JSON.parse(localStorage.worldbuilding)[currentlyOpenedModule]
     );
     setWorldbuildingObject(JSON.parse(localStorage.worldbuilding));
+    setSnackbarMessage("Item deleted.");
+    setSnackbarOpen(true);
   }
 
   $(".right-side").show();
@@ -179,7 +184,11 @@ const WorldbuildingFetchModule = ({
               }}
             >
               <button
-                onClick={saveChangedItem}
+                onClick={() => {
+                  saveChangedItem();
+                  setSnackbarMessage("Changes saved.");
+                  setSnackbarOpen(true);
+                }}
                 className="button-black"
                 style={{
                   display: "inline-block",
@@ -218,6 +227,11 @@ const WorldbuildingFetchModule = ({
           </p>
         )}
       </div>
+      <SimpleSnackbar
+        message={snackbarMessage}
+        open={snackbarOpen}
+        setOpen={setSnackbarOpen}
+      />
     </div>
   );
 };

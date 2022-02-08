@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import $ from "jquery";
+import CircularIntegration from "../../components/mui/AnimatedSaveButton";
+import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
 
 const CreateBook = () => {
   const chartData = [
@@ -90,6 +91,10 @@ const CreateBook = () => {
     }
   }
 
+  function deleteIndividualBook(book) {
+    console.log(book);
+  }
+
   return (
     <div>
       <div>
@@ -110,23 +115,34 @@ const CreateBook = () => {
       </div>
       <div id="book-namer">
         {[...Array(bookCounter)].map((e, i) => (
-          <form key={i}>
-            <label>
-              <div className="bookname-label">Book {i + 1}: </div>
-              <input
-                type="text"
-                name="name"
-                className="book-name-input"
-                id={"book" + (i + 1) + "input"}
-                defaultValue={savedBookNames[i]}
-              />
-            </label>
-          </form>
+          <div key={i} style={{ display: "flex", paddingLeft: "20vh" }}>
+            <form>
+              <label>
+                <div className="bookname-label">Book {i + 1}:</div>
+                <input
+                  style={{ width: "35vw", marginRight: "10px" }}
+                  type="text"
+                  name="name"
+                  className="book-name-input"
+                  id={"book" + (i + 1) + "input"}
+                  defaultValue={books["book" + Number(i + 1)].name}
+                />
+              </label>
+            </form>
+            <HighlightOffOutlinedIcon
+              sx={{ color: "red" }}
+              onClick={() => deleteIndividualBook("book" + Number(i + 1))}
+            />
+          </div>
         ))}
       </div>
-      <button id="confirmbooks" onClick={confirmBooks}>
-        {buttonText}
-      </button>
+      <div id="circular-save-btn-container">
+        <CircularIntegration
+          clickFunction={confirmBooks}
+          buttonText={buttonText}
+          returnToggle={"circle"}
+        />
+      </div>
     </div>
   );
 };
