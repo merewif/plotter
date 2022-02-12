@@ -73,12 +73,14 @@ export default function TemporaryDrawer() {
           </ListItemIcon>
           <ListItemText primary="Characters" />
         </ListItemButton>
+
         <ListItemButton component="a" onClick={() => navigate("/plot")}>
           <ListItemIcon>
             <ShowChartIcon />
           </ListItemIcon>
           <ListItemText primary="Plot" />
         </ListItemButton>
+
         <ListItemButton
           component="a"
           onClick={() => navigate("/worldbuilding")}
