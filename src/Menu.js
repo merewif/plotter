@@ -5,6 +5,7 @@ import Plot from "./Plot";
 import Worldbuilding from "./Worldbuilding";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import SimpleBottomNavigation from "./components/mui/BottomNavigation";
+import About from "./About";
 
 const Menu = () => {
   const [current, setCurrent] = useState(
@@ -18,6 +19,18 @@ const Menu = () => {
     if (value === 0) navigate("characters");
     if (value === 1) navigate("plot");
     if (value === 2) navigate("worldbuilding");
+
+    if (window.location.pathname.indexOf("characters") > -1) {
+      setValue(0);
+    }
+
+    if (window.location.pathname.indexOf("plot") > -1) {
+      setValue(1);
+    }
+
+    if (window.location.pathname.indexOf("worldbuilding") > -1) {
+      setValue(2);
+    }
   }, [value]);
 
   return (
@@ -28,6 +41,7 @@ const Menu = () => {
           <Route path="/characters/*" element={<Characters />} />
           <Route path="/plot/*" element={<Plot />} />
           <Route path="/worldbuilding/*" element={<Worldbuilding />} />
+          <Route path="/about/*" element={<About />} />
         </Routes>
       </div>
       <div id="main-menu-container">
