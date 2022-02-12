@@ -5,9 +5,10 @@ import MoodBoard from "../../MoodBoard";
 
 const CharacterFetch = (props) => {
   const charID = props.charID;
-  const displayCharacter = localStorage.getItem(charID).slice(0, -1);
+  const fetchCharObject = localStorage.getItem("characters");
+  const storedCharObject = JSON.parse(fetchCharObject);
   const [parseCharacter, setParseCharacter] = useState(
-    JSON.parse(displayCharacter)
+    storedCharObject[charID]
   );
 
   const [saveButtonText, setSaveButtonText] = useState("Save your changes");
@@ -18,18 +19,21 @@ const CharacterFetch = (props) => {
   const [characterImages, setCharacterImages] = useState([]);
 
   function saveChanges() {
-    let changedCharacter = {
-      characterName: $("#fetched-character-name").text(),
-      characterAppearance: $("#fetched-character-appearance").text(),
-      characterGoals: $("#fetched-character-goals").text(),
-      characterTraits: $("#fetched-character-traits").text(),
-      characterMonologue: $("#fetched-character-monologue").text(),
-      images: characterImages,
-    };
-
     let name = props.charID;
 
-    localStorage.setItem(name, JSON.stringify(changedCharacter) + ",");
+    let changedCharacter = {
+      ...storedCharObject,
+      [name]: {
+        characterName: $("#fetched-character-name").text(),
+        characterAppearance: $("#fetched-character-appearance").text(),
+        characterGoals: $("#fetched-character-goals").text(),
+        characterTraits: $("#fetched-character-traits").text(),
+        characterMonologue: $("#fetched-character-monologue").text(),
+        images: characterImages,
+      },
+    };
+
+    localStorage.setItem("characters", JSON.stringify(changedCharacter));
 
     setSaveButtonText("Saved");
     setTimeout(() => {

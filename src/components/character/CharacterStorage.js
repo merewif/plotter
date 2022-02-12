@@ -4,14 +4,16 @@ import $ from "jquery";
 
 const Characterstorage = () => {
   const [cleared, setCleared] = useState("Delete all");
-  const [array, setArray] = useState(Object.keys(localStorage));
+  const storedCharObject = localStorage.getItem("characters") ?? "{}";
+  const [array, setArray] = useState(Object.keys(JSON.parse(storedCharObject)));
   const [currentChar, setCurrentChar] = useState("");
   const [isFetched, setIsFetched] = useState(false);
 
+  /*
   function clearLocalStorage() {
-    let books = localStorage.getItem("books");
+    let characters = localStorage.getItem("characters");
     localStorage.clear();
-    localStorage.setItem("books", books);
+    localStorage.setItem("characters", characters);
     setArray([]);
     setCleared("Deleted");
 
@@ -19,7 +21,7 @@ const Characterstorage = () => {
       setCleared("Delete all");
       setArray(Object.keys(localStorage));
     }, 1000);
-  }
+  }*/
 
   function fetchCharacter(event) {
     setIsFetched(false);
@@ -33,10 +35,13 @@ const Characterstorage = () => {
     $(event.target).css({ background: "black", color: "white" });
   }
 
-  function deleteCharacter() {
+  async function deleteCharacter() {
+    let charsObj = JSON.parse(storedCharObject);
+    delete charsObj[currentChar];
+    console.log(charsObj);
     setIsFetched(false);
-    localStorage.removeItem(currentChar);
-    setArray(Object.keys(localStorage));
+    localStorage.setItem("characters", JSON.stringify(charsObj));
+    setArray(Object.keys(charsObj));
   }
 
   return (
@@ -54,9 +59,6 @@ const Characterstorage = () => {
         ))}
       </div>
 
-      <button id="clear-storage" onClick={clearLocalStorage}>
-        {cleared}
-      </button>
       <div id="storage-display">
         {isFetched ? (
           <CharacterFetch
@@ -72,3 +74,11 @@ const Characterstorage = () => {
 };
 
 export default Characterstorage;
+
+/*
+
+      <button id="clear-storage" onClick={clearLocalStorage}>
+        {cleared}
+      </button>
+
+*/

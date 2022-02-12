@@ -1,13 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CharacterCreation from "./CharacterCreation";
 import CharacterStorage from "./CharacterStorage";
 import $ from "jquery";
 import { Routes, Route, useNavigate } from "react-router-dom";
+import Alert from "@mui/material/Alert";
+import Fade from "@mui/material/Fade";
 
 const CharacterOptions = () => {
+  const [showAlert, setShowAlert] = useState(false);
   let navigate = useNavigate();
 
   function modulChoice(event) {
+    if (
+      event.target.id === "view-characters" &&
+      localStorage.getItem("characters") === null
+    ) {
+      setShowAlert(true);
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 2500);
+      return;
+    }
+
     $("#char-choice-buttons").css({ top: "110%" });
     $(".option").css({
       "font-size": "0.8em",
@@ -40,6 +54,13 @@ const CharacterOptions = () => {
         <button className="option" onClick={modulChoice} id="view-characters">
           View Characters
         </button>
+      </div>
+      <div id="alert">
+        <Fade in={showAlert}>
+          <Alert severity="error" sx={{ background: "black", color: "white" }}>
+            Create a character first.
+          </Alert>
+        </Fade>
       </div>
     </div>
   );

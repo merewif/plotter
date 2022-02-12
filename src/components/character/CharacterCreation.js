@@ -31,6 +31,8 @@ const Charactercreation = () => {
   const [textareaClass, setTextareaClass] = useState("textarea-name");
   const [saveButtonText, setSaveButtonText] = useState("Save character");
   const [characterImages, setCharacterImages] = useState([]);
+  const fetchedCharObject = localStorage.getItem("characters") ?? "{}";
+  const storedCharObject = JSON.parse(fetchedCharObject) ?? {};
 
   function nameInput(event) {
     $(".character-creation-button").css({
@@ -149,10 +151,15 @@ const Charactercreation = () => {
       images: characterImages,
     };
 
+    let newCharMergedWithStoredChars = {
+      ...storedCharObject,
+      [name.replace(/\s+/g, "-").toLowerCase()]: newCharacter,
+    };
+
     setTimeout(() => {
       localStorage.setItem(
-        name.replace(/\s+/g, "-").toLowerCase(),
-        JSON.stringify(newCharacter) + ","
+        "characters",
+        JSON.stringify(newCharMergedWithStoredChars)
       );
     }, 2000);
     setTimeout(() => {
@@ -160,7 +167,6 @@ const Charactercreation = () => {
         <CharacterDisplay currentCharacter={newCharacter} editable={"false"} />
       );
 
-      // setSavedCharacters([...savedCharacters, { newCharacter }]);
       characterSaved();
     }, 500);
   }
