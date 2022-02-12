@@ -91,10 +91,6 @@ const CreateBook = () => {
     }
   }
 
-  function deleteIndividualBook(book) {
-    console.log(book);
-  }
-
   return (
     <div>
       <div>
@@ -129,10 +125,6 @@ const CreateBook = () => {
                 />
               </label>
             </form>
-            <HighlightOffOutlinedIcon
-              sx={{ color: "red" }}
-              onClick={() => deleteIndividualBook("book" + Number(i + 1))}
-            />
           </div>
         ))}
       </div>
