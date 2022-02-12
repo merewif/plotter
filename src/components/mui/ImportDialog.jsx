@@ -19,7 +19,7 @@ function ImportDialog(props) {
   };
 
   const handleListItemClick = (value) => {
-    onClose(value);
+    // Click function here.
   };
 
   return (
@@ -59,7 +59,7 @@ ImportDialog.propTypes = {
 
 export default function ImportDialogButton() {
   const [open, setOpen] = React.useState(false);
-  const [selectedValue, setSelectedValue] = React.useState();
+  const [selectedValue, setSelectedValue] = React.useState("");
 
   const handleClickOpen = () => {
     setOpen(true);

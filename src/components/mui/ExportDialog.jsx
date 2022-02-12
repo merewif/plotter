@@ -19,28 +19,28 @@ function ExportDialog(props) {
   };
 
   const handleListItemClick = (value) => {
-    onClose(value);
+    // Click function here.
   };
 
   return (
     <Dialog onClose={handleClose} open={open}>
       <DialogTitle>Export Data</DialogTitle>
       <List sx={{ pt: 0, width: 300 }}>
-        <ListItemButton component="a">
+        <ListItemButton component="a" onClick={handleListItemClick}>
           <ListItemIcon>
             <FaceIcon />
           </ListItemIcon>
           <ListItemText primary="Characters" />
         </ListItemButton>
 
-        <ListItemButton component="a">
+        <ListItemButton component="a" onClick={handleListItemClick}>
           <ListItemIcon>
             <ShowChartIcon />
           </ListItemIcon>
           <ListItemText primary="Plot" />
         </ListItemButton>
 
-        <ListItemButton component="a">
+        <ListItemButton component="a" onClick={handleListItemClick}>
           <ListItemIcon>
             <PublicIcon />
           </ListItemIcon>
@@ -59,7 +59,7 @@ ExportDialog.propTypes = {
 
 export default function ExportDialogButton() {
   const [open, setOpen] = React.useState(false);
-  const [selectedValue, setSelectedValue] = React.useState();
+  const [selectedValue, setSelectedValue] = React.useState("");
 
   const handleClickOpen = () => {
     setOpen(true);

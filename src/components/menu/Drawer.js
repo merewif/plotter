@@ -37,12 +37,7 @@ export default function TemporaryDrawer() {
   const [open, setOpen] = React.useState(true);
   const [state, setState] = React.useState({
     left: false,
-    right: false,
   });
-
-  const handleClick = () => {
-    setOpen(!open);
-  };
 
   const toggleDrawer = (anchor, open) => (event) => {
     event.stopPropagation();
@@ -63,7 +58,7 @@ export default function TemporaryDrawer() {
       role="presentation"
       ModalProps={{ onBackdropClick: toggleDrawer(anchor, false) }}
     >
-      <List onClick={toggleDrawer(anchor, false)}>
+      <List onClick={toggleDrawer(anchor, false)} sx={{ padding: 0 }}>
         <ListItemButton
           component="a"
           onClick={() => {
@@ -92,9 +87,21 @@ export default function TemporaryDrawer() {
           </ListItemIcon>
           <ListItemText primary="Worldbuilding" />
         </ListItemButton>
+        <Divider />
+
+        <ListItemButton
+          component="a"
+          onClick={() => {
+            navigate("/about");
+          }}
+        >
+          <ListItemIcon>
+            <InfoIcon />
+          </ListItemIcon>
+          <ListItemText primary="About" />
+        </ListItemButton>
       </List>
-      <Divider />
-      <List>
+      <List sx={{ padding: 0 }}>
         <ListItemButton component="a">
           <ListItemIcon>
             <ImportContactsIcon />
@@ -114,7 +121,7 @@ export default function TemporaryDrawer() {
           <ListItemText primary="GitHub Repository" />
         </ListItemButton>
 
-        <ListItemButton onClick={handleClick}>
+        {/* <ListItemButton onClick={handleClick}>
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>
@@ -135,14 +142,7 @@ export default function TemporaryDrawer() {
             <ImportDialogButton />
             <ExportDialogButton />
           </List>
-        </Collapse>
-
-        <ListItemButton component="a">
-          <ListItemIcon>
-            <InfoIcon />
-          </ListItemIcon>
-          <ListItemText primary="About" />
-        </ListItemButton>
+        </Collapse>*/}
       </List>
     </Box>
   );
