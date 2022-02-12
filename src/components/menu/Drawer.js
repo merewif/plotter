@@ -21,13 +21,15 @@ import InfoIcon from "@mui/icons-material/Info";
 import MenuIcon from "@mui/icons-material/Menu";
 import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 import PaletteIcon from "@mui/icons-material/Palette";
-import PublishIcon from "@mui/icons-material/Publish";
-import GetAppIcon from "@mui/icons-material/GetApp";
 
 // Nested Collapsible List Components
 import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
+
+// Import & Export Dialogs
+import ImportDialogButton from "../mui/ImportDialog";
+import ExportDialogButton from "../mui/ExportDialog";
 
 export default function TemporaryDrawer() {
   let navigate = useNavigate();
@@ -130,18 +132,8 @@ export default function TemporaryDrawer() {
               </ListItemIcon>
               <ListItemText primary="Skins" />
             </ListItemButton>
-            <ListItemButton component="a">
-              <ListItemIcon>
-                <PublishIcon />
-              </ListItemIcon>
-              <ListItemText primary="Import Data" />
-            </ListItemButton>
-            <ListItemButton component="a">
-              <ListItemIcon>
-                <GetAppIcon />
-              </ListItemIcon>
-              <ListItemText primary="Export Data" />
-            </ListItemButton>
+            <ImportDialogButton />
+            <ExportDialogButton />
           </List>
         </Collapse>
 

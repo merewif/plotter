@@ -14,7 +14,6 @@ const navTheme = createTheme({
     fontFamily: ["Montserrat"].join(","),
     fontWeightBold: 900,
   },
-
   palette: {
     type: "light",
     primary: {
