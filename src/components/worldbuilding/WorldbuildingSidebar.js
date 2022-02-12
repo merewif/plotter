@@ -29,7 +29,11 @@ const WorldbuildingSidebar = ({ data, setCurrentlyOpenedItem, addItem }) => {
           );
         })}
       </div>
-      <button className="button-black" onClick={addItem}>
+      <button
+        className="button-black"
+        onClick={addItem}
+        style={{ fontFamily: "Montserrat", fontSize: "0.8rem" }}
+      >
         New Entry
       </button>
     </div>

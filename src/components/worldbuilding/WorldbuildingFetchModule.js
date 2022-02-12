@@ -194,6 +194,8 @@ const WorldbuildingFetchModule = ({
                   display: "inline-block",
                   position: "relative",
                   width: "200px",
+                  fontFamily: "Montserrat",
+                  fontSize: "0.8rem",
                 }}
               >
                 Save item
@@ -206,6 +208,8 @@ const WorldbuildingFetchModule = ({
                   display: "inline-block",
                   position: "relative",
                   width: "200px",
+                  fontFamily: "Montserrat",
+                  fontSize: "0.8rem",
                 }}
               >
                 Delete item
