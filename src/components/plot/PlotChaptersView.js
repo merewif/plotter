@@ -127,7 +127,6 @@ const ChaptersView = ({
       border: "1px solid black",
       boxShadow: "0px 0px 10px 0px #000000",
     });
-    $(".viewstate").css({ top: "25%" });
     $("#chapter-list-container").css({
       height: "auto",
       display: "flex",
