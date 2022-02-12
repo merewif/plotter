@@ -24,7 +24,9 @@ const BTN_THEME = createTheme({
 });
 
 const StoryArcs = () => {
-  const [displayView, setDisplayView] = useState("");
+  const [displayView, setDisplayView] = useState(
+    "Navigate to the Books or Chapters module using the buttons above."
+  );
   const [currentlyOpenedBook, setCurrentlyOpenedBook] = useState("");
   const [currentlyOpenedChapter, setCurrentlyOpenedChapter] = useState("");
   const [summary, setSummary] = useState();

@@ -222,6 +222,18 @@ main h1 {
   height: 50vh;
 }
 
+#fetched-character-name {
+  text-align: center;
+  text-align-last: center;
+  text-transform: capitalize;
+}
+
+.fetched-attribute {
+  background-color: black;
+  color: white;
+  padding: 20px;
+}
+
 #character-creation-form textarea {
   font-family: "Cormorant Garamond";
   border: 0px;

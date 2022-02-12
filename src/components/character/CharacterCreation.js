@@ -30,7 +30,9 @@ const Charactercreation = () => {
   const [display, setDisplay] = useState("");
   const [textareaClass, setTextareaClass] = useState("textarea-name");
   const [saveButtonText, setSaveButtonText] = useState("Save character");
-  const [characterImages, setCharacterImages] = useState([]);
+  const [characterImages, setCharacterImages] = useState([
+    "https://i.imgur.com/w1AGMhl.png",
+  ]);
   const fetchedCharObject = localStorage.getItem("characters") ?? "{}";
   const storedCharObject = JSON.parse(fetchedCharObject) ?? {};
 

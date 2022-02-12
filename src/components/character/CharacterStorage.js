@@ -9,20 +9,6 @@ const Characterstorage = () => {
   const [currentChar, setCurrentChar] = useState("");
   const [isFetched, setIsFetched] = useState(false);
 
-  /*
-  function clearLocalStorage() {
-    let characters = localStorage.getItem("characters");
-    localStorage.clear();
-    localStorage.setItem("characters", characters);
-    setArray([]);
-    setCleared("Deleted");
-
-    setTimeout(() => {
-      setCleared("Delete all");
-      setArray(Object.keys(localStorage));
-    }, 1000);
-  }*/
-
   function fetchCharacter(event) {
     setIsFetched(false);
     setTimeout(() => {
@@ -42,6 +28,9 @@ const Characterstorage = () => {
     setIsFetched(false);
     localStorage.setItem("characters", JSON.stringify(charsObj));
     setArray(Object.keys(charsObj));
+    if (localStorage.getItem("characters") === "{}") {
+      localStorage.removeItem("characters");
+    }
   }
 
   return (
@@ -74,11 +63,3 @@ const Characterstorage = () => {
 };
 
 export default Characterstorage;
-
-/*
-
-      <button id="clear-storage" onClick={clearLocalStorage}>
-        {cleared}
-      </button>
-
-*/

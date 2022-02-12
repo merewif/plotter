@@ -5,20 +5,13 @@ const CharacterDisplay = ({ currentCharacter, editable }) => {
     <div>
       <div id="display-fetched-character">
         <div id="display-name" className="display-current-character-element">
-          <p>
-            <b>Name: </b>
-          </p>
-          <p id="fetched-character-name" className="fetched-attribute">
-            {currentCharacter.characterName}
-          </p>
+          <p id="fetched-character-name">{currentCharacter.characterName}</p>
         </div>
         <div
           id="display-appearance"
           className="display-current-character-element"
         >
-          <p>
-            <b>Physical description: </b>
-          </p>
+          <p>Physical description:</p>
           <p
             id="fetched-character-appearance"
             className="fetched-attribute"
@@ -32,9 +25,7 @@ const CharacterDisplay = ({ currentCharacter, editable }) => {
           id="display-monologue"
           className="display-current-character-element"
         >
-          <p>
-            <b>Monologue: </b>
-          </p>
+          <p>Monologue:</p>
           <p
             id="fetched-character-monologue"
             className="fetched-attribute"
@@ -45,9 +36,7 @@ const CharacterDisplay = ({ currentCharacter, editable }) => {
           </p>
         </div>
         <div id="display-goals" className="display-current-character-element">
-          <p>
-            <b>Goals and Struggles: </b>
-          </p>
+          <p>Goals and Struggles:</p>
           <p
             id="fetched-character-goals"
             className="fetched-attribute"
@@ -58,9 +47,7 @@ const CharacterDisplay = ({ currentCharacter, editable }) => {
           </p>
         </div>
         <div id="display-traits" className="display-current-character-element">
-          <p>
-            <b>Flaws and Virtues: </b>
-          </p>
+          <p>Flaws and Virtues:</p>
           <p
             id="fetched-character-traits"
             className="fetched-attribute"

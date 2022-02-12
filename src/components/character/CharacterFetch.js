@@ -10,12 +10,10 @@ const CharacterFetch = (props) => {
   const [parseCharacter, setParseCharacter] = useState(
     storedCharObject[charID]
   );
-
   const [saveButtonText, setSaveButtonText] = useState("Save your changes");
   const [deleteButtonText, setDeleteButtonText] = useState(
     "Delete this character"
   );
-
   const [characterImages, setCharacterImages] = useState([]);
 
   function saveChanges() {
