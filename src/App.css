@@ -232,7 +232,7 @@ textarea:focus {
 }
 
 .textarea-name {
-  height: 15px;
+  height: 25px;
   width: 25%;
 }
 
@@ -338,8 +338,8 @@ textarea:focus {
 .option {
   background: black;
   color: white;
-  font-size: 1.5em;
-  font-family: "Cormorant Garamond";
+  font-size: 1.25em;
+  font-family: "Montserrat";
   border: 0;
   padding: 20px;
   cursor: pointer;
@@ -356,9 +356,14 @@ textarea:focus {
   transition-duration: 0.5s;
 }
 
+#alert {
+  position: absolute;
+  top: 90%;
+}
+
 #char-choice-buttons {
   position: absolute;
-  width: 100%;
+  width: 95%;
   top: 53%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -654,15 +659,15 @@ textarea:focus {
   top: 52.5%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 100%;
+  width: 95%;
 }
 
 .plot-options {
   background: black;
   border: 1px solid white;
-  font-family: "Cormorant Garamond";
+  font-family: "Montserrat";
   color: white;
-  font-size: 1.5em;
+  font-size: 1.25em;
   width: 20%;
   height: 100px;
   cursor: pointer;
@@ -683,30 +688,24 @@ textarea:focus {
   display: none;
 }
 
-#arcs-nav {
+#arcs-nav-buttons {
   position: absolute;
-  top: 12.5%;
+  top: 11%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%;
+  transform: translate(-50%, 20%);
 }
 
-#arcs-nav button {
-  border: 0;
-  background: white;
-  color: black;
-  border-bottom: 1px solid black;
-  font-family: "Cormorant Garamond";
-  padding: 5px;
-  padding-left: 10px;
-  padding-right: 10px;
-  margin: 5px;
-  cursor: pointer;
+#arcs-nav-buttons .MuiToggleButton-root {
+  border-radius: 0%;
+  padding-top: 0;
+  padding-bottom: 0;
+  width: 125px;
 }
 
-#arcs-nav button:hover {
-  background: black;
+#arcs-nav-buttons .Mui-selected {
+  background-color: #000;
   color: white;
+  transition-delay: 0.1s;
 }
 
 #chart-container {
@@ -811,9 +810,9 @@ textarea:focus {
 
 .viewstate {
   position: relative;
-  top: 10%;
+  top: 20%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, 0%);
   height: 13vh;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
@@ -1211,7 +1210,7 @@ h1 {
 #textarea-name {
   text-align: center;
   font-size: 1.5em;
-  height: 1em;
+  height: 1.5em;
   overflow: hidden;
   resize: none;
 }
@@ -1285,4 +1284,8 @@ h1 {
   left: 49%;
   bottom: 0%;
   transform: translate(-50%, 25%);
+}
+
+.MuiSnackbarContent-root {
+  background-color: black !important;
 }
