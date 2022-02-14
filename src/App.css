@@ -219,7 +219,12 @@ main h1 {
 }
 
 #character-creation #display-fetched-character {
+  top: 34%;
   height: 50vh;
+}
+
+#character-creation .tooltip {
+  display: none !important;
 }
 
 #fetched-character-name {
@@ -259,7 +264,8 @@ textarea:focus {
   padding-left: 20px;
   padding-right: 20px;
   width: 55vw;
-  text-align: center;
+  text-align: justify;
+  text-align-last: center;
 }
 
 #stored-characters-list {
@@ -1219,6 +1225,14 @@ h1 {
   margin: 20px;
 }
 
+#character-creation-form textarea {
+  background: black;
+  color: white;
+  font-size: 1.25em;
+  padding: 10px;
+  margin-top: 25px;
+}
+
 #textarea-name {
   text-align: center;
   font-size: 1.5em;
@@ -1337,4 +1351,11 @@ h1 {
 #about a {
   margin: 8px;
   color: black;
+}
+
+.MuiTooltip-popperArrow {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
+  transition: none !important;
 }

@@ -1,62 +1,68 @@
 import React, { useState } from "react";
+import HelpIcon from "@mui/icons-material/Help";
+import Tooltip, { tooltipClasses } from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
+import Fade from "@mui/material/Fade";
 
 const CharacterDisplay = ({ currentCharacter, editable }) => {
+  const LABELS = [
+    "Name",
+    "Physical description: ",
+    "Monologue: ",
+    "Goals and Struggles: ",
+    "Flaws and Virtues: ",
+  ];
+  const IDs = ["name", "appearance", "monologue", "goals", "traits"];
+  const TOOLTIPTEXTS = [
+    "First things first, tell me the name of your character.",
+    "Write down everything about how they look like. Try to describe them from the perspective of a stranger who is looking at your character for the first time.",
+    "Write down all about the goals and struggles your character faces. What are their internal or external needs? Every interesting character has something to fight for and strive towards. What's your character's? Why are they motivated to achieve their goals? What obstacles stand in their way?",
+    "Think about the moral aspect of your character. Assemble a list of their moral flaws and moral virtues. Morality is a complicated subject and if you feel like you don't know where to begin, consult a list of aristotelian virtues and vices for inspiration. Keep in mind that by defining their flaws, you are defining the start of their character arc, the baseline from which they will change into someone else, and by defining their virtues, you are defining the means by which your character changes.",
+    "Write a monologue with your character's voice, exploring their speech patterns and spoken mannerisms.",
+  ];
+  const KEYS = Object.keys(currentCharacter);
+  console.log(currentCharacter);
+
   return (
     <div>
-      <div id="display-fetched-character">
+      <div id="display-fetched-character" style={{ transitionDuration: "0s" }}>
         <div id="display-name" className="display-current-character-element">
           <p id="fetched-character-name">{currentCharacter.characterName}</p>
         </div>
-        <div
-          id="display-appearance"
-          className="display-current-character-element"
-        >
-          <p>Physical description:</p>
-          <p
-            id="fetched-character-appearance"
-            className="fetched-attribute"
-            contentEditable={editable}
-            suppressContentEditableWarning={true}
-          >
-            {currentCharacter.characterAppearance}
-          </p>
-        </div>
-        <div
-          id="display-monologue"
-          className="display-current-character-element"
-        >
-          <p>Monologue:</p>
-          <p
-            id="fetched-character-monologue"
-            className="fetched-attribute"
-            contentEditable={editable}
-            suppressContentEditableWarning={true}
-          >
-            {currentCharacter.characterMonologue}
-          </p>
-        </div>
-        <div id="display-goals" className="display-current-character-element">
-          <p>Goals and Struggles:</p>
-          <p
-            id="fetched-character-goals"
-            className="fetched-attribute"
-            contentEditable={editable}
-            suppressContentEditableWarning={true}
-          >
-            {currentCharacter.characterGoals}
-          </p>
-        </div>
-        <div id="display-traits" className="display-current-character-element">
-          <p>Flaws and Virtues:</p>
-          <p
-            id="fetched-character-traits"
-            className="fetched-attribute"
-            contentEditable={editable}
-            suppressContentEditableWarning={true}
-          >
-            {currentCharacter.characterTraits}
-          </p>
-        </div>
+        {KEYS.map((e, i) => {
+          if (KEYS[i] === "characterName" || KEYS[i] === "images") return;
+          return (
+            <div
+              key={i}
+              id={"display-" + IDs[i]}
+              className="display-current-character-element"
+            >
+              <p>
+                {LABELS[i]}
+                <Tooltip
+                  className="tooltip"
+                  title={TOOLTIPTEXTS[i]}
+                  placement="bottom"
+                  TransitionComponent={Fade}
+                  TransitionProps={{ timeout: 600 }}
+                  arrow={true}
+                >
+                  <IconButton>
+                    <HelpIcon sx={{ fontSize: 16 }} />
+                  </IconButton>
+                </Tooltip>
+              </p>
+              <p
+                id={"fetched-character-" + IDs[i]}
+                className="fetched-attribute"
+                contentEditable={editable}
+                suppressContentEditableWarning={true}
+              >
+                {currentCharacter[KEYS[i]]}
+              </p>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

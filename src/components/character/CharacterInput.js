@@ -5,9 +5,8 @@ import CharacterCreation from "./CharacterCreation";
 const CharacterInput = ({
   labelid,
   textInput,
-  buttonText,
-  handleClick,
   textareaClass,
+  currentValue,
 }) => {
   return (
     <form id="character-creation-form">
@@ -18,6 +17,7 @@ const CharacterInput = ({
           id={labelid}
           className={textareaClass}
           onChange={textInput}
+          value={currentValue}
         ></textarea>
       </label>
     </form>

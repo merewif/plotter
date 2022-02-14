@@ -14,7 +14,9 @@ const CharacterFetch = (props) => {
   const [deleteButtonText, setDeleteButtonText] = useState(
     "Delete this character"
   );
-  const [characterImages, setCharacterImages] = useState([]);
+  const [characterImages, setCharacterImages] = useState([
+    "https://i.imgur.com/w1AGMhl.png",
+  ]);
 
   function saveChanges() {
     let name = props.charID;

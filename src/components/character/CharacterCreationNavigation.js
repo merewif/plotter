@@ -1,40 +1,36 @@
 import React, { useState } from "react";
-import { faSave } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import HorizontalNonLinearStepper from "../mui/Stepper";
+import CircularIntegration from "../mui/AnimatedSaveButton";
 
 const CharacterCreationNavigation = ({
-  nameInput,
-  appearanceInput,
-  goalsInput,
-  traitsInput,
-  monologueInput,
   saveCharacter,
   saveButtonText,
+  activeStep,
+  setActiveStep,
+  stepHandling,
 }) => {
+  const steps = [
+    "Name",
+    "Physical Description",
+    "Goals and Struggles",
+    "Flaws and Virtues",
+    "Character Monologue",
+  ];
   return (
-    <div id="character-creation-navigation">
-      <button className="character-creation-button" onClick={nameInput}>
-        Name
-      </button>
-      <button className="character-creation-button" onClick={appearanceInput}>
-        Physical Description
-      </button>
-      <button className="character-creation-button" onClick={goalsInput}>
-        Goals and Struggles
-      </button>
-      <button className="character-creation-button" onClick={traitsInput}>
-        Flaws and Virtues
-      </button>
-      <button className="character-creation-button" onClick={monologueInput}>
-        Monologue
-      </button>
-      <button
-        className="character-creation-save-button"
-        onClick={saveCharacter}
-      >
-        <FontAwesomeIcon icon={faSave} id="fa-icon" />
-        {saveButtonText}
-      </button>
+    <div id="character-creation-nav">
+      <HorizontalNonLinearStepper
+        steps={steps}
+        activeStep={activeStep}
+        setActiveStep={setActiveStep}
+        stepHandling={stepHandling}
+      />
+      <div style={{ position: "absolute", top: "90%", left: "90%" }}>
+        <CircularIntegration
+          clickFunction={saveCharacter}
+          buttonText={saveButtonText}
+          returnToggle={"circle"}
+        />
+      </div>
     </div>
   );
 };
