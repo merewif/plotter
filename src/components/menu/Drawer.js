@@ -100,14 +100,17 @@ export default function TemporaryDrawer() {
           </ListItemIcon>
           <ListItemText primary="About" />
         </ListItemButton>
-      </List>
-      <List sx={{ padding: 0 }}>
-        <ListItemButton component="a">
-          <ListItemIcon>
-            <ImportContactsIcon />
-          </ListItemIcon>
-          <ListItemText primary="Writing Resources" />
-        </ListItemButton>
+        <List sx={{ padding: 0 }}>
+          <ListItemButton
+            component="a"
+            onClick={() => navigate("/writing-resources")}
+          >
+            <ListItemIcon>
+              <ImportContactsIcon />
+            </ListItemIcon>
+            <ListItemText primary="Writing Resources" />
+          </ListItemButton>
+        </List>
 
         <ListItemButton
           component="a"

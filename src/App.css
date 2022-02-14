@@ -1301,3 +1301,39 @@ h1 {
 .MuiSnackbarContent-root {
   background-color: black !important;
 }
+
+#writing-resources {
+  overflow: auto;
+  height: 60vh;
+}
+
+#writing-resources li {
+  margin-bottom: 10px;
+}
+
+#writing-resources a {
+  color: black;
+  font-size: 1.2rem;
+}
+
+#writing-resources a:hover {
+  padding: 10px;
+  background-color: black;
+  color: white;
+  text-decoration: none;
+}
+
+#about-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#about {
+  width: 40vw;
+}
+
+#about a {
+  margin: 8px;
+  color: black;
+}

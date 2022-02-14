@@ -6,6 +6,7 @@ import Worldbuilding from "./Worldbuilding";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import SimpleBottomNavigation from "./components/mui/BottomNavigation";
 import About from "./About";
+import WritingResources from "./WritingResources";
 
 const Menu = () => {
   const [current, setCurrent] = useState(
@@ -42,6 +43,7 @@ const Menu = () => {
           <Route path="/plot/*" element={<Plot />} />
           <Route path="/worldbuilding/*" element={<Worldbuilding />} />
           <Route path="/about/*" element={<About />} />
+          <Route path="/writing-resources/*" element={<WritingResources />} />
         </Routes>
       </div>
       <div id="main-menu-container">
