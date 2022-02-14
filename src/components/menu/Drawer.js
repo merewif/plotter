@@ -21,6 +21,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import MenuIcon from "@mui/icons-material/Menu";
 import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 import PaletteIcon from "@mui/icons-material/Palette";
+import BookmarksSharpIcon from "@mui/icons-material/BookmarksSharp";
 
 // Nested Collapsible List Components
 import Collapse from "@mui/material/Collapse";
@@ -87,6 +88,18 @@ export default function TemporaryDrawer() {
           </ListItemIcon>
           <ListItemText primary="Worldbuilding" />
         </ListItemButton>
+        <ListItemButton
+          component="a"
+          onClick={() => {
+            navigate("/notes");
+          }}
+        >
+          <ListItemIcon>
+            <BookmarksSharpIcon />
+          </ListItemIcon>
+          <ListItemText primary="Notes" />
+        </ListItemButton>
+
         <Divider />
 
         <ListItemButton

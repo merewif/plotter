@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import CircularIntegration from "../../components/mui/AnimatedSaveButton";
-import HighlightOffOutlinedIcon from "@mui/icons-material/HighlightOffOutlined";
 
 const CreateBook = () => {
   const chartData = [
@@ -19,10 +18,13 @@ const CreateBook = () => {
       setBookCounter(Object.keys(JSON.parse(localStorage.books)).length);
     }
 
-    if (bookCounter === 0) {
+    if (
+      "books" in localStorage &&
+      Object.keys(JSON.parse(localStorage.books)).length === 0
+    ) {
       localStorage.removeItem("books");
     }
-  }, [bookCounter]);
+  }, []);
 
   function addBook(event) {
     event.preventDefault();
@@ -38,7 +40,7 @@ const CreateBook = () => {
         chaptersContent: {},
       },
     };
-    localStorage.setItem("books", JSON.stringify(bookObject));
+    //  localStorage.setItem("books", JSON.stringify(bookObject));
     setBooks(bookObject);
   }
 
@@ -49,7 +51,8 @@ const CreateBook = () => {
     }
     let bookObject = books;
     delete bookObject["book" + Number(bookCounter)];
-    localStorage.setItem("books", JSON.stringify(bookObject));
+    setBooks(bookObject);
+    //  localStorage.setItem("books", JSON.stringify(bookObject));
   }
 
   function confirmBooks(event) {
@@ -59,13 +62,6 @@ const CreateBook = () => {
     let bookObject = {};
     for (let i = 1; i <= bookCounter; i++) {
       let bookName = document.getElementById("book" + i + "input").value;
-      if (!bookName) {
-        setButtonText("Book name cannot be empty.");
-        setTimeout(() => {
-          setButtonText("Confirm & Submit");
-          return;
-        }, 2000);
-      }
 
       let fetchedChapterCount = books["book" + i]?.chapters ?? 1;
       let fetchedImgArray = books["book" + i]?.imgArray ?? imgArray;

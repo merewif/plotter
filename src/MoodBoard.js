@@ -8,6 +8,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const MoodBoard = (props) => {
+  const SAVEBTN = document.getElementById("save-btn") ?? null;
+
   const [input, setInput] = useState("");
   const [imgArray, setImgArray] = useState(["https://i.imgur.com/w1AGMhl.png"]);
   const [deleteButton, setDeleteButton] = useState(
@@ -33,6 +35,7 @@ const MoodBoard = (props) => {
     props.ChangeData([...imgArray, input]);
     $("#image-input").val("");
     setInput("");
+    if (SAVEBTN) SAVEBTN.classList.add("btn-unsaved");
   }
 
   function deleteLast(e) {

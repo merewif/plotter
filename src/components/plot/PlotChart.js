@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Chart } from "react-google-charts";
 import $ from "jquery";
 import RadioButtons from "../mui/RadioButtons";
+import CircularIntegration from "../mui/AnimatedSaveButton";
 
 const PlotChart = ({ setFetchBook, chartData, setChartData, saveChart }) => {
   const [stakes, setStakes] = useState(0);
@@ -9,9 +10,16 @@ const PlotChart = ({ setFetchBook, chartData, setChartData, saveChart }) => {
   const [comment, setComment] = useState("");
   const [curveType, setCurveType] = useState("function");
   const [fetchChart, setFetchChart] = useState(true);
+  const SAVEBTN = document.getElementById("save-btn") ?? null;
+
+  useEffect(() => {}, []);
 
   function addStakes(event) {
     event.preventDefault();
+    console.log(document.getElementById("save-btn"));
+
+    SAVEBTN.classList.add("btn-unsaved");
+
     for (let i = 1; i < chartData.length; i++) {
       if (chartData[i][0] > percentage) {
         const newData = [
@@ -127,9 +135,21 @@ const PlotChart = ({ setFetchBook, chartData, setChartData, saveChart }) => {
           <button onClick={addStakes}>Add</button>
           <button onClick={clearStakes}>Clear</button>
         </form>
-        <button id="savechart" onClick={saveChart}>
-          Save
-        </button>
+        <div
+          id="circular-container"
+          style={{
+            position: "absolute",
+            left: "100%",
+            borderRadius: "50%",
+            transitionDuration: "0s",
+          }}
+        >
+          <CircularIntegration
+            clickFunction={saveChart}
+            buttonText={"Save"}
+            returnToggle={"circle"}
+          />
+        </div>
         <RadioButtons handleChange={handleChange} parentState={curveType} />
       </div>
     </div>

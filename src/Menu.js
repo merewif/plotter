@@ -7,6 +7,7 @@ import { Routes, Route, useNavigate } from "react-router-dom";
 import SimpleBottomNavigation from "./components/mui/BottomNavigation";
 import About from "./About";
 import WritingResources from "./WritingResources";
+import Notes from "./Notes";
 
 const Menu = () => {
   const [current, setCurrent] = useState(
@@ -34,6 +35,16 @@ const Menu = () => {
     }
   }, [value]);
 
+  useEffect(() => {
+    if (
+      window.location.pathname === "/notes" ||
+      window.location.pathname === "/writing-resources" ||
+      window.location.pathname === "/about"
+    ) {
+      setValue(null);
+    }
+  });
+
   return (
     <>
       <div id="current-container">
@@ -44,6 +55,7 @@ const Menu = () => {
           <Route path="/worldbuilding/*" element={<Worldbuilding />} />
           <Route path="/about/*" element={<About />} />
           <Route path="/writing-resources/*" element={<WritingResources />} />
+          <Route path="/notes/*" element={<Notes />} />
         </Routes>
       </div>
       <div id="main-menu-container">

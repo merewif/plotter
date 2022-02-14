@@ -1359,3 +1359,19 @@ h1 {
   -o-transition: none !important;
   transition: none !important;
 }
+
+#circular-container {
+  position: absolute;
+  left: 100%;
+  border-radius: 50%;
+}
+
+.btn-unsaved {
+  border-radius: 50%;
+  box-shadow: 0px 0px 15px 5px #f00, inset 0px 0px 10px 11px #f00 !important;
+}
+
+.btn-saved {
+  border-radius: 50%;
+  box-shadow: none !important;
+}
