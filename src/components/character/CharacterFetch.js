@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import $ from "jquery";
 import CharacterDisplay from "./CharacterDisplay";
 import MoodBoard from "../../MoodBoard";
+import CircularIntegration from "../mui/AnimatedSaveButton";
+import DeleteButton from "../mui/AnimatedDeleteButton";
 
 const CharacterFetch = (props) => {
   const charID = props.charID;
@@ -56,6 +58,20 @@ const CharacterFetch = (props) => {
       <button id="delete-character" onClick={props.deleteCharacter}>
         {deleteButtonText}
       </button>
+      <div
+        id="btn-container"
+        style={{ position: "absolute", top: "80%", left: "92.5%" }}
+      >
+        <DeleteButton
+          clickFunction={props.deleteCharacter}
+          returnToggle={"circle"}
+          tooltipText={"Delete this character permanently"}
+        />
+        <CircularIntegration
+          returnToggle={"circle"}
+          clickFunction={saveChanges}
+        />
+      </div>
     </div>
   );
 };

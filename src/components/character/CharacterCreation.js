@@ -39,7 +39,6 @@ const Charactercreation = () => {
       document.getElementById("textarea-finished").style.display = "none";
     }
     if (activeStep <= 4) {
-      console.log("show");
       document.getElementsByTagName("textarea")[0].style.display = "auto";
     }
   }, [activeStep]);

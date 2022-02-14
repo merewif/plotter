@@ -88,7 +88,8 @@ export default function TemporaryDrawer() {
           </ListItemIcon>
           <ListItemText primary="Worldbuilding" />
         </ListItemButton>
-        <ListItemButton
+
+        {/* {<ListItemButton
           component="a"
           onClick={() => {
             navigate("/notes");
@@ -98,7 +99,7 @@ export default function TemporaryDrawer() {
             <BookmarksSharpIcon />
           </ListItemIcon>
           <ListItemText primary="Notes" />
-        </ListItemButton>
+        </ListItemButton>} */}
 
         <Divider />
 

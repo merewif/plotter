@@ -21,7 +21,6 @@ const CharacterDisplay = ({ currentCharacter, editable }) => {
     "Write a monologue with your character's voice, exploring their speech patterns and spoken mannerisms.",
   ];
   const KEYS = Object.keys(currentCharacter);
-  console.log(currentCharacter);
 
   return (
     <div>

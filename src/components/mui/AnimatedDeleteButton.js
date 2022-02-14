@@ -5,20 +5,18 @@ import { grey } from "@mui/material/colors";
 import Button from "@mui/material/Button";
 import Fab from "@mui/material/Fab";
 import CheckIcon from "@mui/icons-material/Check";
-import SaveIcon from "@mui/icons-material/Save";
+import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import Tooltip from "@mui/material/Tooltip";
 
-export default function CircularIntegration({
+export default function DeleteButton({
   clickFunction,
   buttonText,
+  tooltipText,
   returnToggle,
-  icon,
 }) {
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
-  const [tooltipText, setTooltipText] = React.useState("Save Changes");
   const timer = React.useRef();
-  const iconToDisplay = icon ?? <SaveIcon />;
   const buttonSx = {
     ...(success && {
       bgcolor: grey[500],
@@ -39,24 +37,18 @@ export default function CircularIntegration({
     if (!loading) {
       setSuccess(false);
       setLoading(true);
-      setTooltipText("Saving...");
-
       timer.current = window.setTimeout(() => {
         setSuccess(true);
         setLoading(false);
-        setTooltipText("Saved!");
-
-        document.getElementById("save-btn").classList.remove("btn-unsaved");
       }, 2000);
       timer.current = window.setTimeout(() => {
         setSuccess(false);
-        setTooltipText("Save changes");
       }, 4000);
     }
   };
 
   return (
-    <div id="save-btn">
+    <div id="delete-btn">
       <Tooltip title={tooltipText} arrow={true} placement="right">
         <Box sx={{ display: "flex", alignItems: "center" }}>
           {returnToggle === "circle" ? (
@@ -67,7 +59,7 @@ export default function CircularIntegration({
                 sx={buttonSx}
                 onClick={handleButtonClick}
               >
-                {success ? <CheckIcon /> : iconToDisplay}
+                {success ? <CheckIcon /> : <DeleteForeverIcon />}
               </Fab>
               {loading && (
                 <CircularProgress
