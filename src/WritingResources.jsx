@@ -4,7 +4,7 @@ const WritingResources = () => {
   const RESOURCES = [
     {
       href: "https://www.goodreads.com/book/show/19173266-write-publish-repeat",
-      name: "Writing Resources Write. Publish. Repeat by Sean Platt, Johnny B. Truant",
+      name: "Write. Publish. Repeat by Sean Platt, Johnny B. Truant",
     },
 
     {

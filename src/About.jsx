@@ -8,9 +8,14 @@ const About = () => {
         style={{ textAlign: "justify", fontSize: "1.5rem", hyphens: "auto" }}
       >
         <p
-          style={{ textAlign: "center", fontSize: "2rem", fontStyle: "italic" }}
+          style={{
+            textAlign: "center",
+            fontSize: "2rem",
+            fontStyle: "italic",
+            marginTop: 0,
+          }}
         >
-          Hey wordsmith,
+          Hey, wordsmith.
         </p>
         <p>
           I have built this site because I really needed a tool to visualize the
