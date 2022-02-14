@@ -117,7 +117,7 @@ const PlotChart = ({ setFetchBook, chartData, setChartData, saveChart }) => {
               type="text"
               onChange={(event) => setPercentage(event.target.value)}
             />
-            % mark of the plot with the following comment:{" "}
+            % mark of the plot with the following comment:
             <input
               type="text"
               onChange={(event) => setComment(event.target.value)}

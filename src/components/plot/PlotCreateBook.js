@@ -8,7 +8,6 @@ const CreateBook = () => {
     [0, 0, "Startpoint"],
     [100, 0, "Endpoint"],
   ];
-  const [savedBookNames, setSavedBookNames] = useState([]);
   const [bookCounter, setBookCounter] = useState(0);
   const imgArray = ["https://i.imgur.com/w1AGMhl.png"];
   const [books, setBooks] = useState({});
@@ -18,13 +17,10 @@ const CreateBook = () => {
     if ("books" in localStorage) {
       setBooks(JSON.parse(localStorage.books));
       setBookCounter(Object.keys(JSON.parse(localStorage.books)).length);
+    }
 
-      let obj = Object.keys(JSON.parse(localStorage.books));
-      let titlesArray = [];
-      obj.map((book, index) => {
-        titlesArray.push(JSON.parse(localStorage.books)[book].name);
-        setSavedBookNames(titlesArray.sort());
-      });
+    if (bookCounter === 0) {
+      localStorage.removeItem("books");
     }
   }, [bookCounter]);
 

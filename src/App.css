@@ -896,7 +896,7 @@ h1 {
 .chapterButtons {
   background: black;
   color: white;
-  font-family: "Cormorant Garamond";
+  font-family: "Montserrat";
   border: 0;
   width: 60%;
   margin-left: 5px;
@@ -904,7 +904,7 @@ h1 {
   margin-bottom: 5px;
   height: 2em;
   padding: 5px;
-  font-size: 1.25em;
+  font-size: 1em;
   cursor: pointer;
   transition-duration: 0s;
   flex-basis: 100px;
@@ -1314,13 +1314,14 @@ h1 {
 #writing-resources a {
   color: black;
   font-size: 1.2rem;
+  text-decoration: none;
 }
 
 #writing-resources a:hover {
   padding: 10px;
   background-color: black;
   color: white;
-  text-decoration: none;
+  border-radius: 10px;
 }
 
 #about-container {

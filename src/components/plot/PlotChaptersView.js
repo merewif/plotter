@@ -19,7 +19,9 @@ const ChaptersView = ({
   ]);
   const [chartSavedData, setChartSavedData] = useState(chartDefaultData);
   const [chartNewData, setChartNewData] = useState([]);
-  const [chapterImages, setChapterImages] = useState([]);
+  const [chapterImages, setChapterImages] = useState([
+    "https://i.imgur.com/w1AGMhl.png",
+  ]);
   const [showMoodboard, setShowMoodboard] = useState();
 
   function saveChart() {
