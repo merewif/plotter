@@ -269,7 +269,8 @@ textarea:focus {
 }
 
 #stored-characters-list {
-  display: inline;
+  display: flex;
+  justify-content: center;
 }
 
 .stored-chars {
@@ -400,10 +401,10 @@ textarea:focus {
 
 #display-fetched-character {
   width: 65vw;
-  height: 60vh;
+  height: 61vh;
   overflow-y: scroll;
   position: absolute;
-  top: 25%;
+  top: 30%;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -1374,4 +1375,16 @@ h1 {
 .btn-saved {
   border-radius: 50%;
   box-shadow: none !important;
+}
+
+.btn-red {
+  border: none;
+  box-shadow: 0px 0px 15px 5px #f00, inset 0px 0px 1px 1px #f00 !important;
+}
+
+#module-intro-phrase p:first-child {
+  text-align: justify;
+  text-align-last: center;
+  max-width: 30vw;
+  font-size: 1.5rem;
 }

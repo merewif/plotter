@@ -9,6 +9,7 @@ import {
 
 const MoodBoard = (props) => {
   const SAVEBTN = document.getElementById("save-btn") ?? null;
+  const SAVEBTN2 = document.getElementById("button-black") ?? null;
 
   const [input, setInput] = useState("");
   const [imgArray, setImgArray] = useState(["https://i.imgur.com/w1AGMhl.png"]);
@@ -36,6 +37,7 @@ const MoodBoard = (props) => {
     $("#image-input").val("");
     setInput("");
     if (SAVEBTN) SAVEBTN.classList.add("btn-unsaved");
+    if (SAVEBTN2) SAVEBTN2.classList.add("btn-red");
   }
 
   function deleteLast(e) {

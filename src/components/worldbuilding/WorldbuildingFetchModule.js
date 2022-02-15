@@ -68,6 +68,7 @@ const WorldbuildingFetchModule = ({
   }, [currentlyOpenedItem]);
 
   function saveChangedItem() {
+    document.getElementById("button-black").classList.remove("btn-red");
     let keylist = Object.keys(moduleData[currentlyOpenedItem]);
     let changedForms = {};
     let newObject = {
@@ -189,6 +190,7 @@ const WorldbuildingFetchModule = ({
                   setSnackbarMessage("Changes saved.");
                   setSnackbarOpen(true);
                 }}
+                id="button-black"
                 className="button-black"
                 style={{
                   display: "inline-block",
@@ -217,18 +219,31 @@ const WorldbuildingFetchModule = ({
             </div>
           </div>
         ) : (
-          <p
-            style={{
-              textAlign: "center",
-              position: "absolute",
-              top: "45%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: "100%",
-            }}
-          >
-            {moduleIntroductionPhrase}
-          </p>
+          <div id="module-intro-phrase">
+            <p
+              style={{
+                position: "absolute",
+                top: "45%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: "100%",
+              }}
+            >
+              {moduleIntroductionPhrase.phrase}
+            </p>
+            <p
+              style={{
+                position: "absolute",
+                top: "95%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: "100%",
+                textAlign: "center",
+              }}
+            >
+              {moduleIntroductionPhrase.source}
+            </p>
+          </div>
         )}
       </div>
       <SimpleSnackbar

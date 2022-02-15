@@ -8,26 +8,29 @@ const CharacterDisplay = ({ currentCharacter, editable }) => {
   const LABELS = [
     "Name",
     "Physical description: ",
-    "Monologue: ",
     "Goals and Struggles: ",
     "Flaws and Virtues: ",
+    "Monologue: ",
   ];
-  const IDs = ["name", "appearance", "monologue", "goals", "traits"];
+  const IDs = ["name", "appearance", "goals", "traits", "monologue"];
   const TOOLTIPTEXTS = [
     "First things first, tell me the name of your character.",
     "Write down everything about how they look like. Try to describe them from the perspective of a stranger who is looking at your character for the first time.",
     "Write down all about the goals and struggles your character faces. What are their internal or external needs? Every interesting character has something to fight for and strive towards. What's your character's? Why are they motivated to achieve their goals? What obstacles stand in their way?",
-    "Think about the moral aspect of your character. Assemble a list of their moral flaws and moral virtues. Morality is a complicated subject and if you feel like you don't know where to begin, consult a list of aristotelian virtues and vices for inspiration. Keep in mind that by defining their flaws, you are defining the start of their character arc, the baseline from which they will change into someone else, and by defining their virtues, you are defining the means by which your character changes.",
+    "Think about the moral aspect of your character. Write a list of their moral flaws and moral virtues. If you don't know where to begin, consult a list of aristotelian virtues and vices for inspiration. Keep in mind that by defining their flaws, you are defining the baseline of their character arc, and by defining their virtues, you are defining the means by which your character changes into someone else (or vice versa).",
     "Write a monologue with your character's voice, exploring their speech patterns and spoken mannerisms.",
   ];
-  const KEYS = Object.keys(currentCharacter);
+  const KEYS = [
+    "characterName",
+    "characterAppearance",
+    "characterGoals",
+    "characterTraits",
+    "characterMonologue",
+  ];
 
   return (
     <div>
       <div id="display-fetched-character" style={{ transitionDuration: "0s" }}>
-        <div id="display-name" className="display-current-character-element">
-          <p id="fetched-character-name">{currentCharacter.characterName}</p>
-        </div>
         {KEYS.map((e, i) => {
           if (KEYS[i] === "characterName" || KEYS[i] === "images") return;
           return (

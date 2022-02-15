@@ -159,18 +159,34 @@ const Worldbuilding = () => {
   const [isModuleFetched, setIsModuleFetched] = useState(false);
 
   const phrases = {
-    art: "'Learn about art, Captain. When you understand a species' art, you understand that species.' (Grand Admiral Thrawn)",
-    legendsAndReligions: "legendsAndReligions",
+    art: {
+      phrase:
+        "'Learn about art, Captain. When you understand a species' art, you understand that species.'",
+      source: "(Grand Admiral Thrawn)",
+    },
+    legendsAndReligions: {
+      phrase: "'All religions are true but none are literal.'",
+      source: "(Joseph Campbell)",
+    },
     locationsAndSettings: "locationsAndSettings",
     geography: "geography",
     floraAndFauna: "floraAndFauna",
     racesNationsCultures: "racesNationsCultures",
-    history: "'History is more or less bunk.' (Henry Ford)",
-    politicsAndEconomics: "politicsAndEconomics",
+    history: {
+      phrase: "'History is more or less bunk.'",
+      source: "(Henry Ford)",
+    },
+    politicsAndEconomics: {
+      phrase:
+        "'Government, taught Hume, is always government of the many by the few. Power is therefore always ultimately on the side of the governed, and the governors have nothing to support them but opinion. ... If public opinion is ultimately responsible for the structure of government, it is also the agency that determines whether there is freedom or bondage. There is virtually only one factor that has the power to make people unfree — tyrannical public opinion. The struggle for freedom is ultimately not resistance to autocrats or oligarchs but resistance to the despotism of public opinion. It is not the struggle of the many against the few but of minorities — sometimes of a minority of but one man — against the majority. The worst and most dangerous form of absolutist rule is that of an intolerant majority.'",
+      source: "(Ludwig von Mises)",
+    },
     itemsAndTechnology: "itemsAndTechnology",
     skillsAndSpells: "skillsAndSpells",
-    magicSystems:
-      "'Limitations are more important than abilities.' (Brandon Sanderson)",
+    magicSystems: {
+      phrase: "'Limitations are more important than abilities.'",
+      source: "(Brandon Sanderson)",
+    },
     professions: "professions",
   };
 

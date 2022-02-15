@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Plotsidebar from "./Plotsidebar";
 import ChaptersView from "./PlotChaptersView";
 import BooksView from "./PlotBooksView";
@@ -35,6 +35,11 @@ const StoryArcs = () => {
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
   };
+
+  useEffect(() => {
+    if (document.getElementById("save-btn"))
+      document.getElementById("save-btn").classList.remove("btn-unsaved");
+  }, [currentlyOpenedBook, currentlyOpenedChapter]);
 
   return (
     <div>

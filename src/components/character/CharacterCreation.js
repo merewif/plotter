@@ -9,9 +9,6 @@ const Charactercreation = () => {
   const [buttonText, setButtonText] = useState("Submit");
   const [labelid, setLabelId] = useState("name");
   const [input, setInput] = useState("");
-  const [text, setText] = useState(
-    "First things first, tell me the name of your character."
-  );
   const [name, setName] = useState("");
   const [looks, setLooks] = useState("");
   const [goals, setGoals] = useState("");
@@ -29,24 +26,10 @@ const Charactercreation = () => {
   const fetchedCharObject = localStorage.getItem("characters") ?? "{}";
   const storedCharObject = JSON.parse(fetchedCharObject) ?? {};
 
-  useEffect(() => {
-    setDisplay("");
-
-    if (activeStep === 0) setTextareaClass("textarea-name");
-    if (activeStep > 0) setTextareaClass("textarea-text");
-
-    if (activeStep > 4) {
-      document.getElementById("textarea-finished").style.display = "none";
-    }
-    if (activeStep <= 4) {
-      document.getElementsByTagName("textarea")[0].style.display = "auto";
-    }
-  }, [activeStep]);
-
   const characterCreationTextObject = [
     {
       labelid: "name",
-      text: "First things first, tell me the name of your character.",
+      text: "First things first, tell me the name of your character. ",
       state: name,
     },
     {
@@ -61,7 +44,7 @@ const Charactercreation = () => {
     },
     {
       labelid: "traits",
-      text: "Now think about the moral aspect of your character. Assemble a list of their moral flaws and moral virtues. Morality is a complicated subject and if you feel like you don't know where to begin, consult a list of aristotelian virtues and vices for inspiration. Keep in mind that by defining their flaws, you are defining the start of their character arc, the baseline from which they will change into someone else, and by defining their virtues, you are defining the means by which your character changes.",
+      text: "Now think about the moral aspect of your character. Write a list of their moral flaws and moral virtues. If you don't know where to begin, consult a list of aristotelian virtues and vices for inspiration. Keep in mind that by defining their flaws, you are defining the baseline of their character arc, and by defining their virtues, you are defining the means by which your character changes into someone else (or vice versa).",
       state: traits,
     },
     {
@@ -71,7 +54,21 @@ const Charactercreation = () => {
     },
   ];
 
-  const labelarray = ["name", "looks", "goals", "traits", "monologue"];
+  const [text, setText] = useState(characterCreationTextObject[0].text);
+
+  useEffect(() => {
+    setDisplay("");
+
+    if (activeStep === 0) setTextareaClass("textarea-name");
+    if (activeStep > 0) setTextareaClass("textarea-text");
+
+    if (activeStep > 4) {
+      document.getElementById("textarea-finished").style.display = "none";
+    }
+    if (activeStep <= 4) {
+      document.getElementsByTagName("textarea")[0].style.display = "auto";
+    }
+  }, [activeStep]);
 
   function stepHandling(step) {
     $(textareaClass).show();

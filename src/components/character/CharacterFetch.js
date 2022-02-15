@@ -52,12 +52,6 @@ const CharacterFetch = (props) => {
 
       <CharacterDisplay currentCharacter={parseCharacter} editable={"true"} />
 
-      <button id="save-changes" onClick={saveChanges}>
-        {saveButtonText}
-      </button>
-      <button id="delete-character" onClick={props.deleteCharacter}>
-        {deleteButtonText}
-      </button>
       <div
         id="btn-container"
         style={{ position: "absolute", top: "80%", left: "92.5%" }}

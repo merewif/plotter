@@ -12,8 +12,6 @@ const PlotChart = ({ setFetchBook, chartData, setChartData, saveChart }) => {
   const [fetchChart, setFetchChart] = useState(true);
   const SAVEBTN = document.getElementById("save-btn") ?? null;
 
-  useEffect(() => {}, []);
-
   function addStakes(event) {
     event.preventDefault();
     console.log(document.getElementById("save-btn"));
