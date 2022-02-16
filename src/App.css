@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:ital,wght@0,100;0,300;0,900;1,100;1,200&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:ital,wght@0,100;0,300;0,400;0,900;1,100;1,200&display=swap");
 
 * {
   transition-duration: 0.5s;
@@ -580,7 +580,7 @@ textarea:focus {
   color: white;
   top: 90%;
   left: 5%;
-  width: 90%;
+  width: 85%;
   height: 3vh;
   border: none;
   padding: 0;
@@ -828,8 +828,8 @@ textarea:focus {
 }
 
 .viewstate {
-  position: relative;
-  top: 20%;
+  position: absolute;
+  top: 15%;
   left: 50%;
   transform: translate(-50%, 0%);
   height: 13vh;
@@ -841,10 +841,6 @@ textarea:focus {
   height: 50px;
   max-width: 50vw;
   z-index: 10000;
-}
-
-#books-view {
-  top: 25%;
 }
 
 .book-display-in-view {
@@ -862,6 +858,7 @@ textarea:focus {
   text-transform: uppercase;
   margin: 5px;
   padding: 3px;
+  overflow: hidden;
 }
 
 .book-display-in-view:hover {
@@ -1085,9 +1082,9 @@ h1 {
   color: black;
   font-family: "Montserrat";
   border: 1px solid black;
-  font-size: 1em;
+  font-size: 0.75em;
   margin: 5px;
-  padding: 1em;
+  padding: 0.8em;
   cursor: pointer;
   font-weight: 900;
   text-transform: uppercase;
@@ -1309,7 +1306,7 @@ h1 {
   width: 6%;
   position: relative;
   left: 49%;
-  bottom: 0%;
+  bottom: 2.5%;
   transform: translate(-50%, 25%);
 }
 
@@ -1387,4 +1384,28 @@ h1 {
   text-align-last: center;
   max-width: 30vw;
   font-size: 1.5rem;
+}
+
+/* For 1024 Resolution */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  #module-intro-phrase p:first-child {
+    font-size: 1rem;
+  }
+}
+
+/* For 1366 Resolution */
+@media only screen and (min-width: 1030px) and (max-width: 1366px) {
+  #module-intro-phrase p:first-child {
+    font-size: 1rem;
+  }
+
+  .worldbuilding-navbtn {
+    font-size: 0.6em !important;
+    margin-bottom: 10px;
+    padding: 2px !important;
+  }
+
+  .button-black {
+    width: 40% !important;
+  }
 }
