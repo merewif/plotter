@@ -3,3 +3,4 @@ build
 firebase-debug.log
 .firebase
 electron
+dist
