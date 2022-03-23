@@ -24,7 +24,8 @@ function createWindow() {
       slashes: true,
     });
   mainWindow.loadURL(startUrl);
-  mainWindow.setFullScreen(true);
+  mainWindow.maximize();
+  // mainWindow.setFullScreen(true);
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
@@ -41,6 +42,12 @@ app.whenReady().then(() => {
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
+});
+
+// Open external links in browser
+mainWindow.webContents.on("new-window", function (e, url) {
+  e.preventDefault();
+  require("electron").shell.openExternal(url);
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common
