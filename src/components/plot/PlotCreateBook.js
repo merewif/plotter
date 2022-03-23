@@ -95,7 +95,9 @@ const CreateBook = () => {
           <button className="set-book-count" onClick={deductBook}>
             <b style={{ fontFamily: "Montserrat" }}>-</b>
           </button>
-          <h1>{bookCounter}</h1>
+          <div id="bookcount-div">
+            <h4>{bookCounter}</h4>
+          </div>
           <button className="set-book-count" onClick={addBook}>
             <b style={{ fontFamily: "Montserrat" }}>+</b>
           </button>

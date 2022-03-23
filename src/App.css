@@ -624,7 +624,13 @@ textarea:focus {
   font-family: "Cormorant Garamond";
 }
 
-#book-counter h1 {
+#bookcount-div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#book-counter h4 {
   font-family: "Montserrat";
   font-weight: 900;
   margin: 0;
@@ -1449,7 +1455,7 @@ h1 {
     justify-content: center;
   }
 
-  #book-counter h1 {
+  #book-counter h4 {
     font-size: 1.5rem;
   }
 }
