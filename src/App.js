@@ -9,6 +9,9 @@ function App() {
       <div id="drawer-btn-container">
         <TemporaryDrawer />
       </div>
+      <div id="mobile-error-message">
+        Plotter is not available on small screens or mobile devices.
+      </div>
       <div className="App">
         <header className="App-header">
           <h1>Plotter</h1>

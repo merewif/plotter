@@ -34,8 +34,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "electron": "set ELECTRON_START_URL=http://localhost:3000 && electron .",
-    "release": "electron-builder -w",
+    "electron-start": "set ELECTRON_START_URL=http://localhost:3000 && electron .",
+    "electron-build": "electron-builder -w",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -79,7 +79,8 @@
       "target": "dmg"
     },
     "win": {
-      "target": "portable"
+      "target": "portable",
+      "icon": "build/icon.png"
     },
     "linux": {
       "target": "deb"

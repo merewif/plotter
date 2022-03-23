@@ -22,7 +22,7 @@ const CharacterOptions = () => {
       return;
     }
 
-    $("#char-choice-buttons").css({ top: "110%" });
+    $("#char-choice-buttons").css({ top: "112.5%" });
     $(".option").css({
       "font-size": "0.8em",
       height: "25px",

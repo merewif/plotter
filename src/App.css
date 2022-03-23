@@ -15,6 +15,10 @@
   background-color: #000;
 }
 
+#mobile-error-message {
+  display: none;
+}
+
 body {
   margin: 0;
   background: white;
@@ -75,6 +79,7 @@ body {
   -ms-user-select: none; /* Internet Explorer/Edge */
   border: 2px solid black;
   width: 100%;
+  z-index: 1;
 }
 
 .module h1 {
@@ -89,6 +94,7 @@ body {
   text-transform: uppercase;
   color: white;
   font-weight: 300;
+  margin: 0;
 }
 
 main {
@@ -107,7 +113,7 @@ main h1 {
 
 .left-side {
   position: absolute;
-  top: 55%;
+  top: 52%;
   right: 100%;
   transform: translate(0%, -50%);
   height: 75vh;
@@ -119,7 +125,7 @@ main h1 {
 
 .right-side {
   position: absolute;
-  top: 50%;
+  top: 52%;
   left: 100%;
   transform: translate(1%, -50%);
   height: 75vh;
@@ -250,7 +256,7 @@ textarea:focus {
 
 .textarea-name {
   height: 25px;
-  width: 25%;
+  width: 75%;
 }
 
 .textarea-text {
@@ -404,7 +410,7 @@ textarea:focus {
   height: 61vh;
   overflow-y: scroll;
   position: absolute;
-  top: 30%;
+  top: 20%;
   left: 50%;
   transform: translateX(-50%);
 }
@@ -623,6 +629,7 @@ textarea:focus {
   font-weight: 900;
   margin: 0;
   top: 50%;
+  font-size: 1.5rem;
 }
 
 #book-namer {
@@ -709,9 +716,10 @@ textarea:focus {
 
 #arcs-nav-buttons {
   position: absolute;
-  top: 11%;
+  top: 7.5%;
   left: 50%;
   transform: translate(-50%, 20%);
+  z-index: 2;
 }
 
 #arcs-nav-buttons .MuiToggleButton-root {
@@ -829,7 +837,7 @@ textarea:focus {
 
 .viewstate {
   position: absolute;
-  top: 15%;
+  top: 12.5%;
   left: 50%;
   transform: translate(-50%, 0%);
   height: 13vh;
@@ -984,7 +992,7 @@ h1 {
   text-transform: uppercase;
   cursor: pointer;
   display: none;
-  width: 12.5%;
+  width: auto;
   padding: 8px;
 }
 
@@ -1040,7 +1048,7 @@ h1 {
   border-top: 1px solid white;
   padding-top: 20px;
   display: none;
-  height: 80%;
+  height: 75%;
   background: black;
 }
 
@@ -1085,6 +1093,8 @@ h1 {
   font-size: 0.75em;
   margin: 5px;
   padding: 0.8em;
+  padding-top: 0;
+  padding-bottom: 0;
   cursor: pointer;
   font-weight: 900;
   text-transform: uppercase;
@@ -1233,6 +1243,7 @@ h1 {
 
 #textarea-name {
   text-align: center;
+  width: 50%;
   font-size: 1.5em;
   height: 1.5em;
   overflow: hidden;
@@ -1289,7 +1300,7 @@ h1 {
 }
 
 #radio-btns {
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .MuiButton-contained {
@@ -1305,8 +1316,8 @@ h1 {
 #circular-save-btn-container {
   width: 6%;
   position: relative;
-  left: 49%;
-  bottom: 2.5%;
+  left: 97%;
+  bottom: 10%;
   transform: translate(-50%, 25%);
 }
 
@@ -1383,13 +1394,63 @@ h1 {
   text-align: justify;
   text-align-last: center;
   max-width: 30vw;
-  font-size: 1.5rem;
+  font-size: 1rem;
+}
+
+#plot-nav button,
+#char-choice-buttons button {
+  font-size: 0.8rem;
+}
+
+#worldbuilding-buttons-container {
+  width: 100%;
+}
+
+/* For Mobile */
+@media only screen and (max-device-width: 1000px) {
+  #mobile-error-message {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    font-family: "Montserrat";
+    font-weight: 300;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .App,
+  #drawer-btn-container {
+    display: none;
+  }
 }
 
 /* For 1024 Resolution */
-@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+@media only screen and (min-device-width: 1000px) and (max-device-width: 1366px) {
   #module-intro-phrase p:first-child {
     font-size: 1rem;
+  }
+
+  #plot-nav button,
+  #char-choice-buttons button {
+    font-size: 0.8rem;
+    width: 50%;
+  }
+
+  .textarea-name {
+    width: 80%;
+  }
+
+  #character-prompt {
+    line-height: 0.9rem;
+  }
+
+  .bookname-input-container {
+    padding-left: 0 !important;
+    justify-content: center;
+  }
+
+  #book-counter h1 {
+    font-size: 1.5rem;
   }
 }
 
@@ -1407,5 +1468,12 @@ h1 {
 
   .button-black {
     width: 40% !important;
+  }
+}
+
+@media only screen and (min-width: 1030px) and (max-width: 1440px) {
+  .worldbuilding-navbtn {
+    padding-top: 0;
+    padding-bottom: 0;
   }
 }

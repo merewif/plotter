@@ -73,7 +73,12 @@ export default function HorizontalNonLinearStepper({
                     Step {activeStep + 1} already completed
                   </Typography>
                 ) : (
-                  <Button onClick={handleComplete}>
+                  <Button
+                    onClick={handleComplete}
+                    sx={{
+                      border: "1px solid black",
+                    }}
+                  >
                     {completedSteps() === totalSteps() - 1
                       ? "Finish"
                       : "Complete Step"}

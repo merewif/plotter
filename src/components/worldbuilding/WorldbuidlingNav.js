@@ -13,13 +13,13 @@ const WorldbuildingNav = ({
   async function onClick(event) {
     $("#worldbuilding-navigation").css({
       "grid-auto-flow": "column",
-      top: "111%",
+      top: "115%",
       width: "97.5vw",
       height: "auto",
     });
 
     $(".worldbuilding-navbtn").css({
-      "font-size": "0.65rem",
+      "font-size": "10px",
       width: "7.5vw",
       background: "white",
       color: "black",

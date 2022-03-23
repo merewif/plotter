@@ -103,7 +103,11 @@ const CreateBook = () => {
       </div>
       <div id="book-namer">
         {[...Array(bookCounter)].map((e, i) => (
-          <div key={i} style={{ display: "flex", paddingLeft: "20vh" }}>
+          <div
+            key={i}
+            className="bookname-input-container"
+            style={{ display: "flex", paddingLeft: "20vh" }}
+          >
             <form>
               <label>
                 <div className="bookname-label">Book {i + 1}:</div>

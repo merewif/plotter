@@ -13,7 +13,7 @@ const Worldbuilding = () => {
         "This is the artwork's description. Click here to edit the field.",
       lore: "This is the artwork's lore.  Click here to edit the field.",
       icon: "https://game-icons.net/icons/ffffff/000000/1x1/delapouite/mona-lisa.svg",
-      images: [moodboardImage],
+      images: ["https://i.imgur.com/w1AGMhl.png"],
     },
     legendsAndReligions: {
       name: "Sample Religion",
@@ -23,7 +23,7 @@ const Worldbuilding = () => {
       alliesAndEnemies:
         "These are the allies and the enemies of the creed.  Click here to edit the field.",
       icon: "https://game-icons.net/icons/ffffff/000000/1x1/delapouite/church.svg",
-      images: [moodboardImage],
+      images: ["https://i.imgur.com/w1AGMhl.png"],
     },
     locationsAndSettings: {
       name: "Sample Setting",
@@ -33,7 +33,7 @@ const Worldbuilding = () => {
       events:
         "This is what happens in this location in your story.  Click here to edit the field.",
       icon: "https://game-icons.net/icons/ffffff/000000/1x1/lorc/treasure-map.svg",
-      images: [moodboardImage],
+      images: ["https://i.imgur.com/w1AGMhl.png"],
     },
     geography: {
       name: "Sample Geographical Formation",
@@ -42,7 +42,7 @@ const Worldbuilding = () => {
       history:
         "This is the general history of the geographical formation, including its origin and formation and the events and politics that have affected and are related to it. Click here to edit the field.",
       icon: "https://game-icons.net/icons/ffffff/000000/1x1/lorc/globe.svg",
-      images: [moodboardImage],
+      images: ["https://i.imgur.com/w1AGMhl.png"],
     },
     floraAndFauna: {
       name: "Sample Creature",
@@ -55,7 +55,7 @@ const Worldbuilding = () => {
       limitations:
         "What makes it difficult to acquire or deal with the creature? Click here to edit the field.",
       icon: "https://game-icons.net/icons/ffffff/000000/1x1/darkzaitzev/plants-and-animals.svg",
-      images: [moodboardImage],
+      images: ["https://i.imgur.com/w1AGMhl.png"],
     },
     racesNationsCultures: {
       name: "Sample People",
@@ -68,7 +68,7 @@ const Worldbuilding = () => {
       relationsWithOthers:
         "This is how and why the group relates to other groups. Click here to edit the field.",
       icon: "https://game-icons.net/icons/ffffff/000000/1x1/delapouite/family-tree.svg",
-      images: [moodboardImage],
+      images: ["https://i.imgur.com/w1AGMhl.png"],
     },
     history: {
       name: "Sample Event",
@@ -81,7 +81,7 @@ const Worldbuilding = () => {
       evaluation:
         "This is how different groups and characters evaluate and appraise the event. Click here to edit the field.",
       icon: "https://game-icons.net/icons/ffffff/000000/1x1/delapouite/book-pile.svg",
-      images: [moodboardImage],
+      images: ["https://i.imgur.com/w1AGMhl.png"],
     },
     politicsAndEconomics: {
       name: "Sample Legislation",
@@ -92,7 +92,7 @@ const Worldbuilding = () => {
       motivations:
         "These were the motivations and interest groups behind the legislation. Click here to edit the field.",
       icon: "https://game-icons.net/icons/ffffff/000000/1x1/delapouite/coins.svg",
-      images: [moodboardImage],
+      images: ["https://i.imgur.com/w1AGMhl.png"],
     },
     itemsAndTechnology: {
       name: "Sample Item",
@@ -102,7 +102,7 @@ const Worldbuilding = () => {
       limitations:
         "What makes it difficult to acquire or use the item? Click here to edit the field.",
       icon: "https://game-icons.net/icons/ffffff/000000/1x1/lorc/tied-scroll.svg",
-      images: [moodboardImage],
+      images: ["https://i.imgur.com/w1AGMhl.png"],
     },
     skillsAndSpells: {
       name: "Sample Ability",
@@ -115,7 +115,7 @@ const Worldbuilding = () => {
       socialImpact:
         "These are the social and economic consequences of the ability. Click here to edit the field.",
       icon: "https://game-icons.net/icons/ffffff/000000/1x1/delapouite/bolt-spell-cast.svg",
-      images: [moodboardImage],
+      images: ["https://i.imgur.com/w1AGMhl.png"],
     },
     magicSystems: {
       name: "Sample System",
@@ -127,7 +127,7 @@ const Worldbuilding = () => {
       socialImpact:
         "These are the social and economic consequences of the magic system. Click here to edit the field.",
       icon: "https://game-icons.net/icons/ffffff/000000/1x1/lorc/magic-gate.svg",
-      images: [moodboardImage],
+      images: ["https://i.imgur.com/w1AGMhl.png"],
     },
     professions: {
       name: "Sample Profession",
@@ -138,7 +138,7 @@ const Worldbuilding = () => {
       socialImpact:
         "These are social and economic effects of the profession, including how the craftsmen are viewed by other groups and individuals. Click here to edit the field.",
       icon: "https://game-icons.net/icons/ffffff/000000/1x1/lorc/anvil-impact.svg",
-      images: [moodboardImage],
+      images: ["https://i.imgur.com/w1AGMhl.png"],
     },
   };
   const [worldbuildingObject, setWorldbuildingObject] = useState({

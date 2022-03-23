@@ -259,12 +259,14 @@ const ChaptersView = ({
           setFetchBook={setChartNewData}
         />
       </div>
-      <button onClick={removeChapter} id="remove-chapter-btn">
-        Remove Chapter
-      </button>
-      <button onClick={addChapter} id="add-chapter-btn">
-        Add Chapter
-      </button>
+      <div style={{ width: "100%" }}>
+        <button onClick={removeChapter} id="remove-chapter-btn">
+          Remove Chapter
+        </button>
+        <button onClick={addChapter} id="add-chapter-btn">
+          Add Chapter
+        </button>
+      </div>
     </div>
   );
 };

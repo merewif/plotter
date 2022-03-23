@@ -4,3 +4,4 @@ firebase-debug.log
 .firebase
 electron
 dist
+.env

@@ -25,7 +25,7 @@ const Plot = () => {
 
     navigate(e.target.id);
 
-    $("#plot-nav").css({ top: "110%" });
+    $("#plot-nav").css({ top: "112.5%" });
     $("#plot-nav button").css({ "font-size": "0.8em", height: "25px" });
     $(".plot-options").removeClass("white-active-btn");
     $(e.target).addClass("white-active-btn");
