@@ -24,7 +24,7 @@ const MoodBoard = (props) => {
       setImgArray(props.images);
       setImported(1);
     }
-  });
+  }, []);
 
   function currentUrl(event) {
     setInput(event.target.value);

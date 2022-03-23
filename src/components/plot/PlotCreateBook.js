@@ -110,7 +110,7 @@ const CreateBook = () => {
             className="bookname-input-container"
             style={{ display: "flex", paddingLeft: "20vh" }}
           >
-            <form>
+            <form onSubmit={confirmBooks}>
               <label>
                 <div className="bookname-label">Book {i + 1}:</div>
                 <input

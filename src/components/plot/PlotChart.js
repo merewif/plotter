@@ -111,7 +111,7 @@ const PlotChart = ({ setFetchBook, chartData, setChartData, saveChart }) => {
             id="chart"
           />
         ) : null}
-        <form id="chart-input">
+        <form id="chart-input" onSubmit={(e) => e.preventDefault()}>
           <label>
             Add
             <input

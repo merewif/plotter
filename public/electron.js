@@ -1,17 +1,20 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, shell } = require("electron");
 const path = require("path");
 const url = require("url");
+app.disableHardwareAcceleration();
 
 function createWindow() {
   // Create the browser window.
-
   const mainWindow = new BrowserWindow({
     width: 1200,
     height: 800,
+    transparent: true,
+    frame: false,
     autoHideMenuBar: true,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
+      nodeIntegration: true,
     },
   });
 
@@ -29,6 +32,12 @@ function createWindow() {
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools()
+
+  // Open external links in browser
+  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    shell.openExternal(url);
+    return { action: "deny" };
+  });
 }
 
 // This method will be called when Electron has finished
@@ -42,12 +51,6 @@ app.whenReady().then(() => {
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
-});
-
-// Open external links in browser
-mainWindow.webContents.on("new-window", function (e, url) {
-  e.preventDefault();
-  require("electron").shell.openExternal(url);
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common

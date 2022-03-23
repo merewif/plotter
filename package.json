@@ -2,9 +2,14 @@
   "name": "plotter",
   "author": "Bálint Táborszki <taborszkib@gmail.com>",
   "description": "Writing tool for worldbuilding, character creation, and structuring your plot.",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "homepage": "./",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/merewif/plotter",
+    "email": "taborszkib@gmail.com"
+  },
   "main": "src/electron.js",
   "dependencies": {
     "@emotion/react": "^11.7.1",
@@ -34,8 +39,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "electron-start": "set ELECTRON_START_URL=http://localhost:3000 && electron .",
-    "electron-build": "electron-builder -w",
+    "electron-build": "react-scripts build && electron-builder -w",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -62,8 +66,9 @@
   },
   "devDependencies": {
     "electron": "^17.1.2",
-    "gh-pages": "^3.2.3",
-    "electron-builder": "^22.14.13"
+    "electron-builder": "^22.14.13",
+    "electron-transparency-mouse-fix": "^1.0.0-rc.1",
+    "gh-pages": "^3.2.3"
   },
   "build": {
     "appId": "com.electron.plotter",
@@ -80,6 +85,7 @@
     },
     "win": {
       "target": "portable",
+      "publisherName": "Bálint Táborszki",
       "icon": "build/icon.png"
     },
     "linux": {
