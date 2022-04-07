@@ -22,6 +22,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ImportContactsIcon from "@mui/icons-material/ImportContacts";
 import PaletteIcon from "@mui/icons-material/Palette";
 import BookmarksSharpIcon from "@mui/icons-material/BookmarksSharp";
+import DownloadIcon from "@mui/icons-material/Download";
 
 // Nested Collapsible List Components
 import Collapse from "@mui/material/Collapse";
@@ -136,6 +137,18 @@ export default function TemporaryDrawer() {
             <GitHubIcon />
           </ListItemIcon>
           <ListItemText primary="GitHub Repository" />
+        </ListItemButton>
+
+        <ListItemButton
+          component="a"
+          href="https://github.com/merewif/plotter/releases/tag/v1.0.0"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <ListItemIcon>
+            <DownloadIcon />
+          </ListItemIcon>
+          <ListItemText primary="Download as .exe" />
         </ListItemButton>
 
         {/* <ListItemButton onClick={handleClick}>
