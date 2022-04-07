@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import $ from "jquery";
-import MoodBoard from "../../MoodBoard";
-import WorldbuildingSidebar from "./WorldbuildingSidebar";
-import autosize from "autosize";
-import SimpleSnackbar from "../mui/Snackbar";
+import React, { useState, useEffect } from 'react';
+import $ from 'jquery';
+import MoodBoard from '../../MoodBoard';
+import WorldbuildingSidebar from './WorldbuildingSidebar';
+import autosize from 'autosize';
+import SimpleSnackbar from '../mui/Snackbar';
 
 const WorldbuildingFetchModule = ({
   worldbuildingObject,
@@ -18,7 +18,7 @@ const WorldbuildingFetchModule = ({
   const [currentlyOpenedItem, setCurrentlyOpenedItem] = useState();
   const [isFetched, setIsFetched] = useState(false);
   const [itemImages, setItemImages] = useState([]);
-  const [snackbarMessage, setSnackbarMessage] = useState("Changes saved.");
+  const [snackbarMessage, setSnackbarMessage] = useState('Changes saved.');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   function addItem() {
@@ -35,7 +35,7 @@ const WorldbuildingFetchModule = ({
     };
 
     for (let i = 0; i < sampleKeys.length; i++) {
-      if (sampleKeys[i] === "itemid") {
+      if (sampleKeys[i] === 'itemid') {
         i++;
       } else {
         newObject[currentlyOpenedModule][keyname][sampleKeys[i]] =
@@ -43,7 +43,7 @@ const WorldbuildingFetchModule = ({
       }
     }
 
-    localStorage.setItem("worldbuilding", JSON.stringify(newObject));
+    localStorage.setItem('worldbuilding', JSON.stringify(newObject));
     setWorldbuildingObject(JSON.parse(localStorage.worldbuilding));
     setModuleData(
       JSON.parse(localStorage.worldbuilding)[currentlyOpenedModule]
@@ -51,13 +51,13 @@ const WorldbuildingFetchModule = ({
   }
 
   useEffect(() => {
-    autosize(document.querySelectorAll("textarea"));
-  });
+    autosize(document.querySelectorAll('textarea'));
+  }, [moduleData]);
 
   useEffect(() => {
     if (
       moduleData[currentlyOpenedItem] ||
-      typeof moduleData[currentlyOpenedItem] === "object"
+      typeof moduleData[currentlyOpenedItem] === 'object'
     ) {
       setIsFetched(false);
       setTimeout(() => {
@@ -68,7 +68,7 @@ const WorldbuildingFetchModule = ({
   }, [currentlyOpenedItem]);
 
   function saveChangedItem() {
-    document.getElementById("button-black").classList.remove("btn-red");
+    document.getElementById('button-black').classList.remove('btn-red');
     let keylist = Object.keys(moduleData[currentlyOpenedItem]);
     let changedForms = {};
     let newObject = {
@@ -77,8 +77,8 @@ const WorldbuildingFetchModule = ({
         ...worldbuildingObject[currentlyOpenedModule],
         [currentlyOpenedItem]: {
           itemid: currentlyOpenedItem,
-          name: document.getElementById("textarea-name").value,
-          icon: document.getElementById("item-icon").value,
+          name: document.getElementById('textarea-name').value,
+          icon: document.getElementById('item-icon').value,
           images: itemImages,
         },
       },
@@ -86,19 +86,19 @@ const WorldbuildingFetchModule = ({
 
     for (let i = 0; i < keylist.length; i++) {
       if (
-        keylist[i] === "itemid" ||
-        keylist[i] === "images" ||
-        keylist[i] === "icon" ||
-        keylist[i] === "name"
+        keylist[i] === 'itemid' ||
+        keylist[i] === 'images' ||
+        keylist[i] === 'icon' ||
+        keylist[i] === 'name'
       ) {
         i++;
       } else {
         newObject[currentlyOpenedModule][currentlyOpenedItem][keylist[i]] =
-          document.getElementById("textarea-" + keylist[i]).value;
+          document.getElementById('textarea-' + keylist[i]).value;
       }
     }
 
-    localStorage.setItem("worldbuilding", JSON.stringify(newObject));
+    localStorage.setItem('worldbuilding', JSON.stringify(newObject));
     setModuleData(
       JSON.parse(localStorage.worldbuilding)[currentlyOpenedModule]
     );
@@ -109,16 +109,16 @@ const WorldbuildingFetchModule = ({
     setIsFetched(false);
     let storedObject = JSON.parse(localStorage.worldbuilding);
     delete storedObject[currentlyOpenedModule][currentlyOpenedItem];
-    localStorage.setItem("worldbuilding", JSON.stringify(storedObject));
+    localStorage.setItem('worldbuilding', JSON.stringify(storedObject));
     setModuleData(
       JSON.parse(localStorage.worldbuilding)[currentlyOpenedModule]
     );
     setWorldbuildingObject(JSON.parse(localStorage.worldbuilding));
-    setSnackbarMessage("Item deleted.");
+    setSnackbarMessage('Item deleted.');
     setSnackbarOpen(true);
   }
 
-  $(".right-side").show();
+  $('.right-side').show();
 
   return (
     <div>
@@ -133,25 +133,25 @@ const WorldbuildingFetchModule = ({
         setCurrentlyOpenedItem={setCurrentlyOpenedItem}
         addItem={addItem}
       />
-      <div className="worldbuilding-module">
+      <div className='worldbuilding-module'>
         {isFetched ? (
-          <div id="art-viewer">
-            {typeof moduleData[currentlyOpenedItem] === "object"
+          <div id='art-viewer'>
+            {typeof moduleData[currentlyOpenedItem] === 'object'
               ? Object.keys(moduleData[currentlyOpenedItem]).map((e, i) => {
-                  if (e === "itemid" || e === "images" || e === "icon") {
+                  if (e === 'itemid' || e === 'images' || e === 'icon') {
                     return;
                   } else {
                     return (
                       <div key={e}>
-                        <h2 className="wb-textarea-label">
-                          {e.replace(/([A-Z])/g, " $1").trim()}
+                        <h2 className='wb-textarea-label'>
+                          {e.replace(/([A-Z])/g, ' $1').trim()}
                         </h2>
                         <textarea
-                          id={"textarea-" + e}
+                          id={'textarea-' + e}
                           defaultValue={moduleData[currentlyOpenedItem][e]}
                           onChange={saveChangedItem}
                           placeholder={
-                            typeof moduleData[currentlyOpenedItem] === "object"
+                            typeof moduleData[currentlyOpenedItem] === 'object'
                               ? moduleData[currentlyOpenedItem][e]
                               : null
                           }
@@ -162,57 +162,57 @@ const WorldbuildingFetchModule = ({
                 })
               : null}
 
-            <form id="icon-link" style={{ marginTop: "20px" }}>
+            <form id='icon-link' style={{ marginTop: '20px' }}>
               <label>Icon Link:</label>
               <input
-                type="text"
-                id="item-icon"
+                type='text'
+                id='item-icon'
                 defaultValue={
-                  typeof moduleData[currentlyOpenedItem] === "object"
+                  typeof moduleData[currentlyOpenedItem] === 'object'
                     ? moduleData[currentlyOpenedItem].icon
                     : null
                 }
                 onChange={saveChangedItem}
               />
-              <a href="https://game-icons.net/">(Get neat icons from here.)</a>
+              <a href='https://game-icons.net/'>(Get neat icons from here.)</a>
             </form>
             <div
               style={{
-                position: "absolute",
-                top: "98%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
+                position: 'absolute',
+                top: '98%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
               }}
-              id="worldbuilding-buttons-container"
+              id='worldbuilding-buttons-container'
             >
               <button
                 onClick={() => {
                   saveChangedItem();
-                  setSnackbarMessage("Changes saved.");
+                  setSnackbarMessage('Changes saved.');
                   setSnackbarOpen(true);
                 }}
-                id="button-black"
-                className="button-black"
+                id='button-black'
+                className='button-black'
                 style={{
-                  display: "inline-block",
-                  position: "relative",
-                  width: "200px",
-                  fontFamily: "Montserrat",
-                  fontSize: "0.8rem",
+                  display: 'inline-block',
+                  position: 'relative',
+                  width: '200px',
+                  fontFamily: 'Montserrat',
+                  fontSize: '0.8rem',
                 }}
               >
                 Save item
               </button>
               <button
                 onClick={deleteItem}
-                className="button-black"
+                className='button-black'
                 style={{
-                  marginLeft: "10px",
-                  display: "inline-block",
-                  position: "relative",
-                  width: "200px",
-                  fontFamily: "Montserrat",
-                  fontSize: "0.8rem",
+                  marginLeft: '10px',
+                  display: 'inline-block',
+                  position: 'relative',
+                  width: '200px',
+                  fontFamily: 'Montserrat',
+                  fontSize: '0.8rem',
                 }}
               >
                 Delete item
@@ -220,26 +220,26 @@ const WorldbuildingFetchModule = ({
             </div>
           </div>
         ) : (
-          <div id="module-intro-phrase">
+          <div id='module-intro-phrase'>
             <p
               style={{
-                position: "absolute",
-                top: "45%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                width: "100%",
+                position: 'absolute',
+                top: '45%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: '100%',
               }}
             >
               {moduleIntroductionPhrase.phrase}
             </p>
             <p
               style={{
-                position: "absolute",
-                top: "95%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                width: "100%",
-                textAlign: "center",
+                position: 'absolute',
+                top: '95%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: '100%',
+                textAlign: 'center',
               }}
             >
               {moduleIntroductionPhrase.source}
