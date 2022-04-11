@@ -21,3 +21,14 @@ Plotter's worldbuilding module consists of 12 categories of world elements. When
 ### Moodboard
 
 The Moodboard accompanies all three of Plotter's modules. Each worldbuilding entry, every character, book and chapter has its own seperate Moodboard that you can use to collect the visual references and inspirations that are linked to your ideas. Use it to create collages that fire up your creativity and flood your mind with ideas!
+
+---
+
+#### Technical details
+
+Plotter is a single-page application created with React using Create React App. The line charts are provided by Google Charts. The user interface utilizes several Material UI components. It is hosted on Google Firebase, and the executable file was created with Electron.
+
+#### ToDo:
+
+1. Migrate to Next.js
+2. Add authentication and store user data on Firestore.
