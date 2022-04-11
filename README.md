@@ -6,7 +6,7 @@ Visit Plotter [here](https://plotter-f6b18.web.app/) or download the application
 
 ### Character module
 
-Plotter's character module helps you brainstorm about who your characters are. When you create a new character you are given four writing prompts that help you think about your character's **physical appearance**, their **goals and struggles**, their **flaws and virtues** and their **style of talking and speech patterns**. You can fill or modify the answers any time after the character creation, but it is recommended that you spend 30 minutes on the character creation process and answer all the four prompts in a single session. This way you'll give yourself enough time to immerse yourself in the character creation process.
+Plotter's character module helps you brainstorm about who your characters are. When you create a new character you are given four writing prompts that help you think about your character's **physical appearance**, their **goals and struggles**, their **flaws and virtues** and their **style of talking and speech patterns**. You can fill or modify the answers any time after the character creation, but it is recommended that you spend 30 uninterrupted minutes on each character and answer all the four prompts in a single session. This way you'll give yourself enough time to immerse yourself in the character creation process.
 
 ### Plot module
 
