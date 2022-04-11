@@ -2,7 +2,7 @@
 
 Plotter is a tool to help fiction writers and worldbuilders of all kind in brainstorming and systemizing their ideas.
 
-Visit Plotter at [here](https://plotter-f6b18.web.app/) or download the application as an executable [here](https://github.com/merewif/plotter/releases/tag/v1.0.0)
+Visit Plotter [here](https://plotter-f6b18.web.app/) or download the application as an executable [here](https://github.com/merewif/plotter/releases/tag/v1.0.0)
 
 ### Character module
 
