@@ -1,34 +1,28 @@
-# Plotter
+# Create T3 App
 
-Plotter is a tool to help fiction writers and worldbuilders of all kind in brainstorming and systemizing their ideas.
+This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
 
-Visit Plotter [here](https://plotter-f6b18.web.app/) or download the application as an executable [here](https://github.com/merewif/plotter/releases/tag/v1.0.0).
+## What's next? How do I make an app with this?
 
-### Character module
+We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
 
-Plotter's character module helps you brainstorm about who your characters are. When you create a new character you are given four writing prompts that help you think about your character's **physical appearance**, their **goals and struggles**, their **flaws and virtues** and their **style of talking and speech patterns**. You can fill or modify the answers any time after the character creation, but it is recommended that you spend 20-30 uninterrupted minutes on each character and answer all the four prompts in a single session. This way you'll give yourself enough time to immerse yourself in the character creation process.
+If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
 
-### Plot module
+- [Next.js](https://nextjs.org)
+- [NextAuth.js](https://next-auth.js.org)
+- [Prisma](https://prisma.io)
+- [Tailwind CSS](https://tailwindcss.com)
+- [tRPC](https://trpc.io)
 
-Plotter's plot module helps you visualize the plot of your novel(s). Create a book, then use the **Set story arcs** option to create line charts that represent the changes in the stakes of your plot. By setting up your story arcs you'll be able to visualize the various stages of your story - the points of tension and relief that ebb and flow as the story moves forward. You can set the story arcs for **every book** and seperately **every chapter** of your book.
+## Learn More
 
-Once you open the story arc of a book or a chapter, you can also define the short summary of the story the line chart represents. Write a short, one-sentence summary about who does what to whom, when, where, how and why in the chapter and in the book as a whole. This will help you in defining a clearly delineated plot to center your storytelling around.
+To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
 
-### Worldbuilding module
+- [Documentation](https://create.t3.gg/)
+- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
 
-Plotter's worldbuilding module consists of 12 categories of world elements. When you create an entry in a category, you are given a list of writing prompts that will help you define and deepen the world you are creating. These questions were carefully curated to make sure you develop all the various implications of your universe and to help you in forming a comprehensive understanding of your story.
+You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
 
-### Moodboard
+## How do I deploy this?
 
-The Moodboard accompanies all three of Plotter's modules. Each worldbuilding entry, every character, book and chapter has its own seperate Moodboard that you can use to collect the visual references and inspirations that are linked to your ideas. Use it to create collages that fire up your creativity and flood your mind with ideas!
-
----
-
-#### Technical details
-
-Plotter is a single-page application created with React using Create React App. The line charts are provided by Google Charts. The user interface utilizes several Material UI components. It is hosted on Google Firebase, and the executable file was created with Electron.
-
-#### ToDo:
-
-1. Migrate to Next.js
-2. Add authentication and store user data on Firestore.
+Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
