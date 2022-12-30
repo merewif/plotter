@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import CharacterDisplay from './CharacterDisplay';
-import CircularIntegration from '../mui/AnimatedSaveButton';
+import SaveButton from '../mui/AnimatedSaveButton';
 import DeleteButton from '../mui/AnimatedDeleteButton';
 import MoodBoard from '../MoodBoard';
 
@@ -55,7 +55,7 @@ const CharacterFetch = ({charID, deleteCharacter}: Props) => {
           returnToggle={'circle'}
           tooltipText={'Delete this character permanently'}
         />
-        <CircularIntegration returnToggle={'circle'} clickFunction={saveChanges} />
+        <SaveButton clickFunction={saveChanges} />
       </div>
     </div>
   );

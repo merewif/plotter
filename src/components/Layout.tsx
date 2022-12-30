@@ -1,5 +1,6 @@
 import React from 'react';
 import SideMenu from '../components/menu/SideMenu';
+import Menu from '../components/Menu';
 
 interface Props {
   children: React.ReactNode;
@@ -19,6 +20,7 @@ export const Layout = ({children}: Props) => {
           <h1>Plotter</h1>
         </header>
         <main>{children}</main>
+        <Menu />
       </div>
     </div>
   );

@@ -2,16 +2,15 @@ import React, {useState} from 'react';
 import Alert from '@mui/material/Alert';
 import Fade from '@mui/material/Fade';
 import {useRouter} from 'next/router';
+import {usePlotStore} from '../../utils/stores/PlotStore';
 
 const Plot = () => {
+  const books = usePlotStore(state => state.books);
   const [showAlert, setShowAlert] = useState(false);
   const router = useRouter();
 
   function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
-    if (
-      (e.target as HTMLButtonElement).id === 'set-story-arcs' &&
-      localStorage.getItem('books') === null
-    ) {
+    if (Object.keys(books).length === 0) {
       setShowAlert(true);
       setTimeout(() => {
         setShowAlert(false);
@@ -19,7 +18,7 @@ const Plot = () => {
       return;
     }
 
-    router.push((e.target as HTMLButtonElement).id);
+    router.push('/plot/arcs');
 
     // $('#plot-nav').css({top: '112.5%'});
     // $('#plot-nav button').css({'font-size': '0.8em', height: '25px'});
@@ -28,19 +27,13 @@ const Plot = () => {
   }
 
   return (
-    <div id="character-module" className="module">
-      <div>
-        {/* <Routes>
-          <Route path="/set-books" element={<CreateBook />} />
-          <Route path="/set-story-arcs" element={<StoryArcs />} />
-        </Routes> */}
-      </div>
+    <>
       <div id="plot-nav">
         <button
           className="plot-options"
           id="set-books"
           onClick={e => {
-            handleClick(e);
+            router.push('/plot/books');
           }}
         >
           Set Books
@@ -48,8 +41,15 @@ const Plot = () => {
         <button
           className="plot-options"
           id="set-story-arcs"
-          onClick={e => {
-            handleClick(e);
+          onClick={() => {
+            if (Object.keys(books).length === 0) {
+              setShowAlert(true);
+              setTimeout(() => {
+                setShowAlert(false);
+              }, 2500);
+              return;
+            }
+            router.push('/plot/arcs');
           }}
         >
           Set Story Arcs
@@ -62,7 +62,7 @@ const Plot = () => {
           </Alert>
         </Fade>
       </div>
-    </div>
+    </>
   );
 };
 

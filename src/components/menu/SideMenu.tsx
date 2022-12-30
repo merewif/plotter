@@ -45,7 +45,7 @@ const SideMenu = () => {
         <ListItemButton
           component="a"
           onClick={() => {
-            router.push('characters');
+            router.push('/characters');
           }}
         >
           <ListItemIcon>
@@ -54,14 +54,14 @@ const SideMenu = () => {
           <ListItemText primary="Characters" />
         </ListItemButton>
 
-        <ListItemButton component="a" onClick={() => router.push('plot')}>
+        <ListItemButton component="a" onClick={() => router.push('/plot')}>
           <ListItemIcon>
             <ShowChartIcon />
           </ListItemIcon>
           <ListItemText primary="Plot" />
         </ListItemButton>
 
-        <ListItemButton component="a" onClick={() => router.push('worldbuilding')}>
+        <ListItemButton component="a" onClick={() => router.push('/worldbuilding')}>
           <ListItemIcon>
             <PublicIcon />
           </ListItemIcon>
@@ -73,7 +73,7 @@ const SideMenu = () => {
         <ListItemButton
           component="a"
           onClick={() => {
-            router.push('about');
+            router.push('/about');
           }}
         >
           <ListItemIcon>
@@ -82,7 +82,7 @@ const SideMenu = () => {
           <ListItemText primary="About" />
         </ListItemButton>
         <List sx={{padding: 0}}>
-          <ListItemButton component="a" onClick={() => router.push('writing-resources')}>
+          <ListItemButton component="a" onClick={() => router.push('/writing-resources')}>
             <ListItemIcon>
               <ImportContactsIcon />
             </ListItemIcon>

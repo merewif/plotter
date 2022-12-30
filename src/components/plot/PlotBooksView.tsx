@@ -1,15 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import PlotChart from './PlotChart';
 import MoodBoard from '../MoodBoard';
+import {Book, Chapter} from '../../types/types';
+import {usePlotStore} from '../../utils/stores/PlotStore';
+import PlotSidebar from './PlotSidebar';
 
-interface Props {
-  setCurrentlyOpenedBook: (book: string[]) => void;
-  setCurrentlyOpenedChapter: (chapter: string[]) => void;
-  setSummary: (summary: string) => void;
-}
-
-const BooksView = ({setCurrentlyOpenedBook, setCurrentlyOpenedChapter, setSummary}: Props) => {
-  const [storedBooks, setStoredBooks] = useState<{[key: string]: any}>({});
+const BooksView = () => {
+  const books = usePlotStore(state => state.books);
+  const saveBook = usePlotStore(state => state.saveBook);
+  const [selectedBook, setSelectedBook] = useState<Book>();
   const [fetchBook, setFetchBook] = useState([
     ['Time', 'Stakes', {role: 'tooltip', type: 'string', p: {html: true}}],
     [0, 0, 'Startpoint'],
@@ -18,35 +17,24 @@ const BooksView = ({setCurrentlyOpenedBook, setCurrentlyOpenedChapter, setSummar
   const [clickTarget, setClickTarget] = useState('');
   const [chartData, setChartData] = useState(fetchBook);
   const [characterImages, setCharacterImages] = useState(['https://i.imgur.com/w1AGMhl.png']);
-  const [showMoodboard, setShowMoodboard] = useState<React.ReactElement>();
-
-  const [chartContainerStyle, setChartContainerStyle] = useState({
-    display: 'none',
-  });
-
-  useEffect(function importbook() {
-    if ('books' in localStorage) {
-      setStoredBooks(JSON.parse(localStorage.books));
-    }
-  }, []);
 
   function fetchChart(event: any) {
     // event.preventDefault();
-    // setStoredBooks(JSON.parse(localStorage.books));
+    // setbooks(JSON.parse(localStorage.books));
     // setChartContainerStyle({ display: "block" });
     // // $(".right-side").show();
     // setClickTarget(event.target.id);
-    // setCurrentlyOpenedBook([$(event.target).text(), event.target.id]);
-    // setCurrentlyOpenedChapter("");
-    // setFetchBook(storedBooks[event.target.id].chartData);
-    // setChartData(storedBooks[event.target.id].chartData);
+    // setBook([$(event.target).text(), event.target.id]);
+    // setChapter("");
+    // setFetchBook(books[event.target.id].chartData);
+    // setChartData(books[event.target.id].chartData);
     // setShowMoodboard(
     //   <MoodBoard
-    //     images={storedBooks[event.target.id].imgArray}
+    //     images={books[event.target.id].imgArray}
     //     ChangeData={(characterImages) => setCharacterImages(characterImages)}
     //   />
     // );
-    // setCharacterImages(storedBooks[event.target.id].imgArray);
+    // setCharacterImages(books[event.target.id].imgArray);
     // // $(".book-display-in-view, .book-display-sidebar").css({
     // //   background: "black",
     // //   color: "white",
@@ -60,48 +48,73 @@ const BooksView = ({setCurrentlyOpenedBook, setCurrentlyOpenedChapter, setSummar
     // //   color: "black",
     // // });
     // setSummary("");
-    // if (storedBooks?[event.target.id]?[event.target.id + "Summary"]) {
-    //   setSummary(storedBooks[event.target.id][event.target.id + "Summary"]);
+    // if (books?[event.target.id]?[event.target.id + "Summary"]) {
+    //   setSummary(books[event.target.id][event.target.id + "Summary"]);
     // }
   }
 
   function saveChart(event: any) {
     // event.preventDefault();
     // let newStoredData = {
-    //   ...storedBooks,
+    //   ...books,
     //   [clickTarget]: {
-    //     ...storedBooks[clickTarget],
+    //     ...books[clickTarget],
     //     chartData: chartData,
     //     imgArray: characterImages,
     //   },
     // };
     // localStorage.setItem('books', JSON.stringify(newStoredData));
-    // setStoredBooks(JSON.parse(localStorage.books));
+    // setbooks(JSON.parse(localStorage.books));
   }
 
+  const showBook = (bookTitle: string) => {
+    const book = books[bookTitle];
+    setSelectedBook(book);
+  };
+
   return (
-    <div>
-      {showMoodboard}
-      <div id="books-view" className="viewstate">
-        {Object.keys(storedBooks)
+    <>
+      {selectedBook ? (
+        <MoodBoard
+          images={selectedBook.imgArray}
+          ChangeData={characterImages => setCharacterImages(characterImages)}
+        />
+      ) : null}
+      <div className="viewstate">
+        {Object.keys(books)
           .sort()
           .map(function (key, index) {
             return (
-              <button key={index} className="book-display-in-view" id={key} onClick={fetchChart}>
-                {storedBooks[key].name}
+              <button
+                key={index}
+                className="book-display-in-view"
+                style={{
+                  background: selectedBook?.title === key ? 'white' : 'black',
+                  color: selectedBook?.title === key ? 'black' : 'white',
+                  border: selectedBook?.title === key ? '1px solid black' : 'none',
+                }}
+                id={key}
+                onClick={() => showBook(key)}
+              >
+                {key}
               </button>
             );
           })}
       </div>
-      <div id="fetched-book-container" style={chartContainerStyle}>
-        <PlotChart
-          saveChart={saveChart}
-          chartData={chartData}
-          setChartData={setChartData}
-          setFetchBook={setFetchBook}
-        />
-      </div>
-    </div>
+      {selectedBook ? (
+        <>
+          <div style={{marginTop: 75}}>
+            <PlotChart
+              saveChart={saveChart}
+              chartData={chartData}
+              setChartData={setChartData}
+              setFetchBook={setFetchBook}
+            />
+          </div>
+          <PlotSidebar book={selectedBook} />
+        </>
+      ) : null}
+    </>
   );
 };
 

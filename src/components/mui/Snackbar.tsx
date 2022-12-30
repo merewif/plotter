@@ -19,17 +19,15 @@ export default function SimpleSnackbar({message, open, setOpen}: Props) {
   );
 
   return (
-    <div>
-      <Snackbar
-        open={open}
-        autoHideDuration={4000}
-        onClose={() => setOpen(false)}
-        message={message}
-        action={action}
-        style={{
-          backgroundColor: 'black',
-        }}
-      />
-    </div>
+    <Snackbar
+      open={open}
+      autoHideDuration={4000}
+      onClose={() => setOpen(false)}
+      message={message}
+      action={action}
+      style={{
+        backgroundColor: 'black',
+      }}
+    />
   );
 }

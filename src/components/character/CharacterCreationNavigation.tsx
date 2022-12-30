@@ -1,6 +1,6 @@
 import React from 'react';
 import HorizontalNonLinearStepper from '../mui/Stepper';
-import CircularIntegration from '../mui/AnimatedSaveButton';
+import SaveButton from '../mui/AnimatedSaveButton';
 
 interface Props {
   saveCharacter: (event: React.MouseEvent<HTMLButtonElement>) => void;
@@ -33,11 +33,7 @@ const CharacterCreationNavigation = ({
         stepHandling={stepHandling}
       />
       <div style={{position: 'absolute', top: '90%', left: '90%'}}>
-        <CircularIntegration
-          clickFunction={saveCharacter}
-          buttonText={saveButtonText}
-          returnToggle={'circle'}
-        />
+        <SaveButton clickFunction={saveCharacter} />
       </div>
     </div>
   );

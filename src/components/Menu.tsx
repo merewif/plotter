@@ -1,55 +1,90 @@
 import React, {useEffect, useState} from 'react';
-import SimpleBottomNavigation from './mui/BottomNavigation';
 import {useRouter} from 'next/router';
 
+import Box from '@mui/material/Box';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import {ThemeProvider, createTheme} from '@mui/material';
+
+// Icons
+import PublicIcon from '@mui/icons-material/Public';
+import FaceIcon from '@mui/icons-material/Face';
+import ShowChartIcon from '@mui/icons-material/ShowChart';
+import Link from 'next/link';
+
+const navTheme = createTheme({
+  typography: {
+    fontFamily: ['Montserrat'].join(','),
+    fontWeightBold: 900,
+  },
+  palette: {
+    primary: {
+      main: '#ffffff',
+      contrastText: 'rgba(53,53,53,0.87)',
+      dark: '#bfbfbf',
+    },
+    secondary: {
+      main: '#f9f9f9',
+    },
+    background: {
+      default: '#000000',
+      paper: '#000000',
+    },
+    text: {
+      primary: 'rgba(245,245,245,0.87)',
+      secondary: 'rgba(255,255,255,0.54)',
+    },
+  },
+});
+
 const Menu = () => {
-  const defaultText =
-    'Hi there. I will help you organize and systematize the elements of your novel. Please choose a module below.';
   const [value, setValue] = useState<number | null>(null);
-  const router = useRouter();
-  const {pathname} = router;
+  const {pathname, push} = useRouter();
 
   useEffect(() => {
-    if (value === 0) router.push('characters');
-    if (value === 1) router.push('plot');
-    if (value === 2) router.push('worldbuilding');
-
-    if (window.location.pathname.indexOf('characters') > -1) {
+    if (pathname.includes('characters')) {
       setValue(0);
     }
 
-    if (window.location.pathname.indexOf('plot') > -1) {
+    if (pathname.includes('plot')) {
       setValue(1);
     }
 
-    if (window.location.pathname.indexOf('worldbuilding') > -1) {
+    if (pathname.includes('worldbuilding')) {
       setValue(2);
     }
-  }, [value]);
-
-  useEffect(() => {
-    if (pathname === 'notes' || pathname === 'writing-resources' || pathname === 'about') {
-      setValue(null);
-    }
-  }, [pathname]);
+  }, [value, pathname]);
 
   return (
-    <>
-      <div id="current-container">
-        {/* <Routes>
-          <Route path="/" element={defaultText} />
-          <Route path="/characters/*" element={<Characters />} />
-          <Route path="/plot/*" element={<Plot />} />
-          <Route path="/worldbuilding/*" element={<Worldbuilding />} />
-          <Route path="/about/*" element={<About />} />
-          <Route path="/writing-resources/*" element={<WritingResources />} />
-          <Route path="/notes/*" element={<Notes />} />
-        </Routes> */}
-      </div>
-      <div id="main-menu-container">
-        <SimpleBottomNavigation value={value} setValue={setValue} />
-      </div>
-    </>
+    <div id="main-menu-container">
+      <ThemeProvider theme={navTheme}>
+        <Box sx={{width: 500}}>
+          <BottomNavigation
+            showLabels
+            value={value}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+          >
+            <BottomNavigationAction
+              onClick={() => push('/characters')}
+              label="Characters"
+              icon={<FaceIcon />}
+            />
+            <BottomNavigationAction
+              onClick={() => push('/plot')}
+              label="Plot"
+              icon={<ShowChartIcon />}
+            />
+            <BottomNavigationAction
+              onClick={() => push('/worldbuilding')}
+              label="Worldbuilding"
+              icon={<PublicIcon />}
+            />
+          </BottomNavigation>
+        </Box>
+      </ThemeProvider>
+    </div>
   );
 };
 

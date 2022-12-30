@@ -1,8 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
-import {useRouter} from 'next/router';
 import React from 'react';
-import {useWorldbuildingStore} from '../../utils/store';
+import {useWorldbuildingStore} from '../../utils/stores/WorldbuildingStore';
 import type {WorldbuildingModuleEnum} from '../../utils/static/Worldbuilding';
 import type {WorldbuildingModuleEntry} from '../../types/types';
 
@@ -14,7 +13,6 @@ interface Props {
 }
 
 const WorldbuildingSidebar = ({data, openedEntryId, setOpenedEntryId, module}: Props) => {
-  const router = useRouter();
   const addNewEntry = useWorldbuildingStore(state => state.addSampleEntry);
 
   return (

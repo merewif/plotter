@@ -5,8 +5,8 @@ import SimpleSnackbar from '../mui/Snackbar';
 import MoodBoard from '../MoodBoard';
 import {WorldbuildingStaticText} from '../../utils/static/Worldbuilding';
 import type {WorldbuildingModuleEnum} from '../../utils/static/Worldbuilding';
-import type {WorldbuildingStore} from '../../utils/store';
-import {useWorldbuildingStore} from '../../utils/store';
+import type {WorldbuildingStore} from '../../utils/stores/WorldbuildingStore';
+import {useWorldbuildingStore} from '../../utils/stores/WorldbuildingStore';
 import type {WorldbuildingModuleEntry} from '../../types/types';
 import {useForm} from 'react-hook-form';
 
@@ -36,16 +36,6 @@ const WorldbuildingModule = ({module}: Props) => {
   }, [moduleData]);
 
   useEffect(() => {
-    // if (
-    //   openedEntryId &&
-    //   (moduleData[openedEntryId] || typeof moduleData[openedEntryId] === 'object')
-    // ) {
-    //   setIsFetched(false);
-    //   setTimeout(() => {
-    //     setItemImages(moduleData[openedEntryId].images);
-    //     setIsFetched(true);
-    //   }, 1);
-    // }
     if (openedEntryId) {
       reset(moduleData[openedEntryId]);
     }
@@ -79,15 +69,12 @@ const WorldbuildingModule = ({module}: Props) => {
         setOpenedEntryId={setOpenedEntryId}
         module={module}
       />
-
       <div className="worldbuilding-module">
         {openedEntryId ? (
           <form onSubmit={handleSubmit(saveChangedEntry)}>
             <div id="art-viewer">
               {Object.keys(moduleData[openedEntryId] as object)
-                .filter(
-                  key => key !== 'itemid' && key !== 'images' && key !== 'icon' && key !== 'name',
-                )
+                .filter(key => key !== 'itemid' && key !== 'images' && key !== 'icon')
                 .map((key, i) => {
                   return (
                     <div key={i}>

@@ -1,6 +1,6 @@
 import create from 'zustand';
-import {WorldbuildingModuleEnum, WorldbuildingStaticText} from './static/Worldbuilding';
-import type {Worldbuilding, WorldbuildingModuleEntry} from '../types/types';
+import {WorldbuildingModuleEnum, WorldbuildingStaticText} from '../static/Worldbuilding';
+import type {Worldbuilding, WorldbuildingModuleEntry} from '../../types/types';
 
 export interface WorldbuildingStore {
   worldbuilding: Worldbuilding;

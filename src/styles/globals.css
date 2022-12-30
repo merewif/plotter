@@ -159,7 +159,7 @@ main h1 {
   width: 17.5vw;
   font-family: 'Cormorant Garamond';
   color: white;
-  display: none;
+  background-color: black;
 }
 
 #main-menu-container {
@@ -768,15 +768,6 @@ textarea:focus {
   transition-delay: 0.1s;
 }
 
-#chart-container {
-  width: 55vw;
-  height: 50vh;
-  position: absolute;
-  top: 55.5%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
 #chart-input input {
   width: 30px;
   margin-left: 5px;
@@ -1054,6 +1045,7 @@ h1 {
   padding: 0;
   font-family: 'Montserrat';
   line-height: 0.8em;
+  color: white;
 }
 
 #currently-viewing h2 {
@@ -1080,9 +1072,9 @@ h1 {
 #right-sidebar-input {
   border-top: 1px solid white;
   padding-top: 20px;
-  display: none;
   height: 75%;
   background: black;
+  color: white;
 }
 
 #save-summary {

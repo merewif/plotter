@@ -4,8 +4,6 @@ import Head from 'next/head';
 import {signIn, signOut, useSession} from 'next-auth/react';
 
 import {trpc} from '../utils/trpc';
-import SideMenu from '../components/menu/SideMenu';
-import Menu from '../components/Menu';
 import {Layout} from '../components/Layout';
 
 const Home: NextPage = () => {
@@ -19,7 +17,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
-        <Menu />
+        Hi there. I will help you organize and systematize the elements of your novel. Please choose
+        a module below.
       </Layout>
     </>
   );

@@ -24,16 +24,18 @@ export interface Books {
 }
 
 export interface Book {
-  name: string;
-  chapters: number;
+  title: string;
+  summary: string;
   chartData: Array<Array<ChartDatumClass | number | string>>;
   imgArray: string[];
-  book1Summary: string;
-  chaptersContent: ChaptersContent;
+  chapters: {[key: string]: Chapter};
 }
 
-export interface ChaptersContent {
-  book1chapter1Summary: string;
+export interface Chapter {
+  title: string;
+  summary: string;
+  chartData: Array<Array<ChartDatumClass | number | string>>;
+  imgArray: string[];
 }
 
 export interface ChartDatumClass {

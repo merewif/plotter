@@ -1,15 +1,17 @@
 import React, {useState, useEffect} from 'react';
 import PlotChart from './PlotChart';
 import MoodBoard from '../MoodBoard';
+import {usePlotStore} from '../../utils/stores/PlotStore';
+import {Book} from '../../types/types';
 
 interface Props {
-  setCurrentlyOpenedBook: (arg: any) => void;
-  setCurrentlyOpenedChapter: (arg: any) => void;
-  setSummary: (arg: any) => void;
+  setBook: (arg: any) => void;
+  setChapter: (arg: any) => void;
 }
 
-const ChaptersView = ({setCurrentlyOpenedBook, setCurrentlyOpenedChapter, setSummary}: Props) => {
-  const [storedBooks, setStoredBooks] = useState<{[key: string]: any}>({});
+const ChaptersView = ({setBook, setChapter}: Props) => {
+  const books = usePlotStore(state => state.books);
+  const [selectedBook, setSelectedBook] = useState<Book>();
   const [chapterCount, setChapterCount] = useState(0);
   const [currentBook, setCurrentBook] = useState('');
   const [currentChapter, setCurrentChapter] = useState('');
@@ -25,36 +27,30 @@ const ChaptersView = ({setCurrentlyOpenedBook, setCurrentlyOpenedChapter, setSum
 
   function saveChart() {
     // let newBookData = {
-    //   ...storedBooks,
+    //   ...books,
     //   [currentBook]: {
-    //     ...storedBooks[currentBook],
+    //     ...books[currentBook],
     //     chaptersContent: {
-    //       ...storedBooks[currentBook].chaptersContent,
+    //       ...books[currentBook].chaptersContent,
     //       [currentChapter]: chartSavedData,
     //       [currentChapter + 'Images']: chapterImages,
     //     },
     //   },
     // };
     // localStorage.setItem('books', JSON.stringify(newBookData));
-    // setStoredBooks(JSON.parse(localStorage.books));
+    // setbooks(JSON.parse(localStorage.books));
   }
-
-  useEffect(() => {
-    if ('books' in localStorage) {
-      setStoredBooks(JSON.parse(localStorage.books));
-    }
-  }, [chapterCount]);
 
   function fetchChapterList(event: any) {
     // event.preventDefault();
-    // setStoredBooks(JSON.parse(localStorage.books));
+    // setbooks(JSON.parse(localStorage.books));
     // setShowMoodboard();
     // setChapterCount(0);
     // setCurrentBook(event.target.id);
-    // setCurrentlyOpenedBook([$(event.target).text(), event.target.id]);
+    // setBook([$(event.target).text(), event.target.id]);
     // setCurrentlyOpenedChapter("");
     // setTimeout(() => {
-    //   setChapterCount(Number(storedBooks[event.target.id].chapters));
+    //   setChapterCount(Number(books[event.target.id].chapters));
     // }, 1);
     // $(".right-side").show();
     // $("#fetched-chapter-container").hide();
@@ -87,14 +83,14 @@ const ChaptersView = ({setCurrentlyOpenedBook, setCurrentlyOpenedChapter, setSum
     //   top: "60%",
     // });
     // setSummary("");
-    // if (storedBooks[event.target.id][event.target.id + "Summary"]) {
-    //   setSummary(storedBooks[event.target.id][event.target.id + "Summary"]);
+    // if (books[event.target.id][event.target.id + "Summary"]) {
+    //   setSummary(books[event.target.id][event.target.id + "Summary"]);
     // }
   }
 
   function fetchChapter(event: any) {
     // event.preventDefault();
-    // setStoredBooks(JSON.parse(localStorage.books));
+    // setbooks(JSON.parse(localStorage.books));
     // setCurrentChapter(event.target.id);
     // setCurrentlyOpenedChapter([$(event.target).text(), event.target.id]);
     // $('#remove-chapter-btn, #add-chapter-btn').hide();
@@ -125,24 +121,24 @@ const ChaptersView = ({setCurrentlyOpenedBook, setCurrentlyOpenedChapter, setSum
     // });
     // $('#fetched-chapter-container').show();
     // if (
-    //   storedBooks[currentBook].chaptersContent[event.target.id] &&
-    //   storedBooks[currentBook].chaptersContent[event.target.id].length !== 0
+    //   books[currentBook].chaptersContent[event.target.id] &&
+    //   books[currentBook].chaptersContent[event.target.id].length !== 0
     // ) {
-    //   setChartSavedData(storedBooks[currentBook].chaptersContent[event.target.id]);
+    //   setChartSavedData(books[currentBook].chaptersContent[event.target.id]);
     // } else {
     //   setChartSavedData(chartDefaultData);
     // }
-    // if (storedBooks[currentBook].chaptersContent[event.target.id + 'Images']) {
+    // if (books[currentBook].chaptersContent[event.target.id + 'Images']) {
     //   setChapterImages();
     //   setShowMoodboard();
     //   setTimeout(() => {
     //     setShowMoodboard(
     //       <MoodBoard
-    //         images={storedBooks[currentBook].chaptersContent[event.target.id + 'Images']}
+    //         images={books[currentBook].chaptersContent[event.target.id + 'Images']}
     //         ChangeData={chapterImages => setChapterImages(chapterImages)}
     //       />,
     //     );
-    //     setChapterImages(storedBooks[currentBook].chaptersContent[event.target.id + 'Images']);
+    //     setChapterImages(books[currentBook].chaptersContent[event.target.id + 'Images']);
     //   }, 1);
     // } else {
     //   setChapterImages([]);
@@ -157,35 +153,35 @@ const ChaptersView = ({setCurrentlyOpenedBook, setCurrentlyOpenedChapter, setSum
     //   }, 1);
     // }
     // setSummary('');
-    // if (storedBooks[currentBook].chaptersContent[event.target.id + 'Summary']) {
-    //   setSummary(storedBooks[currentBook].chaptersContent[event.target.id + 'Summary']);
+    // if (books[currentBook].chaptersContent[event.target.id + 'Summary']) {
+    //   setSummary(books[currentBook].chaptersContent[event.target.id + 'Summary']);
     // }
   }
 
   function addChapter() {
     // let newBookData = {
-    //   ...storedBooks,
+    //   ...books,
     //   [currentBook]: {
-    //     ...storedBooks[currentBook],
-    //     chapters: Number(storedBooks[currentBook].chapters) + 1,
+    //     ...books[currentBook],
+    //     chapters: Number(books[currentBook].chapters) + 1,
     //   },
     // };
     // localStorage.setItem('books', JSON.stringify(newBookData));
-    // setStoredBooks(JSON.parse(localStorage.books));
+    // setbooks(JSON.parse(localStorage.books));
     // setChapterCount(chapterCount + 1);
   }
 
   function removeChapter() {
-    // if (Number(storedBooks[currentBook].chapters) > 1) {
+    // if (Number(books[currentBook].chapters) > 1) {
     //   let newBookData = {
-    //     ...storedBooks,
+    //     ...books,
     //     [currentBook]: {
-    //       ...storedBooks[currentBook],
-    //       chapters: Number(storedBooks[currentBook].chapters) - 1,
+    //       ...books[currentBook],
+    //       chapters: Number(books[currentBook].chapters) - 1,
     //     },
     //   };
     //   localStorage.setItem('books', JSON.stringify(newBookData));
-    //   setStoredBooks(JSON.parse(localStorage.books));
+    //   setbooks(JSON.parse(localStorage.books));
     //   setChapterCount(chapterCount - 1);
     // }
   }
@@ -194,7 +190,7 @@ const ChaptersView = ({setCurrentlyOpenedBook, setCurrentlyOpenedChapter, setSum
     <div>
       {showMoodboard}
       <div id="chapters-view" className="viewstate">
-        {Object.keys(storedBooks)
+        {Object.keys(books)
           .sort()
           .map(function (key, index) {
             return (
@@ -202,24 +198,26 @@ const ChaptersView = ({setCurrentlyOpenedBook, setCurrentlyOpenedChapter, setSum
                 key={index}
                 className="book-display-in-view"
                 id={key}
-                onClick={fetchChapterList}
+                onClick={() => setSelectedBook(books[key])}
               >
-                {storedBooks[key].name}
+                {key}
               </button>
             );
           })}
       </div>
       <div id="chapter-list-container">
-        {[...Array(chapterCount)].map((e, i) => (
-          <button
-            className="chapterButtons"
-            key={i}
-            id={currentBook + 'chapter' + (i + 1)}
-            onClick={fetchChapter}
-          >
-            Chapter {i + 1}
-          </button>
-        ))}
+        {selectedBook
+          ? Object.keys(selectedBook.chapters).map((e, i) => (
+              <button
+                className="chapterButtons"
+                key={i}
+                id={currentBook + 'chapter' + (i + 1)}
+                onClick={fetchChapter}
+              >
+                Chapter {i + 1}
+              </button>
+            ))
+          : null}
       </div>
       <div id="fetched-chapter-container">
         <PlotChart

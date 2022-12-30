@@ -1,7 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {Chart} from 'react-google-charts';
-import RadioButtons from '../mui/RadioButtons';
-import CircularIntegration from '../mui/AnimatedSaveButton';
+import SaveButton from '../mui/AnimatedSaveButton';
+import {DefaultPlotChartData} from '../../utils/static/Plot';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
 
 interface Props {
   setFetchBook: React.Dispatch<React.SetStateAction<any>>;
@@ -16,7 +20,6 @@ const PlotChart = ({setFetchBook, chartData, setChartData, saveChart}: Props) =>
   const [comment, setComment] = useState('');
   const [curveType, setCurveType] = useState('function');
   const [fetchChart, setFetchChart] = useState(true);
-  const SAVEBTN = document.getElementById('save-btn') ?? null;
 
   function addStakes(event: any) {
     event.preventDefault();
@@ -47,11 +50,7 @@ const PlotChart = ({setFetchBook, chartData, setChartData, saveChart}: Props) =>
   function clearStakes(event: any) {
     event.preventDefault();
 
-    setChartData([
-      ['Time', 'Stakes', {role: 'tooltip', type: 'string', p: {html: true}}],
-      [0, 0, 'Startpoint'],
-      [100, 0, 'Endpoint'],
-    ]);
+    setChartData(DefaultPlotChartData);
     setStakes(0);
     setPercentage(0);
     // $("input").val("");
@@ -66,6 +65,7 @@ const PlotChart = ({setFetchBook, chartData, setChartData, saveChart}: Props) =>
     curveType: curveType,
     legend: {position: 'bottom'},
     colors: ['#000', '#000'],
+    height: 450,
     vAxis: {
       baseline: 100,
       title: 'Stakes & Tension',
@@ -101,43 +101,45 @@ const PlotChart = ({setFetchBook, chartData, setChartData, saveChart}: Props) =>
   };
 
   return (
-    <div>
-      <div id="chart-container">
-        {fetchChart ? <Chart chartType="LineChart" data={chartData} options={options} /> : null}
-        <form id="chart-input" onSubmit={e => e.preventDefault()}>
-          <label>
-            Add
-            <input type="text" onChange={event => setStakes(Number(event.target.value))} />
-            Relative Stakes Value at the
-            <input type="text" onChange={event => setPercentage(Number(event.target.value))} />
-            % mark of the plot with the following comment:
-            <input
-              type="text"
-              onChange={event => setComment(event.target.value)}
-              id="comment-input"
-            />
-          </label>
-          <button onClick={addStakes}>Add</button>
-          <button onClick={clearStakes}>Clear</button>
-        </form>
-        <div
-          id="circular-container"
-          style={{
-            position: 'absolute',
-            left: '100%',
-            borderRadius: '50%',
-            transitionDuration: '0s',
-          }}
-        >
-          <CircularIntegration
-            clickFunction={saveChart}
-            buttonText={'Save'}
-            returnToggle={'circle'}
+    <>
+      {fetchChart ? <Chart chartType="LineChart" data={chartData} options={options} /> : null}
+      <form id="chart-input" onSubmit={e => e.preventDefault()}>
+        <label>
+          Add
+          <input type="text" onChange={event => setStakes(Number(event.target.value))} />
+          Relative Stakes Value at the
+          <input type="text" onChange={event => setPercentage(Number(event.target.value))} />
+          % mark of the plot with the following comment:
+          <input
+            type="text"
+            onChange={event => setComment(event.target.value)}
+            id="comment-input"
           />
-        </div>
-        <RadioButtons handleChange={handleChange} parentState={curveType} />
+        </label>
+        <button onClick={addStakes}>Add</button>
+        <button onClick={clearStakes}>Clear</button>
+      </form>
+      <div id="radio-btns">
+        <FormControl>
+          <RadioGroup row name="radiobtns" defaultValue="function" onChange={handleChange}>
+            <FormControlLabel
+              value="function"
+              control={<Radio />}
+              label="Curved Lines"
+              labelPlacement="start"
+            />
+            <FormControlLabel value="none" control={<Radio />} label="Jagged Lines" />
+          </RadioGroup>
+        </FormControl>
       </div>
-    </div>
+      <div
+        style={{
+          borderRadius: '50%',
+        }}
+      >
+        <SaveButton clickFunction={saveChart} />
+      </div>
+    </>
   );
 };
 

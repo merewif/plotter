@@ -1,83 +1,58 @@
 import React, {useState, useEffect} from 'react';
+import {usePlotStore} from '../../utils/stores/PlotStore';
+import {useForm} from 'react-hook-form';
+import type {Book, Chapter} from '../../types/types';
 
 interface Props {
-  currentlyOpenedBook: string[];
-  currentlyOpenedChapter: string[];
-  summary: string;
-  setSummary: React.Dispatch<React.SetStateAction<string>>;
+  book: Book;
+  chapter?: Chapter;
 }
 
-const Plotsidebar = ({currentlyOpenedBook, currentlyOpenedChapter, summary, setSummary}: Props) => {
-  const [storedBooks, setStoredBooks] = useState('');
-  const [summaryInput, setSummaryInput] = useState('');
+const PlotSidebar = ({book, chapter}: Props) => {
+  const books = usePlotStore(state => state.books);
+  const saveBook = usePlotStore(state => state.saveBook);
+  const saveChapter = usePlotStore(state => state.saveChapter);
   const [buttonText, setButtonText] = useState('Save');
-
-  if (currentlyOpenedBook.length) {
-    // $("#right-sidebar-input").show();
-  }
+  const {register, handleSubmit, reset} = useForm<{summary: string}>();
 
   useEffect(() => {
-    if ('books' in localStorage) {
-      setStoredBooks(JSON.parse(localStorage.books));
+    if (book && chapter) {
+      reset({summary: books[book.title]?.chapters[chapter.title]?.summary});
     }
-  }, []);
+    if (book && !chapter) {
+      reset({summary: books[book.title]?.summary});
+    }
+  }, [book, chapter, books, reset]);
 
-  function saveSummary(event: any) {
-    // event.preventDefault();
-
-    // if (currentlyOpenedBook.length && !currentlyOpenedChapter.length) {
-    //   let newBookData = {
-    //     ...storedBooks,
-    //     [currentlyOpenedBook[1]]: {
-    //       ...storedBooks[currentlyOpenedBook[1]],
-    //       [currentlyOpenedBook[1] + "Summary"]: summaryInput,
-    //     },
-    //   };
-
-    //   localStorage.setItem("books", JSON.stringify(newBookData));
-    //   setStoredBooks(JSON.parse(localStorage.books));
-    // } else if (currentlyOpenedBook.length && currentlyOpenedChapter.length) {
-    //   let newBookData = {
-    //     ...storedBooks,
-    //     [currentlyOpenedBook[1]]: {
-    //       ...storedBooks[currentlyOpenedBook[1]],
-    //       chaptersContent: {
-    //         ...storedBooks[currentlyOpenedBook[1]].chaptersContent,
-    //         [currentlyOpenedChapter[1] + "Summary"]: summaryInput,
-    //       },
-    //     },
-    //   };
-
-    //   localStorage.setItem("books", JSON.stringify(newBookData));
-    //   setStoredBooks(JSON.parse(localStorage.books));
-    // }
-
+  const updateSummary = (data: {summary: string}) => {
+    if (book && chapter) {
+      saveChapter(book, {...chapter, summary: data.summary});
+    }
+    if (book && !chapter) {
+      saveBook(book.title, {...book, summary: data.summary});
+    }
     setButtonText('Saved');
     setTimeout(() => {
       setButtonText('Save');
     }, 1500);
-  }
+  };
 
   return (
     <section className="right-side">
       <div id="currently-viewing">
-        <h1>{currentlyOpenedBook[0]}</h1>
-        <h2>{currentlyOpenedChapter[0]}</h2>
+        <h1>{book.title}</h1>
+        {chapter ? <h2>{chapter.title}</h2> : null}
       </div>
-      <form id="right-sidebar-input">
+      <form id="right-sidebar-input" onSubmit={handleSubmit(updateSummary)}>
         <label>
           <p style={{fontFamily: 'Montserrat', margin: 0}}>one-sentence summary</p>
           <textarea
             id="one-sentence-summary"
             placeholder="Who does what to whom, when, where, how, and why?"
-            value={summary}
-            onChange={event => {
-              setSummaryInput(event.target.value);
-              setSummary(event.target.value);
-            }}
+            {...register('summary')}
           />
         </label>
-        <button id="save-summary" onClick={saveSummary}>
+        <button id="save-summary" type="submit">
           {buttonText}
         </button>
       </form>
@@ -85,4 +60,4 @@ const Plotsidebar = ({currentlyOpenedBook, currentlyOpenedChapter, summary, setS
   );
 };
 
-export default Plotsidebar;
+export default PlotSidebar;
