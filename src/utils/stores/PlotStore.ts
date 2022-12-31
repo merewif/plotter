@@ -26,6 +26,7 @@ export const usePlotStore = create<PlotStore>(set => ({
             summary: draftState.books.get(title)?.summary || '',
             chartData: draftState.books.get(title)?.chartData || DefaultPlotChartData,
             imgArray: draftState.books.get(title)?.imgArray || ['https://i.imgur.com/w1AGMhl.png'],
+            arcSummaries: draftState.books.get(title)?.arcSummaries || new Map(),
             chapters: draftState.books.get(title)?.chapters || new Map(),
           });
         });
@@ -52,6 +53,7 @@ export const usePlotStore = create<PlotStore>(set => ({
           title: (numChapters + 1).toString(),
           summary: '',
           chartData: DefaultPlotChartData,
+          arcSummaries: new Map(),
           imgArray: ['https://i.imgur.com/w1AGMhl.png'],
         });
         newBook.chapters = newChapters;

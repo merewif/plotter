@@ -10,9 +10,9 @@ const BooksView = () => {
   const saveBook = usePlotStore(state => state.saveBook);
   const [selectedBook, setSelectedBook] = useState<string>();
 
-  function saveChart(chartData: ChartData) {
+  function saveChart(chartData: ChartData, arcSummaries: Map<number, string>) {
     if (!selectedBook) return;
-    const book: Book = {...(books.get(selectedBook) as Book), chartData};
+    const book: Book = {...(books.get(selectedBook) as Book), chartData, arcSummaries};
     saveBook(selectedBook, book);
   }
 
@@ -27,12 +27,12 @@ const BooksView = () => {
       {selectedBook && books.has(selectedBook) ? (
         <MoodBoard images={(books.get(selectedBook) as Book).imgArray} saveImages={saveImages} />
       ) : null}
-      <div className="viewstate">
+      <div>
         {[...books.values()].sort().map((book, index) => {
           return (
             <button
               key={index}
-              className="book-display-in-view"
+              className="mx-1 px-2"
               style={{
                 background: selectedBook === book.title ? 'white' : 'black',
                 color: selectedBook === book.title ? 'black' : 'white',
@@ -47,9 +47,10 @@ const BooksView = () => {
       </div>
       {selectedBook && books.has(selectedBook) ? (
         <>
-          <div style={{marginTop: 75}}>
+          <div>
             <PlotChart
               saveChart={saveChart}
+              arcSummaries={(books.get(selectedBook) as Book).arcSummaries}
               chartData={(books.get(selectedBook) as Book).chartData}
             />
           </div>

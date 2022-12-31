@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React, {useState, useEffect} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {faCheckCircle, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
@@ -19,7 +20,7 @@ const MoodBoard = ({images = [], saveImages}: Props) => {
 
   const [imported, setImported] = useState(0);
 
-  useEffect(function importImages() {
+  useEffect(() => {
     if (images.length > 0 && imported === 0) {
       setImgArray(images);
       setImported(1);
@@ -51,12 +52,12 @@ const MoodBoard = ({images = [], saveImages}: Props) => {
   }
 
   return (
-    <section id="character-sidebar" className="left-side">
+    <div className="left-side">
       <p>Moodboard</p>
       <div id="moodboard-container"></div>
       <div id="moodboard">
-        {imgArray.map(function (image) {
-          return <img className="moodboard-image" key={image} src={image} />;
+        {imgArray.map(image => {
+          return <img className="moodboard-image" alt="" key={image} src={image} />;
         })}
 
         <input
@@ -76,7 +77,7 @@ const MoodBoard = ({images = [], saveImages}: Props) => {
           {deleteButton}
         </button>
       </div>
-    </section>
+    </div>
   );
 };
 

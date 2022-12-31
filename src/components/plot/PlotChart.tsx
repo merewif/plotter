@@ -48,7 +48,8 @@ const options = {
 };
 interface Props {
   chartData: ChartData;
-  saveChart: (chartData: ChartData) => void;
+  arcSummaries: Map<number, string>;
+  saveChart: (chartData: ChartData, arcSummaries: Map<number, string>) => void;
 }
 
 interface ChartFormValues {
@@ -57,73 +58,91 @@ interface ChartFormValues {
   comment: string;
 }
 
-const PlotChart = ({chartData, saveChart}: Props) => {
+const PlotChart = ({chartData, arcSummaries, saveChart}: Props) => {
   const [curveType, setCurveType] = useState('function');
   const {register, handleSubmit, reset} = useForm<ChartFormValues>();
-  console.log(chartData);
+
   function addStakes(formData: ChartFormValues) {
     const chartConfig = chartData[0];
     const chartDataWithoutSettings = chartData.slice(1) as Array<ChartEntry>;
     const newChartData = chartDataWithoutSettings.filter(
-      (data: ChartEntry) => data[0] !== formData.percentage,
+      (data: ChartEntry) => data[0] !== Number(formData.percentage),
     );
     newChartData.push([Number(formData.percentage), Number(formData.stakes)]);
     newChartData.sort((a: ChartEntry, b: ChartEntry) => a[0] - b[0]);
-    saveChart([chartConfig, ...newChartData]);
+    const newArcSummaries = new Map(arcSummaries);
+    newArcSummaries.set(Number(formData.percentage), formData.comment);
+    saveChart([chartConfig, ...newChartData], newArcSummaries);
     reset();
   }
 
   function clearStakes() {
-    saveChart(DefaultPlotChartData);
+    saveChart(DefaultPlotChartData, new Map());
     reset();
   }
 
   return (
     <>
+      <FormControl>
+        <RadioGroup
+          row
+          name="radiobtns"
+          style={{display: 'flex', flexDirection: 'row', gap: 20}}
+          defaultValue="function"
+          onChange={e => setCurveType(e.target.value)}
+        >
+          <FormControlLabel value="function" control={<Radio />} label="Curved Lines" />
+          <FormControlLabel value="none" control={<Radio />} label="Jagged Lines" />
+        </RadioGroup>
+      </FormControl>
       <Chart chartType="LineChart" data={chartData} options={{...options, curveType}} />
-      <form id="chart-input" onSubmit={handleSubmit(addStakes)}>
-        <label>
+      <form
+        className="mt-5 flex flex-col gap-5 border-t-4 border-black pt-5"
+        onSubmit={handleSubmit(addStakes)}
+      >
+        <div>
           Add
           <input
-            className="border-2 border-black"
+            className="mx-2 w-10 border border-black"
             type="text"
-            {...register('stakes', {required: true})}
+            {...register('stakes', {
+              pattern: /^[0-9]+$/,
+              validate: value => Number(value) > 0 && Number(value) <= 100,
+            })}
           />
           Relative Stakes Value at the
           <input
-            className="border-2 border-black"
+            className="mx-2 w-10 border border-black"
             type="text"
-            {...register('percentage', {required: true})}
+            {...register('percentage', {
+              pattern: /^[0-9]+$/,
+              validate: value => Number(value) > 0 && Number(value) <= 100,
+            })}
           />
           % mark of the plot with the following comment:
-          <input
-            className="border-2 border-black"
-            type="text"
+        </div>
+        <div className="flex flex-col gap-1">
+          <textarea
+            className="mx-auto border border-black"
             {...register('comment')}
             id="comment-input"
           />
-        </label>
-        <button type="submit">Add</button>
-        <button onClick={clearStakes}>Clear</button>
+        </div>
+        <div>
+          <button className="mx-0.5 bg-black px-1 text-white" type="submit">
+            Add
+          </button>
+          <button className="mx-0.5 bg-black px-1 text-white" onClick={clearStakes}>
+            Clear
+          </button>
+        </div>
       </form>
-      <div id="radio-btns">
-        <FormControl>
-          <RadioGroup
-            row
-            name="radiobtns"
-            defaultValue="function"
-            onChange={e => setCurveType(e.target.value)}
-          >
-            <FormControlLabel
-              value="function"
-              control={<Radio />}
-              label="Curved Lines"
-              labelPlacement="start"
-            />
-            <FormControlLabel value="none" control={<Radio />} label="Jagged Lines" />
-          </RadioGroup>
-        </FormControl>
-      </div>
+
+      {[...arcSummaries.entries()].map(([percentage, comment]) => (
+        <div key={percentage}>
+          {percentage}%: {comment}
+        </div>
+      ))}
     </>
   );
 };

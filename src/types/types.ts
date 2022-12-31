@@ -27,6 +27,7 @@ export interface Book {
   title: string;
   summary: string;
   chartData: ChartData;
+  arcSummaries: Map<number, string>;
   imgArray: string[];
   chapters: Map<string, Chapter>;
 }
@@ -35,12 +36,11 @@ export interface Chapter {
   title: string;
   summary: string;
   chartData: ChartData;
+  arcSummaries: Map<number, string>;
   imgArray: string[];
 }
 
-export type ChartData = [ChartHeader, ...Array<ChartEntry>];
-
-export type ChartHeader = Array<ChartSettings>;
+export type ChartData = [Array<ChartSettings>, ...Array<ChartEntry>];
 export type ChartEntry = [number, number];
 
 export interface ChartSettings {

@@ -18,13 +18,13 @@ const ChaptersView = () => {
     setSelectedChapter(null);
   }, [selectedBook]);
 
-  function saveChart(chartData: ChartData) {
+  function saveChart(chartData: ChartData, arcSummaries: Map<number, string>) {
     if (!selectedBook || !selectedChapter) return;
     const book = books.get(selectedBook);
     if (!book) return;
     const chapter = book.chapters.get(selectedChapter);
     if (!chapter) return;
-    const newChapter: Chapter = {...chapter, chartData};
+    const newChapter: Chapter = {...chapter, chartData, arcSummaries};
     saveChapter(book, newChapter);
   }
 
@@ -46,36 +46,36 @@ const ChaptersView = () => {
   }
 
   return (
-    <div>
+    <>
       {selectedChapter && selectedBook ? (
         <MoodBoard
           images={books.get(selectedBook)?.chapters.get(selectedChapter)?.imgArray}
           saveImages={saveImages}
         />
       ) : null}
-      <div id="chapters-view" className="viewstate">
-        {[...books.keys()].map((key, index) => {
+      <div>
+        {[...books.values()].sort().map((book, index) => {
           return (
             <button
               key={index}
-              className="book-display-in-view"
+              className="mx-1 px-2"
               style={{
-                backgroundColor: selectedBook === key ? 'white' : 'black',
-                color: selectedBook === key ? 'black' : 'white',
-                border: selectedBook === key ? '1px solid black' : '1px solid white',
+                background: selectedBook === book.title ? 'white' : 'black',
+                color: selectedBook === book.title ? 'black' : 'white',
+                border: selectedBook === book.title ? '1px solid black' : 'none',
               }}
-              onClick={() => setSelectedBook(key)}
+              onClick={() => setSelectedBook(book.title)}
             >
-              {key}
+              {book.title}
             </button>
           );
         })}
       </div>
-      <div id="chapter-list-container">
+      <div>
         {selectedBook && books.get(selectedBook)
           ? [...books.get(selectedBook)!.chapters.keys()].map((key, i) => (
               <button
-                className="chapterButtons"
+                className="mx-1 px-2"
                 key={i}
                 onClick={() => setSelectedChapter(key)}
                 style={{
@@ -94,9 +94,10 @@ const ChaptersView = () => {
       selectedBook &&
       books.has(selectedBook) &&
       books.get(selectedBook)?.chapters.has(selectedChapter) ? (
-        <div style={{marginTop: 125}}>
+        <div>
           <PlotChart
             saveChart={saveChart}
+            arcSummaries={books.get(selectedBook)!.chapters.get(selectedChapter)!.arcSummaries}
             chartData={books.get(selectedBook)!.chapters.get(selectedChapter)!.chartData}
           />
         </div>
@@ -114,7 +115,7 @@ const ChaptersView = () => {
       {selectedBook && selectedChapter ? (
         <PlotSidebar bookTitle={selectedBook} chapterTitle={selectedChapter} />
       ) : null}
-    </div>
+    </>
   );
 };
 
