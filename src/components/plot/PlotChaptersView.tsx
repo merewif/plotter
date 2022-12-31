@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react';
 import PlotChart from './PlotChart';
 import MoodBoard from '../MoodBoard';
 import {usePlotStore} from '../../utils/stores/PlotStore';
-import type {Book, Chapter} from '../../types/types';
+import type {Chapter, ChartData} from '../../types/types';
 import PlotSidebar from './PlotSidebar';
 
 const ChaptersView = () => {
@@ -18,13 +18,13 @@ const ChaptersView = () => {
     setSelectedChapter(null);
   }, [selectedBook]);
 
-  function saveChart() {
+  function saveChart(chartData: ChartData) {
     if (!selectedBook || !selectedChapter) return;
     const book = books[selectedBook];
     if (!book) return;
     const chapter = book.chapters[selectedChapter];
     if (!chapter) return;
-    const newChapter: Chapter = {...chapter, chartData: chapter.chartData};
+    const newChapter: Chapter = {...chapter, chartData};
     saveChapter(book, newChapter);
   }
 
@@ -101,14 +101,16 @@ const ChaptersView = () => {
           />
         </div>
       ) : null}
-      <div style={{width: '100%'}}>
-        <button onClick={() => changeChapterCount(decrementChapters)} id="remove-chapter-btn">
-          Remove Chapter
-        </button>
-        <button onClick={() => changeChapterCount(incrementChapters)} id="add-chapter-btn">
-          Add Chapter
-        </button>
-      </div>
+      {selectedBook && !selectedChapter ? (
+        <div style={{width: '100%'}}>
+          <button onClick={() => changeChapterCount(decrementChapters)} id="remove-chapter-btn">
+            Remove Chapter
+          </button>
+          <button onClick={() => changeChapterCount(incrementChapters)} id="add-chapter-btn">
+            Add Chapter
+          </button>
+        </div>
+      ) : null}
       {selectedBook && selectedChapter ? (
         <PlotSidebar bookTitle={selectedBook} chapterTitle={selectedChapter} />
       ) : null}

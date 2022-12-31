@@ -1,7 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {usePlotStore} from '../../utils/stores/PlotStore';
 import {useForm} from 'react-hook-form';
-import type {Book, Chapter} from '../../types/types';
 
 interface Props {
   bookTitle: string;
@@ -15,7 +14,7 @@ const PlotSidebar = ({bookTitle, chapterTitle}: Props) => {
   const [buttonText, setButtonText] = useState('Save');
   const {register, handleSubmit, reset} = useForm<{summary: string}>();
 
-  useEffect(() => {
+  const handleDataChange = useCallback(() => {
     if (bookTitle && chapterTitle) {
       reset({summary: books[bookTitle]?.chapters[chapterTitle]?.summary});
     }
@@ -23,6 +22,10 @@ const PlotSidebar = ({bookTitle, chapterTitle}: Props) => {
       reset({summary: books[bookTitle]?.summary});
     }
   }, [bookTitle, chapterTitle, books, reset]);
+
+  useEffect(() => {
+    handleDataChange();
+  }, [bookTitle, chapterTitle, handleDataChange]);
 
   const updateSummary = (data: {summary: string}) => {
     const book = books[bookTitle];
