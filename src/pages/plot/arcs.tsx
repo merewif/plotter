@@ -66,7 +66,7 @@ const StoryArcs = () => {
               setDisplayView('');
               setBook(null);
               setChapter(null);
-              setDisplayView(<ChaptersView setBook={setBook} setChapter={setChapter} />);
+              setDisplayView(<ChaptersView />);
             }}
             value="chapters"
           >

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Chart} from 'react-google-charts';
 import SaveButton from '../mui/AnimatedSaveButton';
 import {DefaultPlotChartData} from '../../utils/static/Plot';
@@ -6,122 +6,102 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
+import type {ChartData, ChartEntry} from '../../types/types';
+import {useForm} from 'react-hook-form';
 
+const options = {
+  title: 'Story Arc',
+  titleTextStyle: {
+    bold: false,
+    italic: true,
+  },
+  legend: {position: 'bottom'},
+  colors: ['#000', '#000'],
+  height: 450,
+  vAxis: {
+    baseline: 100,
+    title: 'Stakes & Tension',
+  },
+  fontName: 'Cormorant Garamond',
+  fontSize: 25,
+  tooltip: {
+    trigger: 'hover',
+    textStyle: {
+      fontName: 'Montserrat',
+      fontSize: 15,
+    },
+  },
+  selectionMode: 'multiple',
+  aggregationTarget: 'series',
+  animation: {
+    duration: 1000,
+    easing: 'inAndOut',
+  },
+  enableInteractivity: true,
+  hAxis: {
+    gridlines: {
+      color: '#fff',
+    },
+  },
+  pointShape: 'polygon',
+  pointSize: 10,
+  pointsVisible: true,
+};
 interface Props {
-  setFetchBook: React.Dispatch<React.SetStateAction<any>>;
-  chartData: any;
-  setChartData: React.Dispatch<React.SetStateAction<any>>;
-  saveChart: any;
+  chartData: ChartData;
+  saveChart: (chartData: ChartData) => void;
 }
 
-const PlotChart = ({setFetchBook, chartData, setChartData, saveChart}: Props) => {
-  const [stakes, setStakes] = useState(0);
-  const [percentage, setPercentage] = useState(0);
-  const [comment, setComment] = useState('');
+interface ChartFormValues {
+  stakes: number;
+  percentage: number;
+  comment: string;
+}
+
+const PlotChart = ({chartData, saveChart}: Props) => {
   const [curveType, setCurveType] = useState('function');
-  const [fetchChart, setFetchChart] = useState(true);
+  const {register, handleSubmit, reset} = useForm<ChartFormValues>();
 
-  function addStakes(event: any) {
-    event.preventDefault();
-    console.log(document.getElementById('save-btn'));
-
-    // SAVEBTN.classList.add("btn-unsaved");
-
-    for (let i = 1; i < chartData.length; i++) {
-      if (chartData[i][0] > percentage) {
-        const newData = [
-          // Items before the insertion point:
-          ...chartData.slice(0, i),
-          // New item:
-          [Number(percentage), Number(stakes), comment],
-          // Items after the insertion point:
-          ...chartData.slice(i),
-        ];
-        setChartData(newData);
-        setFetchBook(newData);
-        setStakes(0);
-        setPercentage(0);
-        // $("input").val("");
-        i = chartData.length;
-      }
-    }
+  function addStakes(formData: ChartFormValues) {
+    const chartSettings = chartData[0];
+    const chartDataWithoutSettings = chartData.slice(1) as Array<ChartEntry>;
+    const newChartData = chartDataWithoutSettings.filter(
+      (data: ChartEntry) => data[0] !== formData.percentage,
+    );
+    newChartData.push([Number(formData.percentage), Number(formData.stakes), formData.comment]);
+    newChartData.sort((a: ChartEntry, b: ChartEntry) => a[0] - b[0]);
+    saveChart([chartSettings, ...newChartData]);
+    reset();
   }
 
-  function clearStakes(event: any) {
-    event.preventDefault();
-
-    setChartData(DefaultPlotChartData);
-    setStakes(0);
-    setPercentage(0);
-    // $("input").val("");
+  function clearStakes() {
+    saveChart(DefaultPlotChartData);
+    reset();
   }
-
-  const options = {
-    title: 'Story Arc',
-    titleTextStyle: {
-      bold: false,
-      italic: true,
-    },
-    curveType: curveType,
-    legend: {position: 'bottom'},
-    colors: ['#000', '#000'],
-    height: 450,
-    vAxis: {
-      baseline: 100,
-      title: 'Stakes & Tension',
-    },
-    fontName: 'Cormorant Garamond',
-    fontSize: 25,
-    tooltip: {
-      trigger: 'hover',
-      textStyle: {
-        fontName: 'Montserrat',
-        fontSize: 15,
-      },
-    },
-    selectionMode: 'multiple',
-    aggregationTarget: 'series',
-    animation: {
-      duration: 1000,
-      easing: 'inAndOut',
-    },
-    enableInteractivity: true,
-    hAxis: {
-      gridlines: {
-        color: '#fff',
-      },
-    },
-    pointShape: 'polygon',
-    pointSize: 10,
-    pointsVisible: true,
-  };
-
-  const handleChange = (event: any) => {
-    setCurveType(event.target.value);
-  };
 
   return (
     <>
-      {fetchChart ? <Chart chartType="LineChart" data={chartData} options={options} /> : null}
-      <form id="chart-input" onSubmit={e => e.preventDefault()}>
+      <Chart chartType="LineChart" data={chartData} options={{...options, curveType}} />
+      <form id="chart-input" onSubmit={handleSubmit(addStakes)}>
         <label>
           Add
-          <input type="text" onChange={event => setStakes(Number(event.target.value))} />
+          <input type="text" {...register('stakes', {required: true})} />
           Relative Stakes Value at the
-          <input type="text" onChange={event => setPercentage(Number(event.target.value))} />
+          <input type="text" {...register('percentage', {required: true})} />
           % mark of the plot with the following comment:
-          <input
-            type="text"
-            onChange={event => setComment(event.target.value)}
-            id="comment-input"
-          />
+          <input type="text" {...register('comment')} id="comment-input" />
         </label>
-        <button onClick={addStakes}>Add</button>
+        <button type="submit">Add</button>
         <button onClick={clearStakes}>Clear</button>
       </form>
       <div id="radio-btns">
         <FormControl>
-          <RadioGroup row name="radiobtns" defaultValue="function" onChange={handleChange}>
+          <RadioGroup
+            row
+            name="radiobtns"
+            defaultValue="function"
+            onChange={e => setCurveType(e.target.value)}
+          >
             <FormControlLabel
               value="function"
               control={<Radio />}
@@ -131,13 +111,6 @@ const PlotChart = ({setFetchBook, chartData, setChartData, saveChart}: Props) =>
             <FormControlLabel value="none" control={<Radio />} label="Jagged Lines" />
           </RadioGroup>
         </FormControl>
-      </div>
-      <div
-        style={{
-          borderRadius: '50%',
-        }}
-      >
-        <SaveButton clickFunction={saveChart} />
       </div>
     </>
   );

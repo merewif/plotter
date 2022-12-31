@@ -44,7 +44,7 @@ const CharacterFetch = ({charID, deleteCharacter}: Props) => {
     <div>
       <MoodBoard
         images={parseCharacter.images}
-        ChangeData={characterImages => setCharacterImages(characterImages)}
+        saveImages={characterImages => setCharacterImages(characterImages)}
       />
 
       <CharacterDisplay currentCharacter={parseCharacter} editable={true} />

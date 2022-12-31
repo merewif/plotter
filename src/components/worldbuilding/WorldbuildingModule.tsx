@@ -61,7 +61,7 @@ const WorldbuildingModule = ({module}: Props) => {
   return (
     <>
       {openedEntryId ? (
-        <MoodBoard images={itemImages} ChangeData={itemImages => setItemImages(itemImages)} />
+        <MoodBoard images={itemImages} saveImages={itemImages => setItemImages(itemImages)} />
       ) : null}
       <WorldbuildingSidebar
         data={moduleData}

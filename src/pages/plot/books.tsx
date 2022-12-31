@@ -19,7 +19,6 @@ const SetBooks = () => {
   const {push} = useRouter();
 
   function confirmBooks(titles: {[key: string]: string}) {
-    console.log(titles);
     if (Object.keys(titles).length !== new Set(Object.values(titles)).size) {
       setShowAlert(true);
       setTimeout(() => {

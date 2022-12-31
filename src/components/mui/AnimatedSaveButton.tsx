@@ -8,7 +8,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import Tooltip from '@mui/material/Tooltip';
 
 interface Props {
-  clickFunction: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  clickFunction: (data: any) => void;
 }
 
 export default function SaveButton({clickFunction}: Props) {

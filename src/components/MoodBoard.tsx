@@ -4,10 +4,10 @@ import {faCheckCircle, faTrashAlt} from '@fortawesome/free-solid-svg-icons';
 
 interface Props {
   images?: string[];
-  ChangeData: (data: string[]) => void;
+  saveImages: (data: string[]) => void;
 }
 
-const MoodBoard = ({images = [], ChangeData}: Props) => {
+const MoodBoard = ({images = [], saveImages}: Props) => {
   const SAVEBTN = document.getElementById('save-btn') ?? null;
   const SAVEBTN2 = document.getElementById('button-black') ?? null;
 
@@ -33,8 +33,7 @@ const MoodBoard = ({images = [], ChangeData}: Props) => {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setImgArray(imgArray => [...imgArray, input]);
-    ChangeData([...imgArray, input]);
-    // $('#image-input').val('');
+    saveImages([...imgArray, input]);
     setInput('');
     if (SAVEBTN) SAVEBTN.classList.add('btn-unsaved');
     if (SAVEBTN2) SAVEBTN2.classList.add('btn-red');
@@ -43,7 +42,7 @@ const MoodBoard = ({images = [], ChangeData}: Props) => {
   function deleteLast(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
     setImgArray(imgArray.slice(0, -1));
-    ChangeData(imgArray.slice(0, -1));
+    saveImages(imgArray.slice(0, -1));
 
     setDeleteButton(<FontAwesomeIcon icon={faCheckCircle} id="fa-icon" />);
     setTimeout(() => {

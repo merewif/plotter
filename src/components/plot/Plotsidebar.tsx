@@ -4,11 +4,11 @@ import {useForm} from 'react-hook-form';
 import type {Book, Chapter} from '../../types/types';
 
 interface Props {
-  book: Book;
-  chapter?: Chapter;
+  bookTitle: string;
+  chapterTitle?: string;
 }
 
-const PlotSidebar = ({book, chapter}: Props) => {
+const PlotSidebar = ({bookTitle, chapterTitle}: Props) => {
   const books = usePlotStore(state => state.books);
   const saveBook = usePlotStore(state => state.saveBook);
   const saveChapter = usePlotStore(state => state.saveChapter);
@@ -16,20 +16,24 @@ const PlotSidebar = ({book, chapter}: Props) => {
   const {register, handleSubmit, reset} = useForm<{summary: string}>();
 
   useEffect(() => {
-    if (book && chapter) {
-      reset({summary: books[book.title]?.chapters[chapter.title]?.summary});
+    if (bookTitle && chapterTitle) {
+      reset({summary: books[bookTitle]?.chapters[chapterTitle]?.summary});
     }
-    if (book && !chapter) {
-      reset({summary: books[book.title]?.summary});
+    if (bookTitle && !chapterTitle) {
+      reset({summary: books[bookTitle]?.summary});
     }
-  }, [book, chapter, books, reset]);
+  }, [bookTitle, chapterTitle, books, reset]);
 
   const updateSummary = (data: {summary: string}) => {
-    if (book && chapter) {
+    const book = books[bookTitle];
+    if (!book) return;
+    if (chapterTitle) {
+      const chapter = book?.chapters[chapterTitle];
+      if (!chapter) return;
       saveChapter(book, {...chapter, summary: data.summary});
     }
-    if (book && !chapter) {
-      saveBook(book.title, {...book, summary: data.summary});
+    if (!chapterTitle) {
+      saveBook(bookTitle, {...book, summary: data.summary});
     }
     setButtonText('Saved');
     setTimeout(() => {
@@ -40,8 +44,8 @@ const PlotSidebar = ({book, chapter}: Props) => {
   return (
     <section className="right-side">
       <div id="currently-viewing">
-        <h1>{book.title}</h1>
-        {chapter ? <h2>{chapter.title}</h2> : null}
+        <h1>{bookTitle}</h1>
+        {chapterTitle ? <h2>Chapter {chapterTitle}</h2> : null}
       </div>
       <form id="right-sidebar-input" onSubmit={handleSubmit(updateSummary)}>
         <label>

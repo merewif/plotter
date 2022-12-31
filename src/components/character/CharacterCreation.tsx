@@ -149,7 +149,7 @@ const Charactercreation = () => {
       <div>{display}</div>
 
       <div>
-        <MoodBoard ChangeData={characterImages => setCharacterImages(characterImages)} />
+        <MoodBoard saveImages={characterImages => setCharacterImages(characterImages)} />
       </div>
 
       <p id="character-prompt">{text}</p>

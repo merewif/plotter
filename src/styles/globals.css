@@ -828,26 +828,6 @@ textarea:focus {
   border: 1px solid black;
 }
 
-#savechart {
-  position: absolute;
-  top: 103%;
-  left: 102%;
-  width: 6vw;
-  height: 20px;
-  transform: translate(-50%, -50%);
-  background: black;
-  border: 1px solid black;
-  font-family: 'Cormorant Garamond';
-  color: white;
-  cursor: pointer;
-  font-style: italic;
-  z-index: 10000;
-}
-
-#fetched-chapter-container #savechart {
-  top: 102.5%;
-}
-
 #savechart:hover {
   background: white;
   color: black;
@@ -981,17 +961,6 @@ h1 {
   transform: translate(-50%, -50%);
 }
 
-#fetched-chapter-container {
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 50vw;
-  height: 50vh;
-  display: none;
-  transition-duration: 0s;
-}
-
 #remove-chapter-btn {
   position: absolute;
   top: 94.5%;
@@ -1015,7 +984,6 @@ h1 {
   font-weight: 900;
   text-transform: uppercase;
   cursor: pointer;
-  display: none;
   width: auto;
   padding: 8px;
 }

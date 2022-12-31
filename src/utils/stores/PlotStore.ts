@@ -8,6 +8,7 @@ export interface PlotStore {
   setBooks: (titles: Array<string>) => void;
   saveBook: (title: string, book: Book) => void;
   incrementChapters: (book: Book) => void;
+  decrementChapters: (book: Book) => void;
   saveChapter: (book: Book, chapter: Chapter) => void;
 }
 
@@ -48,12 +49,25 @@ export const usePlotStore = create<PlotStore>(set => ({
           chapters: {
             ...book.chapters,
             [Object.keys(book.chapters).length + 1]: {
-              title: `Chapter ${Object.keys(book.chapters).length + 1}`,
+              title: Object.keys(book.chapters).length + 1,
               summary: '',
               chartData: DefaultPlotChartData,
               imgArray: ['https://i.imgur.com/w1AGMhl.png'],
             },
           },
+        },
+      },
+    }));
+  },
+  decrementChapters: (book: Book) => {
+    const newChapters = {...book.chapters};
+    delete newChapters[Object.keys(book.chapters).length];
+    set(state => ({
+      books: {
+        ...state.books,
+        [book.title]: {
+          ...book,
+          chapters: newChapters,
         },
       },
     }));
