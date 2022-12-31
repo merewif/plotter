@@ -59,7 +59,7 @@ const SetBooks = () => {
         </div>
         <div id="book-namer">
           <form onSubmit={handleSubmit(confirmBooks)}>
-            {books.map((book, i: number) => (
+            {[...books.values()].map((book, i: number) => (
               <div
                 key={i}
                 className="bookname-input-container"
@@ -70,8 +70,7 @@ const SetBooks = () => {
                   <input
                     style={{width: '35vw', marginRight: '10px'}}
                     type="text"
-                    className="book-name-input"
-                    id={'book' + (i + 1) + 'input'}
+                    className="mt-2 mb-2 border-2 border-solid border-black"
                     defaultValue={book}
                     {...register(`${i}`)}
                   />

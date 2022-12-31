@@ -1,10 +1,13 @@
 import create from 'zustand';
+import produce from 'immer';
+import {enableMapSet} from 'immer';
+enableMapSet();
 
-import type {Books, Book, Chapter} from '../../types/types';
+import type {Book, Chapter} from '../../types/types';
 import {DefaultPlotChartData} from '../static/Plot';
 
 export interface PlotStore {
-  books: Books;
+  books: Map<string, Book>;
   setBooks: (titles: Array<string>) => void;
   saveBook: (title: string, book: Book) => void;
   incrementChapters: (book: Book) => void;
@@ -13,80 +16,72 @@ export interface PlotStore {
 }
 
 export const usePlotStore = create<PlotStore>(set => ({
-  books: {},
+  books: new Map(),
   setBooks: (titles: Array<string>) => {
-    set(state => {
-      const newBooksState = {...state};
-      titles.forEach(title => {
-        newBooksState.books[title] = {
-          title: title,
-          summary: newBooksState.books[title]?.summary || '',
-          chartData: newBooksState.books[title]?.chartData || DefaultPlotChartData,
-          imgArray: newBooksState.books[title]?.imgArray || ['https://i.imgur.com/w1AGMhl.png'],
-          chapters: newBooksState.books[title]?.chapters || {},
-        };
-      });
-      return newBooksState;
-    });
+    set(state =>
+      produce(state, draftState => {
+        titles.forEach(title => {
+          draftState.books.set(title, {
+            title: title,
+            summary: draftState.books.get(title)?.summary || '',
+            chartData: draftState.books.get(title)?.chartData || DefaultPlotChartData,
+            imgArray: draftState.books.get(title)?.imgArray || ['https://i.imgur.com/w1AGMhl.png'],
+            chapters: draftState.books.get(title)?.chapters || new Map(),
+          });
+        });
+      }),
+    );
   },
   saveBook: (title: string, book: Book) => {
-    set(state => ({
-      books: {
-        ...state.books,
-        [title]: {
-          ...state.books[title],
+    set(state =>
+      produce(state, draftState => {
+        draftState.books.set(title, {
+          ...draftState.books.get(title),
           ...book,
-        },
-      },
-    }));
+        });
+      }),
+    );
   },
   incrementChapters: (book: Book) => {
-    set(state => ({
-      books: {
-        ...state.books,
-        [book.title]: {
-          ...book,
-          chapters: {
-            ...book.chapters,
-            [Object.keys(book.chapters).length + 1]: {
-              title: Object.keys(book.chapters).length + 1,
-              summary: '',
-              chartData: DefaultPlotChartData,
-              imgArray: ['https://i.imgur.com/w1AGMhl.png'],
-            },
-          },
-        },
-      },
-    }));
+    set(state =>
+      produce(state, draftState => {
+        const newBook = {...book};
+        const newChapters = new Map(book.chapters);
+        const numChapters = newChapters.size;
+        newChapters.set((numChapters + 1).toString(), {
+          title: (numChapters + 1).toString(),
+          summary: '',
+          chartData: DefaultPlotChartData,
+          imgArray: ['https://i.imgur.com/w1AGMhl.png'],
+        });
+        newBook.chapters = newChapters;
+        draftState.books.set(book.title, newBook);
+      }),
+    );
   },
   decrementChapters: (book: Book) => {
-    const newChapters = {...book.chapters};
-    delete newChapters[Object.keys(book.chapters).length];
-    set(state => ({
-      books: {
-        ...state.books,
-        [book.title]: {
-          ...book,
-          chapters: newChapters,
-        },
-      },
-    }));
+    set(state =>
+      produce(state, draftState => {
+        const newBook = {...book};
+        const newChapters = new Map(book.chapters);
+        newChapters.delete(newChapters.size.toString());
+        newBook.chapters = newChapters;
+        draftState.books.set(book.title, newBook);
+      }),
+    );
   },
   saveChapter: (book: Book, chapter: Chapter) => {
-    set(state => ({
-      books: {
-        ...state.books,
-        [book.title]: {
-          ...book,
-          chapters: {
-            ...book.chapters,
-            [chapter.title]: {
-              ...book.chapters[chapter.title],
-              ...chapter,
-            },
-          },
-        },
-      },
-    }));
+    set(state =>
+      produce(state, draftState => {
+        const newBook = {...book};
+        const newChapters = new Map(book.chapters);
+        newChapters.set(chapter.title, {
+          ...newChapters.get(chapter.title),
+          ...chapter,
+        });
+        newBook.chapters = newChapters;
+        draftState.books.set(book.title, newBook);
+      }),
+    );
   },
 }));

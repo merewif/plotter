@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Chart} from 'react-google-charts';
-import SaveButton from '../mui/AnimatedSaveButton';
 import {DefaultPlotChartData} from '../../utils/static/Plot';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -61,16 +60,16 @@ interface ChartFormValues {
 const PlotChart = ({chartData, saveChart}: Props) => {
   const [curveType, setCurveType] = useState('function');
   const {register, handleSubmit, reset} = useForm<ChartFormValues>();
-
+  console.log(chartData);
   function addStakes(formData: ChartFormValues) {
-    const chartSettings = chartData[0];
+    const chartConfig = chartData[0];
     const chartDataWithoutSettings = chartData.slice(1) as Array<ChartEntry>;
     const newChartData = chartDataWithoutSettings.filter(
       (data: ChartEntry) => data[0] !== formData.percentage,
     );
-    newChartData.push([Number(formData.percentage), Number(formData.stakes), formData.comment]);
+    newChartData.push([Number(formData.percentage), Number(formData.stakes)]);
     newChartData.sort((a: ChartEntry, b: ChartEntry) => a[0] - b[0]);
-    saveChart([chartSettings, ...newChartData]);
+    saveChart([chartConfig, ...newChartData]);
     reset();
   }
 
@@ -85,11 +84,24 @@ const PlotChart = ({chartData, saveChart}: Props) => {
       <form id="chart-input" onSubmit={handleSubmit(addStakes)}>
         <label>
           Add
-          <input type="text" {...register('stakes', {required: true})} />
+          <input
+            className="border-2 border-black"
+            type="text"
+            {...register('stakes', {required: true})}
+          />
           Relative Stakes Value at the
-          <input type="text" {...register('percentage', {required: true})} />
+          <input
+            className="border-2 border-black"
+            type="text"
+            {...register('percentage', {required: true})}
+          />
           % mark of the plot with the following comment:
-          <input type="text" {...register('comment')} id="comment-input" />
+          <input
+            className="border-2 border-black"
+            type="text"
+            {...register('comment')}
+            id="comment-input"
+          />
         </label>
         <button type="submit">Add</button>
         <button onClick={clearStakes}>Clear</button>

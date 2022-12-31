@@ -1,7 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:ital,wght@0,100;0,300;0,400;0,900;1,100;1,200&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Montserrat:ital,wght@0,100;0,300;0,400;0,900;1,100;1,200&display=swap');
 
 html,
 body {
@@ -1241,17 +1241,11 @@ h1 {
   text-align: center;
   width: 50%;
   font-size: 1.5em;
-  height: 1.5em;
-  overflow: hidden;
-  resize: none;
 }
 
 #textarea-artist {
   text-align: center;
   font-size: 0.85em;
-  height: 0.85em;
-  overflow: hidden;
-  resize: none;
 }
 
 .active-tile {

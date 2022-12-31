@@ -16,10 +16,10 @@ const PlotSidebar = ({bookTitle, chapterTitle}: Props) => {
 
   const handleDataChange = useCallback(() => {
     if (bookTitle && chapterTitle) {
-      reset({summary: books[bookTitle]?.chapters[chapterTitle]?.summary});
+      reset({summary: books.get(bookTitle)?.chapters.get(chapterTitle)?.summary});
     }
     if (bookTitle && !chapterTitle) {
-      reset({summary: books[bookTitle]?.summary});
+      reset({summary: books.get(bookTitle)?.summary});
     }
   }, [bookTitle, chapterTitle, books, reset]);
 
@@ -28,10 +28,10 @@ const PlotSidebar = ({bookTitle, chapterTitle}: Props) => {
   }, [bookTitle, chapterTitle, handleDataChange]);
 
   const updateSummary = (data: {summary: string}) => {
-    const book = books[bookTitle];
+    const book = books.get(bookTitle);
     if (!book) return;
     if (chapterTitle) {
-      const chapter = book?.chapters[chapterTitle];
+      const chapter = book.chapters.get(chapterTitle);
       if (!chapter) return;
       saveChapter(book, {...chapter, summary: data.summary});
     }

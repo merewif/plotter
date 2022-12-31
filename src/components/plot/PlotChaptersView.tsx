@@ -20,9 +20,9 @@ const ChaptersView = () => {
 
   function saveChart(chartData: ChartData) {
     if (!selectedBook || !selectedChapter) return;
-    const book = books[selectedBook];
+    const book = books.get(selectedBook);
     if (!book) return;
-    const chapter = book.chapters[selectedChapter];
+    const chapter = book.chapters.get(selectedChapter);
     if (!chapter) return;
     const newChapter: Chapter = {...chapter, chartData};
     saveChapter(book, newChapter);
@@ -30,16 +30,16 @@ const ChaptersView = () => {
 
   function changeChapterCount(changeFunction: typeof incrementChapters | typeof decrementChapters) {
     if (!selectedBook) return;
-    const book = books[selectedBook];
+    const book = books.get(selectedBook);
     if (!book) return;
     changeFunction(book);
   }
 
   function saveImages(images: string[]) {
     if (!selectedBook || !selectedChapter) return;
-    const book = books[selectedBook];
+    const book = books.get(selectedBook);
     if (!book) return;
-    const chapter = book.chapters[selectedChapter];
+    const chapter = book.chapters.get(selectedChapter);
     if (!chapter) return;
     const newChapter: Chapter = {...chapter, imgArray: images};
     saveChapter(book, newChapter);
@@ -49,12 +49,12 @@ const ChaptersView = () => {
     <div>
       {selectedChapter && selectedBook ? (
         <MoodBoard
-          images={books[selectedBook]?.chapters[selectedChapter]?.imgArray}
+          images={books.get(selectedBook)?.chapters.get(selectedChapter)?.imgArray}
           saveImages={saveImages}
         />
       ) : null}
       <div id="chapters-view" className="viewstate">
-        {Object.keys(books).map((key, index) => {
+        {[...books.keys()].map((key, index) => {
           return (
             <button
               key={index}
@@ -72,8 +72,8 @@ const ChaptersView = () => {
         })}
       </div>
       <div id="chapter-list-container">
-        {selectedBook && books[selectedBook]
-          ? Object.keys(books[selectedBook]!.chapters).map((key, i) => (
+        {selectedBook && books.get(selectedBook)
+          ? [...books.get(selectedBook)!.chapters.keys()].map((key, i) => (
               <button
                 className="chapterButtons"
                 key={i}
@@ -92,12 +92,12 @@ const ChaptersView = () => {
 
       {selectedChapter &&
       selectedBook &&
-      books[selectedBook] &&
-      books[selectedBook]?.chapters[selectedChapter] ? (
+      books.has(selectedBook) &&
+      books.get(selectedBook)?.chapters.has(selectedChapter) ? (
         <div style={{marginTop: 125}}>
           <PlotChart
             saveChart={saveChart}
-            chartData={books[selectedBook]!.chapters[selectedChapter]!.chartData}
+            chartData={books.get(selectedBook)!.chapters.get(selectedChapter)!.chartData}
           />
         </div>
       ) : null}

@@ -6,7 +6,7 @@ import type {WorldbuildingModuleEnum} from '../../utils/static/Worldbuilding';
 import type {WorldbuildingModuleEntry} from '../../types/types';
 
 interface Props {
-  data: {[key: string]: WorldbuildingModuleEntry};
+  data: Map<string, WorldbuildingModuleEntry>;
   openedEntryId: string | null;
   setOpenedEntryId: (itemid: string) => void;
   module: WorldbuildingModuleEnum;
@@ -18,7 +18,7 @@ const WorldbuildingSidebar = ({data, openedEntryId, setOpenedEntryId, module}: P
   return (
     <div className="right-side" id="worldbuilding-sidebar">
       <div className="worldbuilding-module-container">
-        {Object.keys(data).map((key, i) => {
+        {[...data.keys()].map((key, i) => {
           return (
             <div key={i} className="item" onClick={() => setOpenedEntryId(key)}>
               <div
@@ -26,8 +26,8 @@ const WorldbuildingSidebar = ({data, openedEntryId, setOpenedEntryId, module}: P
                   key === openedEntryId ? 'active-tile' : null
                 }`}
               >
-                <h3>{data[key]?.name}</h3>
-                <img src={data[key]?.icon} className="worldbuilding-item-icon" />
+                <h3>{data.get(key)?.name}</h3>
+                <img src={data.get(key)?.icon} className="worldbuilding-item-icon" />
               </div>
             </div>
           );

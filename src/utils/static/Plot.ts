@@ -1,7 +1,10 @@
 import type {ChartData} from '../../types/types';
 
 export const DefaultPlotChartData = [
-  ['Time', 'Stakes', {role: 'tooltip', type: 'string', p: {html: true}}],
-  [0, 0, 'Startpoint'],
-  [100, 0, 'Endpoint'],
+  [
+    {type: 'number', label: 'Time'},
+    {type: 'number', label: 'Stakes'},
+  ],
+  [0, 0],
+  [100, 0],
 ] as ChartData;

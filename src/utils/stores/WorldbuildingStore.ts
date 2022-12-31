@@ -1,59 +1,42 @@
 import create from 'zustand';
+import produce from 'immer';
 import {WorldbuildingModuleEnum, WorldbuildingStaticText} from '../static/Worldbuilding';
-import type {Worldbuilding, WorldbuildingModuleEntry} from '../../types/types';
+import type {WorldbuildingModuleEntry} from '../../types/types';
+import {enableMapSet} from 'immer';
+enableMapSet();
 
 export interface WorldbuildingStore {
-  worldbuilding: Worldbuilding;
+  worldbuilding: Map<WorldbuildingModuleEnum, Map<string, WorldbuildingModuleEntry>>;
   addSampleEntry: (module: WorldbuildingModuleEnum) => void;
   removeEntry: (module: WorldbuildingModuleEnum, id: string) => void;
   editEntry: (module: WorldbuildingModuleEnum, id: string, entry: WorldbuildingModuleEntry) => void;
 }
 
 export const useWorldbuildingStore = create<WorldbuildingStore>(set => ({
-  worldbuilding: {
-    [WorldbuildingModuleEnum.Art]: {},
-    [WorldbuildingModuleEnum.LegendsAndReligions]: {},
-    [WorldbuildingModuleEnum.LocationsAndSettings]: {},
-    [WorldbuildingModuleEnum.Geography]: {},
-    [WorldbuildingModuleEnum.FloraAndFauna]: {},
-    [WorldbuildingModuleEnum.RacesNationsCultures]: {},
-    [WorldbuildingModuleEnum.History]: {},
-    [WorldbuildingModuleEnum.PoliticsAndEconomics]: {},
-    [WorldbuildingModuleEnum.ItemsAndTechnology]: {},
-    [WorldbuildingModuleEnum.SkillsAndSpells]: {},
-    [WorldbuildingModuleEnum.MagicSystems]: {},
-    [WorldbuildingModuleEnum.Professions]: {},
-  },
+  worldbuilding: new Map(Object.values(WorldbuildingModuleEnum).map(module => [module, new Map()])),
   addSampleEntry: (module: WorldbuildingModuleEnum) => {
-    set(state => ({
-      worldbuilding: {
-        ...state.worldbuilding,
-        [module]: {
-          ...state.worldbuilding[module],
-          [Date.now().toString()]: {...WorldbuildingStaticText.samples[module]},
-        },
-      },
-    }));
+    set(state =>
+      produce(state, draftState => {
+        draftState.worldbuilding
+          .get(module)
+          ?.set(Date.now().toString(), {
+            ...(WorldbuildingStaticText.samples[module] as WorldbuildingModuleEntry),
+          });
+      }),
+    );
   },
   removeEntry: (module: WorldbuildingModuleEnum, id: string) => {
-    set(state => {
-      const newWorldbuildingState = {...state};
-      delete newWorldbuildingState.worldbuilding[module][id];
-      return newWorldbuildingState;
-    });
+    set(state =>
+      produce(state, draftState => {
+        draftState.worldbuilding.get(module)?.delete(id);
+      }),
+    );
   },
   editEntry: (module: WorldbuildingModuleEnum, id: string, entry: WorldbuildingModuleEntry) => {
-    set(state => ({
-      worldbuilding: {
-        ...state.worldbuilding,
-        [module]: {
-          ...state.worldbuilding[module],
-          [id]: {
-            ...state.worldbuilding[module][id],
-            ...entry,
-          },
-        },
-      },
-    }));
+    set(state =>
+      produce(state, draftState => {
+        draftState.worldbuilding.get(module)?.set(id, entry);
+      }),
+    );
   },
 }));

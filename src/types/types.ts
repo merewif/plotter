@@ -28,7 +28,7 @@ export interface Book {
   summary: string;
   chartData: ChartData;
   imgArray: string[];
-  chapters: {[key: string]: Chapter};
+  chapters: Map<string, Chapter>;
 }
 
 export interface Chapter {
@@ -38,14 +38,16 @@ export interface Chapter {
   imgArray: string[];
 }
 
-export type ChartData = [['Time', 'Stakes', ChartSettings], ...Array<ChartEntry>];
+export type ChartData = [ChartHeader, ...Array<ChartEntry>];
 
-export type ChartEntry = [number, number, string];
+export type ChartHeader = Array<ChartSettings>;
+export type ChartEntry = [number, number];
 
 export interface ChartSettings {
-  role: string;
-  type: string;
-  p: P;
+  label?: string;
+  role?: string;
+  type?: string;
+  p?: P;
 }
 export interface P {
   html: boolean;
