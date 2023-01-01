@@ -24,39 +24,46 @@ const BooksView = () => {
 
   return (
     <>
-      {selectedBook && books.has(selectedBook) ? (
-        <MoodBoard images={(books.get(selectedBook) as Book).imgArray} saveImages={saveImages} />
-      ) : null}
-      <div>
-        {[...books.values()].sort().map((book, index) => {
-          return (
-            <button
-              key={index}
-              className="mx-1 px-2"
-              style={{
-                background: selectedBook === book.title ? 'white' : 'black',
-                color: selectedBook === book.title ? 'black' : 'white',
-                border: selectedBook === book.title ? '1px solid black' : 'none',
-              }}
-              onClick={() => setSelectedBook(book.title)}
-            >
-              {book.title}
-            </button>
-          );
-        })}
-      </div>
-      {selectedBook && books.has(selectedBook) ? (
-        <>
-          <div>
-            <PlotChart
-              saveChart={saveChart}
-              arcSummaries={(books.get(selectedBook) as Book).arcSummaries}
-              chartData={(books.get(selectedBook) as Book).chartData}
-            />
+      <div className="flex flex-col">
+        <div className="mx-auto">
+          {[...books.values()].sort().map((book, index) => {
+            return (
+              <button
+                key={index}
+                className="mx-1 px-2"
+                style={{
+                  background: selectedBook === book.title ? 'white' : 'black',
+                  color: selectedBook === book.title ? 'black' : 'white',
+                  border: selectedBook === book.title ? '1px solid black' : 'none',
+                }}
+                onClick={() => setSelectedBook(book.title)}
+              >
+                {book.title}
+              </button>
+            );
+          })}
+        </div>
+        {selectedBook && books.has(selectedBook) ? (
+          <div className="flex gap-10">
+            {selectedBook && books.has(selectedBook) ? (
+              <div>
+                <MoodBoard
+                  images={(books.get(selectedBook) as Book).imgArray}
+                  saveImages={saveImages}
+                />
+              </div>
+            ) : null}
+            <div>
+              <PlotChart
+                saveChart={saveChart}
+                arcSummaries={(books.get(selectedBook) as Book).arcSummaries}
+                chartData={(books.get(selectedBook) as Book).chartData}
+              />
+            </div>
+            {selectedBook ? <PlotSidebar bookTitle={selectedBook} /> : null}
           </div>
-          {selectedBook ? <PlotSidebar bookTitle={selectedBook} /> : null}
-        </>
-      ) : null}
+        ) : null}
+      </div>
     </>
   );
 };

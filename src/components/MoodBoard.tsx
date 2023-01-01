@@ -52,30 +52,25 @@ const MoodBoard = ({images = [], saveImages}: Props) => {
   }
 
   return (
-    <div className="left-side">
-      <p>Moodboard</p>
-      <div id="moodboard-container"></div>
-      <div id="moodboard">
-        {imgArray.map(image => {
-          return <img className="moodboard-image" alt="" key={image} src={image} />;
-        })}
-
+    <div className="flex h-full max-w-sm flex-col bg-black text-white">
+      <p className="mx-auto my-3">Moodboard</p>
+      {imgArray.map(image => {
+        return <img className="" alt="" key={image} src={image} />;
+      })}
+      <div className="mt-auto flex gap-2 p-3">
         <input
+          className="flex-1 px-1"
           type="text"
-          id="image-input"
           placeholder="Paste image link here"
           onChange={currentUrl}
         />
-
-        <form onSubmit={handleSubmit}>
-          <button id="submit-image" type="submit">
-            Submit
-          </button>
+        <form
+          onSubmit={handleSubmit}
+          className="border border-white px-1 hover:bg-white hover:text-black"
+        >
+          <button type="submit">Submit</button>
         </form>
-
-        <button onClick={deleteLast} id="reset-moodboard">
-          {deleteButton}
-        </button>
+        <button onClick={deleteLast}>{deleteButton}</button>
       </div>
     </div>
   );

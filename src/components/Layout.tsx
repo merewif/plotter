@@ -8,18 +8,19 @@ interface Props {
 
 export const Layout = ({children}: Props) => {
   return (
-    <div>
-      <SideMenu />
-      <div id="mobile-error-message">
-        Plotter is not available on small screens or mobile devices.
-      </div>
-      <div className="App">
-        <header className="bg-black text-white">
-          <h1 className="font-display font-light">Plotter</h1>
+    <>
+      <div className="flex h-full min-h-screen flex-col">
+        <header className="flex bg-black text-white">
+          <h1 className="my-auto mx-10 font-display font-light">Plotter</h1>
+          <nav className="ml-auto mr-10">
+            <SideMenu />
+          </nav>
         </header>
-        <main className="min-h-screen">{children}</main>
-        <Menu />
+        <main className="flex h-full flex-1 flex-col font-display">
+          <div className="flex h-full flex-1 flex-col justify-center align-middle">{children}</div>
+          <Menu />
+        </main>
       </div>
-    </div>
+    </>
   );
 };

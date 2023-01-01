@@ -10,7 +10,6 @@ import {ThemeProvider, createTheme} from '@mui/material';
 import PublicIcon from '@mui/icons-material/Public';
 import FaceIcon from '@mui/icons-material/Face';
 import ShowChartIcon from '@mui/icons-material/ShowChart';
-import Link from 'next/link';
 
 const navTheme = createTheme({
   typography: {
@@ -56,35 +55,33 @@ const Menu = () => {
   }, [value, pathname]);
 
   return (
-    <div id="main-menu-container">
-      <ThemeProvider theme={navTheme}>
-        <Box sx={{width: 500}}>
-          <BottomNavigation
-            showLabels
-            value={value}
-            onChange={(event, newValue) => {
-              setValue(newValue);
-            }}
-          >
-            <BottomNavigationAction
-              onClick={() => push('/characters')}
-              label="Characters"
-              icon={<FaceIcon />}
-            />
-            <BottomNavigationAction
-              onClick={() => push('/plot')}
-              label="Plot"
-              icon={<ShowChartIcon />}
-            />
-            <BottomNavigationAction
-              onClick={() => push('/worldbuilding')}
-              label="Worldbuilding"
-              icon={<PublicIcon />}
-            />
-          </BottomNavigation>
-        </Box>
-      </ThemeProvider>
-    </div>
+    <ThemeProvider theme={navTheme}>
+      <Box sx={{width: '100vw'}}>
+        <BottomNavigation
+          showLabels
+          value={value}
+          onChange={(event, newValue) => {
+            setValue(newValue);
+          }}
+        >
+          <BottomNavigationAction
+            onClick={() => push('/characters')}
+            label="Characters"
+            icon={<FaceIcon />}
+          />
+          <BottomNavigationAction
+            onClick={() => push('/plot')}
+            label="Plot"
+            icon={<ShowChartIcon />}
+          />
+          <BottomNavigationAction
+            onClick={() => push('/worldbuilding')}
+            label="Worldbuilding"
+            icon={<PublicIcon />}
+          />
+        </BottomNavigation>
+      </Box>
+    </ThemeProvider>
   );
 };
 

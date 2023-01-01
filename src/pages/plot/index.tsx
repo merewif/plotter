@@ -9,40 +9,21 @@ const Plot = () => {
   const [showAlert, setShowAlert] = useState(false);
   const router = useRouter();
 
-  function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
-    if (Object.keys(books).length === 0) {
-      setShowAlert(true);
-      setTimeout(() => {
-        setShowAlert(false);
-      }, 2500);
-      return;
-    }
-
-    router.push('/plot/arcs');
-
-    // $('#plot-nav').css({top: '112.5%'});
-    // $('#plot-nav button').css({'font-size': '0.8em', height: '25px'});
-    // $('.plot-options').removeClass('white-active-btn');
-    // $(e.target).addClass('white-active-btn');
-  }
-
   return (
     <>
-      <div id="plot-nav">
+      <div className="flex flex-col justify-center gap-5 align-middle text-xs font-light">
         <button
-          className="plot-options"
-          id="set-books"
-          onClick={e => {
+          className="mx-auto w-1/4 cursor-pointer border bg-black p-10 font-montserrat text-sm text-white hover:border-black hover:bg-white hover:text-black"
+          onClick={() => {
             router.push('/plot/books');
           }}
         >
           Set Books
         </button>
         <button
-          className="plot-options"
-          id="set-story-arcs"
+          className="mx-auto w-1/4 cursor-pointer border bg-black p-10 font-montserrat text-sm text-white hover:border-black hover:bg-white hover:text-black"
           onClick={() => {
-            if (Object.keys(books).length === 0) {
+            if (books.size === 0) {
               setShowAlert(true);
               setTimeout(() => {
                 setShowAlert(false);

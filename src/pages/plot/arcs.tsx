@@ -5,21 +5,20 @@ import classNames from 'classnames';
 
 const StoryArcs = () => {
   const [displayView, setDisplayView] = useState<'books' | 'chapters'>();
-  const [alignment, setAlignment] = useState();
 
   return (
-    <div className="mb-auto mt-5 flex flex-col gap-2">
-      <div className="flex w-full justify-center align-middle">
+    <div className="flex h-full flex-col gap-2">
+      <div className="mb-auto mt-5 flex w-full justify-center align-middle">
         <button
           className={classNames(
             'mx-1',
-            'border',
-            'border-black',
             'px-1',
-            'bg-black',
             'text-white',
             {
-              'bg-white text-black': displayView === 'books',
+              'border border-black bg-white text-black': displayView === 'books',
+            },
+            {
+              'bg-black': displayView !== 'books',
             },
           )}
           onClick={() => setDisplayView('books')}
@@ -29,13 +28,13 @@ const StoryArcs = () => {
         <button
           className={classNames(
             'mx-1',
-            'border',
-            'border-black',
             'px-1',
-            'bg-black',
             'text-white',
             {
-              'bg-white text-black': displayView === 'chapters',
+              'border border-black bg-white text-black': displayView === 'chapters',
+            },
+            {
+              'bg-black': displayView !== 'chapters',
             },
           )}
           onClick={() => setDisplayView('chapters')}
@@ -43,9 +42,11 @@ const StoryArcs = () => {
           Chapters
         </button>
       </div>
-      {!displayView ? 'Navigate to the Books or Chapters module using the buttons above.' : null}
-      {displayView === 'books' ? <BooksView /> : null}
-      {displayView === 'chapters' ? <ChaptersView /> : null}
+      <div className="flex h-full items-center justify-center">
+        {!displayView ? 'Navigate to the Books or Chapters module using the buttons above.' : null}
+        {displayView === 'books' ? <BooksView /> : null}
+        {displayView === 'chapters' ? <ChaptersView /> : null}
+      </div>
     </div>
   );
 };

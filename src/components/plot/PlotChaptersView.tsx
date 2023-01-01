@@ -53,68 +53,76 @@ const ChaptersView = () => {
           saveImages={saveImages}
         />
       ) : null}
-      <div>
-        {[...books.values()].sort().map((book, index) => {
-          return (
-            <button
-              key={index}
-              className="mx-1 px-2"
-              style={{
-                background: selectedBook === book.title ? 'white' : 'black',
-                color: selectedBook === book.title ? 'black' : 'white',
-                border: selectedBook === book.title ? '1px solid black' : 'none',
-              }}
-              onClick={() => setSelectedBook(book.title)}
-            >
-              {book.title}
-            </button>
-          );
-        })}
-      </div>
-      <div>
-        {selectedBook && books.get(selectedBook)
-          ? [...books.get(selectedBook)!.chapters.keys()].map((key, i) => (
+      <div className="flex flex-col">
+        <div className="mx-auto flex">
+          {[...books.values()].sort().map((book, index) => {
+            return (
               <button
+                key={index}
                 className="mx-1 px-2"
-                key={i}
-                onClick={() => setSelectedChapter(key)}
                 style={{
-                  backgroundColor: selectedChapter === key ? 'white' : 'black',
-                  color: selectedChapter === key ? 'black' : 'white',
-                  border: selectedChapter === key ? '1px solid black' : '1px solid white',
+                  background: selectedBook === book.title ? 'white' : 'black',
+                  color: selectedBook === book.title ? 'black' : 'white',
+                  border: selectedBook === book.title ? '1px solid black' : 'none',
                 }}
+                onClick={() => setSelectedBook(book.title)}
               >
-                Chapter {i + 1}
+                {book.title}
               </button>
-            ))
-          : null}
-      </div>
+            );
+          })}
+        </div>
+        <div className="mx-auto my-2">
+          {selectedBook && books.get(selectedBook)
+            ? [...books.get(selectedBook)!.chapters.keys()].map((key, i) => (
+                <button
+                  className="mx-1 px-2"
+                  key={i}
+                  onClick={() => setSelectedChapter(key)}
+                  style={{
+                    backgroundColor: selectedChapter === key ? 'white' : 'black',
+                    color: selectedChapter === key ? 'black' : 'white',
+                    border: selectedChapter === key ? '1px solid black' : '1px solid white',
+                  }}
+                >
+                  Chapter {i + 1}
+                </button>
+              ))
+            : null}
+        </div>
 
-      {selectedChapter &&
-      selectedBook &&
-      books.has(selectedBook) &&
-      books.get(selectedBook)?.chapters.has(selectedChapter) ? (
-        <div>
-          <PlotChart
-            saveChart={saveChart}
-            arcSummaries={books.get(selectedBook)!.chapters.get(selectedChapter)!.arcSummaries}
-            chartData={books.get(selectedBook)!.chapters.get(selectedChapter)!.chartData}
-          />
-        </div>
-      ) : null}
-      {selectedBook && !selectedChapter ? (
-        <div style={{width: '100%'}}>
-          <button onClick={() => changeChapterCount(decrementChapters)} id="remove-chapter-btn">
-            Remove Chapter
-          </button>
-          <button onClick={() => changeChapterCount(incrementChapters)} id="add-chapter-btn">
-            Add Chapter
-          </button>
-        </div>
-      ) : null}
-      {selectedBook && selectedChapter ? (
-        <PlotSidebar bookTitle={selectedBook} chapterTitle={selectedChapter} />
-      ) : null}
+        {selectedChapter &&
+        selectedBook &&
+        books.has(selectedBook) &&
+        books.get(selectedBook)?.chapters.has(selectedChapter) ? (
+          <div>
+            <PlotChart
+              saveChart={saveChart}
+              arcSummaries={books.get(selectedBook)!.chapters.get(selectedChapter)!.arcSummaries}
+              chartData={books.get(selectedBook)!.chapters.get(selectedChapter)!.chartData}
+            />
+          </div>
+        ) : null}
+        {selectedBook && !selectedChapter ? (
+          <div className="flex w-full">
+            <button
+              onClick={() => changeChapterCount(decrementChapters)}
+              className="upeprcase mx-2 cursor-pointer border border-black bg-white p-4 font-montserrat font-black text-black"
+            >
+              Remove Chapter
+            </button>
+            <button
+              onClick={() => changeChapterCount(incrementChapters)}
+              className="upeprcase mx-2 cursor-pointer border border-black bg-white p-4 font-montserrat font-black text-black"
+            >
+              Add Chapter
+            </button>
+          </div>
+        ) : null}
+        {selectedBook && selectedChapter ? (
+          <PlotSidebar bookTitle={selectedBook} chapterTitle={selectedChapter} />
+        ) : null}
+      </div>
     </>
   );
 };

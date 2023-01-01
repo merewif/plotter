@@ -45,10 +45,10 @@ const PlotSidebar = ({bookTitle, chapterTitle}: Props) => {
   };
 
   return (
-    <section className="right-side">
-      <div id="currently-viewing">
-        <h1>{bookTitle}</h1>
-        {chapterTitle ? <h2>Chapter {chapterTitle}</h2> : null}
+    <section className="bg-black text-white">
+      <div className="flex flex-col text-white">
+        <h1 className="mx-auto">{bookTitle}</h1>
+        {chapterTitle ? <h2 className="mx-auto">Chapter {chapterTitle}</h2> : null}
       </div>
       <form id="right-sidebar-input" onSubmit={handleSubmit(updateSummary)}>
         <label>
