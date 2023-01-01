@@ -9,9 +9,10 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell,
     Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-  max-width: 100vw;
-  overflow-x: hidden;
   height: 100%;
+  max-width: 100vw;
+  max-height: 100vh;
+  overflow: hidden;
 }
 
 a {
@@ -20,7 +21,9 @@ a {
 }
 
 * {
+  transition-duration: 0.5s;
   box-sizing: border-box;
+  scrollbar-width: thin;
 }
 
 input:focus {
@@ -31,27 +34,39 @@ input::placeholder {
   color: black !important;
 }
 
-* {
-  transition-duration: 0.5s;
-  scrollbar-color: #000 #fff;
-  scrollbar-width: thin;
-}
-
 *::-webkit-scrollbar {
-  background-color: #fff;
+  background-color: #000;
   width: 8px;
 }
 
-*::-webkit-scrollbar-thumb {
+.black-scrollbar::-webkit-scrollbar {
+  background-color: #fff;
+}
+
+.black-scrollbar::-webkit-scrollbar-thumb {
   background-color: #000;
+}
+
+.black-scrollbar {
+  scrollbar-color: #000 #fff;
+}
+
+.white-scrollbar::-webkit-scrollbar {
+  background-color: #000;
+}
+
+.white-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #fff;
+}
+
+.white-scrollbar {
+  scrollbar-color: #fff #000;
 }
 
 .button-black {
   border: 1px solid black;
-  font-family: 'Cormorant Garamond';
   background: black;
   color: white;
-  font-size: 1em;
   padding: 0.5em;
   cursor: pointer;
 }
@@ -343,40 +358,6 @@ textarea:focus {
   margin-right: 5px;
 }
 
-#moodboard-upload-button {
-  position: relative;
-  top: 90%;
-  transform: translateY(-100%);
-  border: 2px solid white;
-  padding: 15px;
-  width: 80%;
-  font-family: 'Cormorant Garamond';
-}
-
-#moodboard-upload-button button {
-  background: white;
-}
-
-#moodboard {
-  display: grid;
-  grid-template-rows: 1fr;
-  height: 60vh;
-  margin-left: 10px;
-  overflow-y: scroll;
-  direction: rtl;
-  align-items: end;
-}
-
-* {
-  scrollbar-color: #fff #000;
-  scrollbar-width: thin;
-}
-
-*::-webkit-scrollbar {
-  background-color: #fff;
-  width: 8px;
-}
-
 #plot-nav {
   position: absolute;
   top: 52.5%;
@@ -394,77 +375,10 @@ textarea:focus {
   display: none;
 }
 
-#arcs-nav-buttons {
-  position: absolute;
-  top: 7.5%;
-  left: 50%;
-  transform: translate(-50%, 20%);
-  z-index: 2;
-}
-
-#arcs-nav-buttons .MuiToggleButton-root {
-  border-radius: 0%;
-  padding-top: 0;
-  padding-bottom: 0;
-  width: 125px;
-}
-
-#arcs-nav-buttons .Mui-selected {
-  background-color: #000;
-  color: white;
-  transition-delay: 0.1s;
-}
-
-#comment-input {
-  width: 250px !important;
-  font-weight: 300 !important;
-}
-
 h1 {
   font-family: 'Montserrat';
   font-weight: 900;
   text-transform: uppercase;
-}
-
-#one-sentence-summary {
-  width: 70%;
-  max-width: 70%;
-  margin: 10%;
-  margin-top: 10px;
-  margin-bottom: 15px;
-  background: transparent;
-  border: 1px dotted grey;
-  color: white;
-  font-family: 'Cormorant Garamond';
-  height: 75%;
-  max-height: 75%;
-  padding: 5%;
-}
-
-#right-sidebar-input {
-  border-top: 1px solid white;
-  padding-top: 20px;
-  height: 75%;
-  background: black;
-  color: white;
-}
-
-#save-summary {
-  width: 40%;
-  border: 1px solid black;
-  padding: 0.5em;
-  margin: 0;
-  cursor: pointer;
-  background: white;
-  font-family: 'Montserrat';
-  font-weight: 900;
-  text-transform: uppercase;
-}
-
-#save-summary:hover {
-  background: black;
-  border: 1px solid white;
-  color: white;
 }
 
 #current-container {
@@ -490,12 +404,6 @@ h1 {
   margin-top: 25px;
 }
 
-#textarea-name {
-  text-align: center;
-  width: 50%;
-  font-size: 1.5em;
-}
-
 #__next {
   height: 100%;
 }
@@ -503,12 +411,6 @@ h1 {
 #textarea-artist {
   text-align: center;
   font-size: 0.85em;
-}
-
-.active-tile {
-  background: white;
-  color: black;
-  box-shadow: 0px 0px 25px 0px #fff;
 }
 
 #item-icon {
@@ -521,67 +423,12 @@ h1 {
   outline: 1px solid black;
 }
 
-#radio-btns {
-  margin-top: 10px;
-}
-
 .MuiButton-contained {
   font-weight: 900 !important;
 }
 
-#drawer-btn-container {
-  position: absolute;
-  left: 0%;
-  top: 0%;
-}
-
-#circular-save-btn-container {
-  width: 6%;
-  position: relative;
-  left: 97%;
-  bottom: 10%;
-  transform: translate(-50%, 25%);
-}
-
 .MuiSnackbarContent-root {
   background-color: black !important;
-}
-
-#writing-resources {
-  overflow: auto;
-  height: 60vh;
-}
-
-#writing-resources li {
-  margin-bottom: 10px;
-}
-
-#writing-resources a {
-  color: black;
-  font-size: 1.2rem;
-  text-decoration: none;
-}
-
-#writing-resources a:hover {
-  padding: 10px;
-  background-color: black;
-  color: white;
-  border-radius: 10px;
-}
-
-#about-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-#about {
-  width: 40vw;
-}
-
-#about a {
-  margin: 8px;
-  color: black;
 }
 
 .MuiTooltip-popperArrow {
@@ -589,12 +436,6 @@ h1 {
   -moz-transition: none !important;
   -o-transition: none !important;
   transition: none !important;
-}
-
-#circular-container {
-  position: absolute;
-  left: 100%;
-  border-radius: 50%;
 }
 
 .btn-unsaved {
@@ -615,80 +456,4 @@ h1 {
 #plot-nav button,
 #char-choice-buttons button {
   font-size: 0.8rem;
-}
-
-#worldbuilding-buttons-container {
-  width: 100%;
-}
-
-/* For Mobile */
-@media only screen and (max-device-width: 1000px) {
-  #mobile-error-message {
-    display: flex;
-    width: 100vw;
-    height: 100vh;
-    font-family: 'Montserrat';
-    font-weight: 300;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .App,
-  #drawer-btn-container {
-    display: none;
-  }
-}
-
-/* For 1024 Resolution */
-@media only screen and (min-device-width: 1000px) and (max-device-width: 1366px) {
-  #module-intro-phrase p:first-child {
-    font-size: 1rem;
-  }
-
-  #plot-nav button,
-  #char-choice-buttons button {
-    font-size: 0.8rem;
-    width: 50%;
-  }
-
-  .textarea-name {
-    width: 80%;
-  }
-
-  #character-prompt {
-    line-height: 0.9rem;
-  }
-
-  .bookname-input-container {
-    padding-left: 0 !important;
-    justify-content: center;
-  }
-
-  #book-counter h4 {
-    font-size: 1.5rem;
-  }
-}
-
-/* For 1366 Resolution */
-@media only screen and (min-width: 1030px) and (max-width: 1366px) {
-  #module-intro-phrase p:first-child {
-    font-size: 1rem;
-  }
-
-  .worldbuilding-navbtn {
-    font-size: 0.6em !important;
-    margin-bottom: 10px;
-    padding: 2px !important;
-  }
-
-  .button-black {
-    width: 40% !important;
-  }
-}
-
-@media only screen and (min-width: 1030px) and (max-width: 1440px) {
-  .worldbuilding-navbtn {
-    padding-top: 0;
-    padding-bottom: 0;
-  }
 }

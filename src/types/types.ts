@@ -41,7 +41,7 @@ export interface Chapter {
 }
 
 export type ChartData = [Array<ChartSettings>, ...Array<ChartEntry>];
-export type ChartEntry = [number, number];
+export type ChartEntry = [number, number, string];
 
 export interface ChartSettings {
   label?: string;

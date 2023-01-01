@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import React, {useState, useEffect} from 'react';
 import WorldbuildingSidebar from './WorldbuildingSidebar';
 import SimpleSnackbar from '../mui/Snackbar';
@@ -9,6 +10,8 @@ import {useWorldbuildingStore} from '../../utils/stores/WorldbuildingStore';
 import type {WorldbuildingModuleEntry} from '../../types/types';
 import {useForm} from 'react-hook-form';
 import {TextareaAutosize} from '@mui/material';
+import {ClassNames} from '@emotion/react';
+import classNames from 'classnames';
 
 interface Props {
   module: WorldbuildingModuleEnum;
@@ -27,7 +30,6 @@ const WorldbuildingModule = ({module}: Props) => {
     formState: {isDirty},
   } = useForm<WorldbuildingModuleEntry>();
   const [openedEntryId, setOpenedEntryId] = useState<string | null>(null);
-  const [itemImages, setItemImages] = useState<Array<string>>([]);
   const [snackbarMessage, setSnackbarMessage] = useState('Changes saved.');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
@@ -54,17 +56,31 @@ const WorldbuildingModule = ({module}: Props) => {
     removeEntry(module, openedEntryId);
   }
 
+  function setItemImages(images: string[]) {
+    if (!openedEntryId) {
+      return;
+    }
+    const filteredImages = images.filter(image => image !== '');
+    editEntry(module, openedEntryId, {
+      ...moduleData?.get(openedEntryId),
+      images: filteredImages,
+    } as WorldbuildingModuleEntry);
+  }
+
   return (
     <>
       {moduleData ? (
         <div className="flex h-full">
-          {openedEntryId ? (
-            <MoodBoard images={itemImages} saveImages={itemImages => setItemImages(itemImages)} />
+          {openedEntryId && moduleData.has(openedEntryId) ? (
+            <MoodBoard
+              images={moduleData.get(openedEntryId)!.images}
+              saveImages={itemImages => setItemImages(itemImages)}
+            />
           ) : null}
           <div className="flex max-h-[90vh] w-full flex-col">
             {openedEntryId && moduleData.has(openedEntryId) ? (
               <form
-                className="flex h-full flex-col overflow-auto overflow-x-hidden"
+                className="black-scrollbar flex h-full flex-col overflow-auto overflow-x-hidden"
                 onSubmit={handleSubmit(saveChangedEntry)}
               >
                 {Object.keys(moduleData?.get(openedEntryId) as object)
@@ -89,7 +105,7 @@ const WorldbuildingModule = ({module}: Props) => {
                     );
                   })}
 
-                <div className="mx-auto flex gap-3">
+                <div className="mx-auto mb-10 flex gap-3">
                   <label>Icon Link:</label>
                   <input
                     type="text"
@@ -99,34 +115,20 @@ const WorldbuildingModule = ({module}: Props) => {
                   />
                   <a href="https://game-icons.net/">(Get neat icons from here.)</a>
                 </div>
-                <div className="mx-auto my-5">
-                  <button
-                    type="submit"
-                    id="button-black"
-                    className={isDirty ? 'btn-red' : 'button-black'}
-                    style={{
-                      display: 'inline-block',
-                      position: 'relative',
-                      width: '200px',
-                      fontFamily: 'Montserrat',
-                      fontSize: '0.8rem',
-                    }}
-                  >
-                    Save item
-                  </button>
+                <div className="mx-auto mt-auto mb-5 flex gap-5">
                   <button
                     onClick={deleteItem}
-                    className="button-black"
-                    style={{
-                      marginLeft: '10px',
-                      display: 'inline-block',
-                      position: 'relative',
-                      width: '200px',
-                      fontFamily: 'Montserrat',
-                      fontSize: '0.8rem',
-                    }}
+                    className="button-black w-[8rem] rounded font-montserrat text-xs"
                   >
-                    Delete item
+                    Delete
+                  </button>
+                  <button
+                    type="submit"
+                    className={classNames('button-black w-[8rem] rounded font-montserrat text-xs', {
+                      'btn-red': isDirty,
+                    })}
+                  >
+                    Save
                   </button>
                 </div>
               </form>
