@@ -10,7 +10,6 @@ import {useWorldbuildingStore} from '../../utils/stores/WorldbuildingStore';
 import type {WorldbuildingModuleEntry} from '../../types/types';
 import {useForm} from 'react-hook-form';
 import {TextareaAutosize} from '@mui/material';
-import {ClassNames} from '@emotion/react';
 import classNames from 'classnames';
 
 interface Props {

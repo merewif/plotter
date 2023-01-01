@@ -408,21 +408,6 @@ h1 {
   height: 100%;
 }
 
-#textarea-artist {
-  text-align: center;
-  font-size: 0.85em;
-}
-
-#item-icon {
-  margin-left: 10px;
-  margin-right: 10px;
-}
-
-#item-icon:focus {
-  border: 0;
-  outline: 1px solid black;
-}
-
 .MuiButton-contained {
   font-weight: 900 !important;
 }
@@ -451,9 +436,4 @@ h1 {
 .btn-red {
   border: none;
   box-shadow: 0px 0px 15px 5px #f00, inset 0px 0px 1px 1px #f00 !important;
-}
-
-#plot-nav button,
-#char-choice-buttons button {
-  font-size: 0.8rem;
 }
