@@ -27,6 +27,10 @@ input:focus {
   outline: none !important;
 }
 
+input::placeholder {
+  color: black !important;
+}
+
 * {
   transition-duration: 0.5s;
   scrollbar-color: #000 #fff;
@@ -144,17 +148,6 @@ input:focus {
 
 textarea:focus {
   outline: none !important;
-}
-
-.textarea-name {
-  height: 25px;
-  width: 75%;
-}
-
-.textarea-text {
-  height: 40vh;
-  max-height: 40vh;
-  width: 100%;
 }
 
 #character-prompt {
@@ -382,114 +375,6 @@ textarea:focus {
 *::-webkit-scrollbar {
   background-color: #fff;
   width: 8px;
-}
-
-#moodboard::-webkit-scrollbar-thumb {
-  background-color: #000;
-}
-
-#moodboard img {
-  width: 100%;
-}
-
-#add-image {
-  position: absolute;
-  top: 95%;
-  left: 0%;
-  z-index: 1200;
-  height: 4vh;
-  width: 100%;
-  padding: 0;
-  margin: 0;
-}
-
-#submit-image {
-  position: absolute;
-  background: black;
-  color: white;
-  border: none;
-  font-family: 'Cormorant Garamond';
-  height: 25px;
-  width: 80%;
-  padding: 0;
-  margin: 0;
-  top: 95%;
-  left: 0%;
-  cursor: pointer;
-  z-index: 10000;
-}
-
-#submit-image:hover {
-  background: white;
-  color: black;
-  border: 1px solid black;
-}
-
-#reset-moodboard {
-  position: absolute;
-  background: black;
-  color: white;
-  border: none;
-  font-family: 'Cormorant Garamond';
-  height: 25px;
-  width: 20%;
-  padding: 0;
-  margin: 0;
-  top: 95%;
-  left: 80%;
-  cursor: pointer;
-  z-index: 10000;
-  border-left: 1px solid white;
-}
-
-#reset-moodboard:hover {
-  background: white;
-  color: black;
-  border: 1px solid black;
-}
-
-#save-moodboard {
-  position: absolute;
-  background: black;
-  color: white;
-  border: none;
-  font-family: 'Cormorant Garamond';
-  height: 25px;
-  width: 20%;
-  padding: 0;
-  margin: 0;
-  top: 95%;
-  left: 60%;
-  cursor: pointer;
-  z-index: 10000;
-  border-left: 1px solid white;
-}
-
-#save-moodboard:hover {
-  background: white;
-  color: black;
-  border: 1px solid black;
-}
-
-#image-input {
-  position: absolute;
-  background: black;
-  color: white;
-  top: 90%;
-  left: 5%;
-  width: 85%;
-  height: 3vh;
-  border: none;
-  padding: 0;
-  margin: 0;
-  padding-right: 10px;
-  padding-left: 10px;
-  font-family: 'Cormorant Garamond';
-}
-
-#image-input:focus {
-  border: 0;
-  outline: 1px solid white;
 }
 
 #plot-nav {

@@ -17,7 +17,7 @@ const WorldbuildingSidebar = ({data, openedEntryId, setOpenedEntryId, module}: P
   const addNewEntry = useWorldbuildingStore(state => state.addSampleEntry);
 
   return (
-    <div className="flex h-full max-h-full w-1/6 flex-col bg-black">
+    <div className="flex h-full max-h-full w-[15vw] min-w-[15vw] flex-col bg-black">
       <div className="flex h-full max-h-[85vh] flex-col gap-3 overflow-scroll bg-black py-5">
         {[...data.keys()].map((key, i) => {
           return (
@@ -25,13 +25,13 @@ const WorldbuildingSidebar = ({data, openedEntryId, setOpenedEntryId, module}: P
               key={i}
               className={classNames(
                 {'bg-white text-black': key === openedEntryId},
-                'mx-auto flex w-3/4 cursor-pointer justify-center rounded py-6 text-center align-middle font-montserrat font-black uppercase text-white hover:bg-white  hover:text-black',
+                'mx-auto flex w-3/4 cursor-pointer justify-center rounded py-3 text-center align-middle font-montserrat font-black uppercase text-white hover:bg-white  hover:text-black',
               )}
               onClick={() => setOpenedEntryId(key)}
             >
               <div>
-                <h3>{data.get(key)?.name}</h3>
-                <img src={data.get(key)?.icon} />
+                <h3 className="mx-auto mb-2 w-3/4 leading-4">{data.get(key)?.name}</h3>
+                <img className="rounded" src={data.get(key)?.icon} />
               </div>
             </button>
           );

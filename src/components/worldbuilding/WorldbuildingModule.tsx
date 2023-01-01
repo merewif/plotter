@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import WorldbuildingSidebar from './WorldbuildingSidebar';
-import autosize from 'autosize';
 import SimpleSnackbar from '../mui/Snackbar';
 import MoodBoard from '../MoodBoard';
 import {WorldbuildingStaticText} from '../../utils/static/Worldbuilding';
@@ -9,6 +8,7 @@ import type {WorldbuildingStore} from '../../utils/stores/WorldbuildingStore';
 import {useWorldbuildingStore} from '../../utils/stores/WorldbuildingStore';
 import type {WorldbuildingModuleEntry} from '../../types/types';
 import {useForm} from 'react-hook-form';
+import {TextareaAutosize} from '@mui/material';
 
 interface Props {
   module: WorldbuildingModuleEnum;
@@ -30,10 +30,6 @@ const WorldbuildingModule = ({module}: Props) => {
   const [itemImages, setItemImages] = useState<Array<string>>([]);
   const [snackbarMessage, setSnackbarMessage] = useState('Changes saved.');
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-
-  useEffect(() => {
-    autosize(document.querySelectorAll('textarea'));
-  }, [moduleData]);
 
   useEffect(() => {
     if (openedEntryId) {
@@ -65,18 +61,21 @@ const WorldbuildingModule = ({module}: Props) => {
           {openedEntryId ? (
             <MoodBoard images={itemImages} saveImages={itemImages => setItemImages(itemImages)} />
           ) : null}
-          <div className="flex flex-1">
+          <div className="flex max-h-[90vh] w-full flex-col">
             {openedEntryId && moduleData.has(openedEntryId) ? (
-              <form className="flex w-full flex-col" onSubmit={handleSubmit(saveChangedEntry)}>
+              <form
+                className="flex h-full flex-col overflow-auto overflow-x-hidden"
+                onSubmit={handleSubmit(saveChangedEntry)}
+              >
                 {Object.keys(moduleData?.get(openedEntryId) as object)
                   .filter(key => key !== 'itemid' && key !== 'images' && key !== 'icon')
                   .map((key, i) => {
                     return (
-                      <div key={i} className="my-4 w-full px-6">
-                        <h2 className="text-center font-montserrat uppercase">
+                      <div key={i} className="my-6 px-6">
+                        <h2 className="ml-5 font-montserrat text-lg font-black uppercase">
                           {key.replace(/([A-Z])/g, ' $1').trim()}
                         </h2>
-                        <textarea
+                        <TextareaAutosize
                           className="w-full rounded-md border border-gray-300 bg-black py-2 px-4 text-white"
                           defaultValue={
                             moduleData.get(openedEntryId)?.[key as keyof WorldbuildingModuleEntry]
@@ -85,7 +84,7 @@ const WorldbuildingModule = ({module}: Props) => {
                           placeholder={moduleData
                             .get(openedEntryId)
                             ?.[key as keyof WorldbuildingModuleEntry]?.toString()}
-                        ></textarea>
+                        ></TextareaAutosize>
                       </div>
                     );
                   })}
@@ -132,9 +131,11 @@ const WorldbuildingModule = ({module}: Props) => {
                 </div>
               </form>
             ) : (
-              <div className="m-auto flex max-w-lg flex-col text-center">
-                <p>{WorldbuildingStaticText.phrases[module].phrase}</p>
-                <p>{WorldbuildingStaticText.phrases[module].source}</p>
+              <div className="mx-20 my-auto flex h-full flex-col  text-justify text-xl leading-7">
+                <p className="mt-auto">{WorldbuildingStaticText.phrases[module].phrase}</p>
+                <p className="ml-auto mt-auto mb-5 italic">
+                  {WorldbuildingStaticText.phrases[module].source}
+                </p>
               </div>
             )}
           </div>

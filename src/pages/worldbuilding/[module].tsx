@@ -11,7 +11,7 @@ const WorldbuildingModule = () => {
 
   if (!module || !Object.values(WorldbuildingModuleEnum).some(el => el === module)) {
     return (
-      <div className="mx-auto h-full">
+      <div className="mx-auto h-full w-full">
         <Link href={'/worldbuilding'}>Module not found. Click here to return.</Link>
       </div>
     );

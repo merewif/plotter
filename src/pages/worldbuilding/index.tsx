@@ -8,7 +8,7 @@ const Worldbuilding = () => {
       {WorldbuildingModuleList.map((module, index) => {
         return (
           <Link
-            className="border border-black p-16 text-center font-montserrat font-black uppercase hover:bg-black hover:text-white"
+            className="flex items-center justify-center border border-black p-16 text-center font-montserrat font-black uppercase hover:bg-black hover:text-white"
             href={`/worldbuilding/${module.id}`}
             key={index}
           >

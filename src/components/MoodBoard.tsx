@@ -52,26 +52,30 @@ const MoodBoard = ({images = [], saveImages}: Props) => {
   }
 
   return (
-    <div className="flex h-full max-w-sm flex-col bg-black text-white">
-      <p className="mx-auto my-3">Moodboard</p>
-      {imgArray.map(image => {
-        return <img className="" alt="" key={image} src={image} />;
-      })}
-      <div className="mt-auto flex gap-2 p-3">
+    <div className="flex h-full max-h-full w-[15vw] min-w-[15vw] flex-col bg-black text-white">
+      <div
+        className="flex h-full max-h-[84vh] flex-col overflow-scroll py-5"
+        style={{direction: 'rtl'}}
+      >
+        {imgArray.map((image, i) => {
+          return <img alt="" key={i} src={image} />;
+        })}
+      </div>
+      <form onSubmit={handleSubmit} className="mx-3 mt-auto flex gap-2">
         <input
-          className="flex-1 px-1"
+          className="w-3/4 border border-white px-1  text-black placeholder-black"
           type="text"
           placeholder="Paste image link here"
           onChange={currentUrl}
         />
-        <form
-          onSubmit={handleSubmit}
-          className="border border-white px-1 hover:bg-white hover:text-black"
+        <button
+          className="rounded border border-white px-1 hover:bg-white hover:text-black"
+          type="submit"
         >
-          <button type="submit">Submit</button>
-        </form>
+          Submit
+        </button>
         <button onClick={deleteLast}>{deleteButton}</button>
-      </div>
+      </form>
     </div>
   );
 };

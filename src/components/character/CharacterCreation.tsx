@@ -5,7 +5,6 @@ import CharacterCreationNavigation from './CharacterCreationNavigation';
 import MoodBoard from '../MoodBoard';
 
 const Charactercreation = () => {
-  const [buttonText, setButtonText] = useState('Submit');
   const [labelid, setLabelId] = useState('name');
   const [input, setInput] = useState('');
   const [name, setName] = useState('');
