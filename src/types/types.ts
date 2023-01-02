@@ -47,16 +47,7 @@ export interface ChartSettings {
   label?: string;
   role?: string;
   type?: string;
-  p?: P;
 }
-export interface P {
-  html: boolean;
-}
-
-export interface Country {
-  worldbuilding: Worldbuilding;
-}
-
 export interface Worldbuilding {
   [WorldbuildingModuleEnum.Art]: {[key: string]: Art};
   [WorldbuildingModuleEnum.LegendsAndReligions]: {[key: string]: LegendsAndReligion};
@@ -65,14 +56,40 @@ export interface Worldbuilding {
   [WorldbuildingModuleEnum.FloraAndFauna]: {[key: string]: FloraAndFauna};
   [WorldbuildingModuleEnum.RacesNationsCultures]: {[key: string]: RacesNationsCulture};
   [WorldbuildingModuleEnum.History]: {[key: string]: History};
-  [WorldbuildingModuleEnum.PoliticsAndEconomics]: {[key: string]: History};
-  [WorldbuildingModuleEnum.ItemsAndTechnology]: {[key: string]: Art};
-  [WorldbuildingModuleEnum.SkillsAndSpells]: {[key: string]: Art};
-  [WorldbuildingModuleEnum.MagicSystems]: {[key: string]: FloraAndFauna};
-  [WorldbuildingModuleEnum.Professions]: {[key: string]: FloraAndFauna};
+  [WorldbuildingModuleEnum.PoliticsAndEconomics]: {[key: string]: PoliticsAndEconomics};
+  [WorldbuildingModuleEnum.ItemsAndTechnology]: {[key: string]: ItemsAndTechnology};
+  [WorldbuildingModuleEnum.SkillsAndSpells]: {[key: string]: SkillsAndSpells};
+  [WorldbuildingModuleEnum.MagicSystems]: {[key: string]: MagicSystems};
+  [WorldbuildingModuleEnum.Professions]: {[key: string]: Professions};
 }
 
 export interface Art {
+  itemid: number;
+  name: string;
+  icon: string;
+  images: string[];
+  artist: string;
+  description: string;
+  lore: string;
+  limitations: string;
+  originAndLore: string;
+  socialImpact: string;
+}
+
+export interface ItemsAndTechnology {
+  itemid: number;
+  name: string;
+  icon: string;
+  images: string[];
+  artist: string;
+  description: string;
+  lore: string;
+  limitations: string;
+  originAndLore: string;
+  socialImpact: string;
+}
+
+export interface SkillsAndSpells {
   itemid: number;
   name: string;
   icon: string;
@@ -99,6 +116,34 @@ export interface FloraAndFauna {
   skillRequirements: string;
 }
 
+export interface MagicSystems {
+  itemid: number;
+  name: string;
+  description: string;
+  evolutuion: string;
+  utility: string;
+  limitations: string;
+  icon: string;
+  images: string[];
+  lore: string;
+  socialImpact: string;
+  skillRequirements: string;
+}
+
+export interface Professions {
+  itemid: number;
+  name: string;
+  description: string;
+  evolutuion: string;
+  utility: string;
+  limitations: string;
+  icon: string;
+  images: string[];
+  lore: string;
+  socialImpact: string;
+  skillRequirements: string;
+}
+
 export interface Geography {
   itemid: number;
   name: string;
@@ -109,6 +154,17 @@ export interface Geography {
 }
 
 export interface History {
+  itemid: number;
+  name: string;
+  description: string;
+  myths: string;
+  consequences: string;
+  evaluation: string;
+  icon: string;
+  images: string[];
+  motivations: string;
+}
+export interface PoliticsAndEconomics {
   itemid: number;
   name: string;
   description: string;
@@ -153,9 +209,14 @@ export interface RacesNationsCulture {
 
 export type WorldbuildingModuleEntry =
   | Art
+  | ItemsAndTechnology
+  | SkillsAndSpells
   | FloraAndFauna
+  | MagicSystems
+  | Professions
   | Geography
   | History
+  | PoliticsAndEconomics
   | LegendsAndReligion
   | LocationsAndSetting
   | RacesNationsCulture;

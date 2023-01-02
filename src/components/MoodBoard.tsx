@@ -16,7 +16,7 @@ const MoodBoard = ({images = ['https://i.imgur.com/w1AGMhl.png'], saveImages}: P
   const {register, handleSubmit, reset} = useForm<{image: string}>();
 
   function onSubmit(data: {image: string}) {
-    if (!data.image || data.image === '') {
+    if (!data.image || data.image === '' || images.includes(data.image)) {
       return;
     }
     saveImages([...images, data.image]);

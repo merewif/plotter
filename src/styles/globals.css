@@ -281,11 +281,6 @@ textarea:focus {
   transition-duration: 0.5s;
 }
 
-#alert {
-  position: absolute;
-  top: 90%;
-}
-
 #char-choice-buttons {
   position: absolute;
   width: 95%;

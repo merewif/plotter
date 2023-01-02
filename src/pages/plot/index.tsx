@@ -36,7 +36,7 @@ const Plot = () => {
           Set Story Arcs
         </button>
       </div>
-      <div id="alert">
+      <div className="mx-auto mt-5 w-1/4">
         <Fade in={showAlert}>
           <Alert severity="error" sx={{background: 'black', color: 'white'}}>
             Set your books first.

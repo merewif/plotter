@@ -30,7 +30,7 @@ const SetBooks = () => {
 
   return (
     <>
-      <div className="mx-auto mb-auto mt-10 flex flex-col gap-10">
+      <div className="mx-auto mb-auto mt-10 flex h-full flex-col gap-10">
         <p className="mx-auto text-2xl">
           Set the number of the books you plan to outline and specify the titles of each book.
         </p>
@@ -48,36 +48,33 @@ const SetBooks = () => {
             <b className="font-montserrat text-5xl font-black">+</b>
           </button>
         </div>
-        <div>
-          <form className="flex flex-col" onSubmit={handleSubmit(confirmBooks)}>
+        <form className="flex h-full flex-col px-10" onSubmit={handleSubmit(confirmBooks)}>
+          <div className="black-scrollbar mb-5 flex h-full max-h-[50vh] flex-col overflow-auto">
             {[...books.values()].map((book, i: number) => (
               <div key={i} className="flex justify-center gap-3">
-                <div className="my-auto">Book {i + 1}:</div>
+                <div className="my-auto font-montserrat font-black uppercase">Book {i + 1}:</div>
                 <input
-                  style={{width: '35vw'}}
                   type="text"
-                  className="mt-2 mb-2 border-2 border-solid border-black px-1"
+                  className="mt-2 mb-2 w-1/2 border border-solid border-black px-1"
                   defaultValue={book}
                   {...register(`${i}`)}
                 />
               </div>
             ))}
-            <button
-              type="submit"
-              className="mx-auto rounded border bg-black p-2 text-white hover:border-black hover:bg-white hover:text-black"
-            >
-              Save books
-            </button>
-          </form>
-        </div>
+          </div>
+          <button
+            type="submit"
+            className="mx-auto mt-auto mb-5 rounded border bg-black p-2 font-montserrat text-white hover:border-black hover:bg-white hover:text-black"
+          >
+            Save books
+          </button>
+        </form>
       </div>
-      <div id="alert">
-        <Fade in={showAlert}>
-          <Alert severity="error" sx={{background: 'black', color: 'white'}}>
-            Error: Duplicate Book Names
-          </Alert>
-        </Fade>
-      </div>
+      <Fade in={showAlert}>
+        <Alert severity="error" sx={{background: 'black', color: 'white'}}>
+          Error: Duplicate Book Names
+        </Alert>
+      </Fade>
     </>
   );
 };

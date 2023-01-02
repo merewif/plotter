@@ -1,26 +1,16 @@
-import styles from './index.module.css';
 import {type NextPage} from 'next';
-import Head from 'next/head';
 import {signIn, signOut, useSession} from 'next-auth/react';
 
 import {trpc} from '../utils/trpc';
-import {Layout} from '../components/Layout';
 
 const Home: NextPage = () => {
   const hello = trpc.example.hello.useQuery({text: 'from tRPC'});
 
   return (
-    <>
-      <Head>
-        <title>Plotter</title>
-        <meta name="description" content="Plotter" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Layout>
-        Hi there. I will help you organize and systematize the elements of your novel. Please choose
-        a module below.
-      </Layout>
-    </>
+    <div className="mx-auto">
+      Hi there. I will help you organize and systematize the elements of your novel. Please choose a
+      module below.
+    </div>
   );
 };
 
