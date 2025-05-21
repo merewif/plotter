@@ -26,7 +26,7 @@ The Moodboard accompanies all three of Plotter's modules. Each worldbuilding ent
 
 #### Technical details
 
-Plotter is a single-page application created with React using Create React App. The line charts are provided by Google Charts. The user interface utilizes several Material UI components. It is hosted on Google Firebase, and the executable file was created with Electron.
+Plotter is a single-page application created with React using Create React App. All data is stored locally on your machine. The line charts are provided by Google Charts. The user interface utilizes several Material UI components. It is hosted on Google Firebase, and the executable file was created with Electron.
 
 #### ToDo:
 
